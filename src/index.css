@@ -1,0 +1,221 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lato:wght@300;400;700&display=swap');
+
+@theme {
+  --color-rural-green: #6B9E50;
+  --color-rural-green-dark: #4E7A38;
+  --color-rural-brown: #8B6914;
+  --color-rural-earth: #C8A96E;
+  --color-rural-cream: #F5F0E6;
+  --color-rural-sky: #87CEEB;
+  --color-rural-coral: #E86A33;
+  --color-rural-dark: #2C2A25;
+  --color-rural-mid: #3A3830;
+}
+
+body {
+  margin: 0;
+  font-family: 'Lato', system-ui, -apple-system, sans-serif;
+  background-color: #f5f5f0;
+  color: #1a1a1a;
+}
+
+/* Landing page typography */
+.landing-heading {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+/* Landing dark cards */
+.card-dark {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+.card-dark:hover {
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+
+/* Landing buttons */
+.btn-primary-landing {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2rem;
+  background: #6B9E50;
+  color: white;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary-landing:hover {
+  background: #4E7A38;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(107,158,80,0.4);
+}
+
+.btn-outline-landing {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2rem;
+  background: transparent;
+  color: #F0EBE0;
+  border: 2px solid rgba(240,235,224,0.3);
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.btn-outline-landing:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(240,235,224,0.6);
+}
+
+.btn-coral {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2rem;
+  background: #E86A33;
+  color: white;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+.btn-coral:hover {
+  background: #d35a25;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(232,106,51,0.4);
+}
+
+/* Landing green divider */
+.title-divider {
+  width: 50px;
+  height: 2px;
+  background: #6B9E50;
+  margin: 1rem auto 0;
+  border-radius: 2px;
+}
+
+/* Reward card neon glow + shimmer */
+.reward-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reward-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.03) 50%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0.8s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.reward-card:hover::before {
+  transform: translateX(100%);
+}
+.reward-card:hover {
+  transform: translateY(-6px) scale(1.02);
+}
+
+/* Landing animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scrollDown {
+  0% { opacity: 1; transform: translateY(0); }
+  50% { opacity: 0.5; transform: translateY(6px); }
+  100% { opacity: 0; transform: translateY(12px); }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Smooth scrolling */
+html { scroll-behavior: smooth; }
+
+/* ─── Custom cursor: semilla (default) + brote (pointer) ─── */
+.landing-cursor,
+.landing-cursor * {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cellipse cx='12' cy='10' rx='5' ry='7' fill='%238B6914' stroke='%236B5010' stroke-width='0.8'/%3E%3Cellipse cx='12' cy='10' rx='3.5' ry='5' fill='%23A67C1A' opacity='0.6'/%3E%3Cellipse cx='11' cy='8' rx='1.5' ry='2.5' fill='%23C8A050' opacity='0.4'/%3E%3Cpath d='M12 17 Q12 20 12 22' stroke='%236B5010' stroke-width='1' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") 12 12, auto;
+}
+.landing-cursor a,
+.landing-cursor button,
+.landing-cursor [role="button"],
+.landing-cursor input[type="submit"],
+.landing-cursor .cursor-pointer,
+.landing-cursor [onclick] {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M14 22 Q14 18 14 15' stroke='%234E7A38' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M14 15 Q10 10 8 7' stroke='%236B9E50' stroke-width='1.2' fill='none' stroke-linecap='round'/%3E%3Cellipse cx='7' cy='6' rx='3' ry='4.5' fill='%236B9E50' transform='rotate(-25 7 6)'/%3E%3Cellipse cx='7' cy='6' rx='2' ry='3' fill='%238BC06A' opacity='0.6' transform='rotate(-25 7 6)'/%3E%3Cpath d='M14 15 Q18 10 20 7' stroke='%236B9E50' stroke-width='1.2' fill='none' stroke-linecap='round'/%3E%3Cellipse cx='21' cy='6' rx='3' ry='4.5' fill='%236B9E50' transform='rotate(25 21 6)'/%3E%3Cellipse cx='21' cy='6' rx='2' ry='3' fill='%238BC06A' opacity='0.6' transform='rotate(25 21 6)'/%3E%3Ccircle cx='14' cy='23' r='2' fill='%238B6914' opacity='0.5'/%3E%3C/svg%3E") 14 14, pointer !important;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1rem;
+  border-radius: 0.5rem;
+  color: #e0e0e0;
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: all 0.15s;
+}
+.sidebar-link:hover {
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+.sidebar-link.active {
+  background: var(--color-rural-green);
+  color: white;
+  font-weight: 600;
+}
+
+.tab-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+  border: 1px solid #e5e5e5;
+  border-bottom: none;
+  background: #f5f5f0;
+  cursor: pointer;
+  color: #666;
+}
+.tab-btn.active {
+  background: white;
+  color: var(--color-rural-green);
+  font-weight: 600;
+}
+
+.card {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
