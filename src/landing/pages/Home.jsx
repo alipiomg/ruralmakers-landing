@@ -986,66 +986,161 @@ function Rewards() {
 }
 
 // ─── COLLABORATIONS ─────────────────────────────────────────────
-function Collaborations() {
+function CollabCard({ c, i }) {
+  const ref = useRef(null)
+  const visible = useInView(ref, 0.1)
+  const isConfirmed = c.status === 'Confirmado'
+
   return (
-    <section id="colabora" className="py-24 md:py-32 bg-[#2C2A25]">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-10">
+    <div ref={ref}
+      className="group relative overflow-hidden rounded-2xl cursor-default"
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0) scale(1)' : 'translateY(32px) scale(0.95)',
+        transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 70}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 70}ms`,
+      }}
+    >
+      {/* Background image with overlay */}
+      <div className="relative h-[320px] overflow-hidden">
+        <img
+          src={c.image}
+          alt={c.title}
+          loading="lazy"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+        />
+        {/* Dark gradient overlay - stronger at bottom */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/20" />
+        {/* Color tint from category */}
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500"
+          style={{ background: `linear-gradient(135deg, ${c.categoryColor}, transparent)` }} />
+
+        {/* Neon border glow on hover */}
+        <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+          style={{ boxShadow: `inset 0 0 0 1.5px ${c.categoryColor}60, 0 0 30px ${c.categoryColor}20` }} />
+
+        {/* Status badge top-right */}
+        <div className="absolute top-4 right-4">
+          <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold backdrop-blur-md border ${isConfirmed ? 'bg-[#6B9E50]/20 border-[#6B9E50]/40 text-[#6B9E50]' : 'bg-[#E86A33]/15 border-[#E86A33]/30 text-[#E86A33]'}`}>
+            <span className={`w-1.5 h-1.5 rounded-full ${isConfirmed ? 'bg-[#6B9E50]' : 'bg-[#E86A33] animate-pulse'}`} />
+            {c.status}
+          </div>
+        </div>
+
+        {/* Category chip top-left */}
+        <div className="absolute top-4 left-4">
+          <div className="px-3 py-1 rounded-full text-[10px] font-bold backdrop-blur-md border"
+            style={{ color: c.categoryColor, borderColor: `${c.categoryColor}40`, background: `${c.categoryColor}15` }}>
+            {c.category}
+          </div>
+        </div>
+
+        {/* Content at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 p-5">
+          <h3 className="font-bold text-white text-[15px] leading-tight mb-2 group-hover:text-[#6B9E50] transition-colors duration-300">
+            {c.title}
+          </h3>
+          <p className="text-[12px] text-white/70 leading-[1.65] font-light mb-3 line-clamp-2 group-hover:line-clamp-none transition-all duration-300">
+            {c.description}
+          </p>
+
+          {/* Skills + commitment row */}
+          <div className="flex items-center justify-between gap-3">
+            <span className="text-[10px] text-white/40 italic truncate">{c.skills}</span>
+            <span className="shrink-0 px-2.5 py-1 rounded-full text-[10px] font-semibold bg-white/10 text-white/70 border border-white/10">
+              {c.commitment}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function Collaborations() {
+  const [filter, setFilter] = useState('Todas')
+  const filters = ['Todas', 'Buscando', 'Confirmado']
+
+  const filtered = filter === 'Todas'
+    ? collaborations
+    : collaborations.filter(c => c.status === filter)
+
+  // Group by category for the "pills" strip
+  const categories = [...new Set(collaborations.map(c => c.category))]
+
+  return (
+    <section id="colabora" className="py-24 md:py-36 relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #1E1D19 0%, #2C2A25 40%, #1E1D19 100%)' }}>
+      {/* Decorative background blobs */}
+      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full opacity-[0.04] blur-[120px]" style={{ background: '#6B9E50' }} />
+      <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full opacity-[0.05] blur-[100px]" style={{ background: '#E86A33' }} />
+
+      <div className="max-w-[1280px] mx-auto px-6 md:px-10 relative">
+        {/* Header */}
         <FadeIn>
-          <div className="text-center mb-6">
-            <div className="text-[11px] text-[#6B9E50] uppercase tracking-[0.25em] font-bold mb-3">Tambien puedes aportar sin dinero</div>
-            <h2 className="landing-heading text-[2rem] md:text-[2.8rem] text-[#F0EBE0] mb-4">Colabora con el proyecto</h2>
-            <p className="text-[15px] text-[#B0A898] font-light max-w-2xl mx-auto leading-[1.7]">
-              Buscamos personas con saberes y ganas de construir juntos. Si tienes alguna de estas habilidades, <strong className="text-[#F0EBE0]">te necesitamos</strong>.
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#6B9E50]/10 border border-[#6B9E50]/20 text-[#6B9E50] text-[11px] font-bold uppercase tracking-[0.2em] mb-5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#6B9E50] animate-pulse" />
+              Únete al Movimiento
+            </div>
+            <h2 className="landing-heading text-[2.4rem] md:text-[3.2rem] lg:text-[3.8rem] text-[#F0EBE0] mb-5 leading-[1.05]">
+              Aporta tu talento,<br />
+              <span className="text-[#6B9E50]">construye el rural</span>
+            </h2>
+            <p className="text-[16px] md:text-[17px] text-[#B0A898] font-light max-w-2xl mx-auto leading-[1.75]">
+              Rural Makers crece con cada persona que aporta su talento. Aqui puedes ver que necesitamos — sin dinero, con tiempo, saberes o espacio.
             </p>
             <div className="title-divider" />
           </div>
         </FadeIn>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {collaborations.map((c, i) => (
-            <FadeIn key={i} delay={80 + i * 60} direction={i % 3 === 0 ? 'left' : i % 3 === 2 ? 'right' : 'up'} scale>
-              <div className="card-dark group relative overflow-hidden h-full">
-                {/* Top accent */}
-                <div className="absolute top-0 left-0 w-full h-[2px]" style={{ background: `linear-gradient(90deg, transparent, ${c.categoryColor}, transparent)`, opacity: 0.4 }} />
-
-                <div className="flex items-start justify-between gap-3 mb-3">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl" style={{ background: `${c.categoryColor}15` }}>
-                      {c.icon}
-                    </div>
-                    <div className="px-2.5 py-0.5 rounded-full text-[10px] font-bold" style={{ color: c.statusColor, borderColor: `${c.statusColor}30`, border: '1px solid' }}>
-                      {c.status}
-                    </div>
-                  </div>
-                </div>
-
-                <h3 className="font-bold text-[#F0EBE0] text-[14px] mb-2 group-hover:text-[#6B9E50] transition-colors leading-tight">{c.title}</h3>
-                <p className="text-[12px] text-[#B0A898]/80 leading-[1.7] font-light mb-4">{c.description}</p>
-
-                <div className="flex flex-wrap gap-1.5 mb-3">
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold border" style={{ color: c.categoryColor, borderColor: `${c.categoryColor}30` }}>
-                    {c.category}
+        {/* Filter bar */}
+        <FadeIn delay={100}>
+          <div className="flex items-center justify-center gap-3 mb-12 flex-wrap">
+            {filters.map(f => (
+              <button key={f} onClick={() => setFilter(f)}
+                className={`px-5 py-2 rounded-full text-[13px] font-bold transition-all duration-300 ${filter === f
+                  ? 'bg-[#6B9E50] text-white shadow-lg shadow-[#6B9E50]/25 scale-105'
+                  : 'bg-white/5 text-[#B0A898] border border-white/10 hover:bg-white/10 hover:text-white'}`}>
+                {f}
+                {f !== 'Todas' && (
+                  <span className={`ml-1.5 text-[10px] ${filter === f ? 'text-white/70' : 'text-[#B0A898]/50'}`}>
+                    ({collaborations.filter(c => c.status === f).length})
                   </span>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold text-[#B0A898]/60 border border-white/10">
-                    {c.commitment}
-                  </span>
-                </div>
+                )}
+              </button>
+            ))}
+            <span className="text-[11px] text-[#B0A898]/40 ml-2">{filtered.length} perfiles</span>
+          </div>
+        </FadeIn>
 
-                <div className="mt-auto pt-3 border-t border-white/5">
-                  <div className="text-[10px] text-[#B0A898]/40 italic font-light">{c.skills}</div>
-                </div>
-              </div>
-            </FadeIn>
+        {/* Cards grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+          {filtered.map((c, i) => (
+            <CollabCard key={c.title} c={c} i={i} />
           ))}
         </div>
 
-        <FadeIn delay={400}>
-          <div className="text-center mt-14">
-            <p className="text-[14px] text-[#B0A898] font-light mb-5">Tienes otro perfil que puede sumar? Escribenos:</p>
-            <a href="mailto:hola@ruralmakers.net"
-              className="btn-outline-landing text-[14px] px-10 py-4">
-              hola@ruralmakers.net
-            </a>
+        {/* Bottom CTA */}
+        <FadeIn delay={500}>
+          <div className="mt-16 relative">
+            <div className="rounded-2xl overflow-hidden relative">
+              {/* BG */}
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, #1a2d1a 0%, #2C2A25 50%, #2d1a10 100%)' }} />
+              <div className="absolute inset-0 opacity-30" style={{ background: 'url(https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&q=60&fit=crop) center/cover no-repeat' }} />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(107,158,80,0.4) 0%, rgba(44,42,37,0.9) 50%, rgba(232,106,51,0.3) 100%)' }} />
+
+              <div className="relative px-8 py-10 md:px-14 md:py-12 text-center">
+                <div className="text-[12px] text-[#6B9E50] uppercase tracking-[0.2em] font-bold mb-3">Tu perfil no esta en la lista?</div>
+                <h3 className="landing-heading text-[1.6rem] md:text-[2rem] text-[#F0EBE0] mb-3">Cuéntanos que puedes aportar</h3>
+                <p className="text-[14px] text-[#B0A898] font-light mb-7 max-w-lg mx-auto">
+                  Si tienes algun saber, recurso o idea que pueda ayudar al movimiento rural, queremos escucharte.
+                </p>
+                <a href="mailto:hola@ruralmakers.net"
+                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#6B9E50] text-white font-bold text-[14px] hover:bg-[#7ab55c] transition-all duration-300 shadow-xl shadow-[#6B9E50]/25 hover:scale-105 hover:shadow-[#6B9E50]/35">
+                  hola@ruralmakers.net
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                </a>
+              </div>
+            </div>
           </div>
         </FadeIn>
       </div>
@@ -1131,48 +1226,80 @@ function Budget() {
 // ─── TIMELINE ───────────────────────────────────────────────────
 function Timeline() {
   const phases = [
-    { phase: 'Preparacion', date: 'Nov 2025 - Ene 2026', items: ['Lanzamiento campana', 'Diseno UX/UI', 'Identidad grafica'], color: '#6B9E50', icon: '📋' },
-    { phase: 'Desarrollo', date: 'Feb - Abr 2026', items: ['Desarrollo app', 'Integracion IA', '5 facenderas piloto'], color: '#3B82F6', icon: '⚙️' },
-    { phase: 'Lanzamiento', date: 'May - Jul 2026', items: ['App publica', 'Entrega recompensas', 'Rutas bano de bosque'], color: '#E86A33', icon: '🚀' },
-    { phase: 'Consolidacion', date: 'Ago - Dic 2026', items: ['Publicacion metodologia', 'Jardin-Homenaje', 'Expansion territorial'], color: '#C8A96E', icon: '🌳' },
+    {
+      phase: 'Campana activa', date: 'Mar - May 2026', active: true,
+      items: ['Crowdfunding en Goteo.org (40 dias)', 'Difusion y construccion de comunidad', 'Entrega inmediata de recompensas digitales'],
+      color: '#6B9E50', icon: '🌱',
+    },
+    {
+      phase: 'Desarrollo', date: 'May - Jul 2026',
+      items: ['Desarrollo de la app Rural Makers', 'Integracion de IA etica y agentes', '5 facenderas piloto en Leon'],
+      color: '#3B82F6', icon: '⚙️',
+    },
+    {
+      phase: 'Lanzamiento', date: 'Ago - Oct 2026',
+      items: ['App publica y codigo abierto', 'Entrega de recompensas experienciales', 'Rutas bano de bosque y talleres de domo'],
+      color: '#E86A33', icon: '🚀',
+    },
+    {
+      phase: 'Consolidacion', date: 'Nov 2026 - Mar 2027',
+      items: ['Publicacion de metodologia libre', 'Inauguracion del Jardin-Homenaje NaturArt', 'Expansion de red a escala estatal'],
+      color: '#C8A96E', icon: '🌳',
+    },
   ]
 
   return (
     <section className="py-24 md:py-32 bg-[#3A3830]">
       <div className="max-w-[1280px] mx-auto px-6 md:px-10">
         <FadeIn>
-          <div className="text-center mb-16">
-            <h2 className="landing-heading text-[2rem] md:text-[2.8rem] text-[#F0EBE0] mb-3">Cronograma</h2>
+          <div className="text-center mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#6B9E50]/10 border border-[#6B9E50]/20 text-[#6B9E50] text-[11px] font-bold uppercase tracking-[0.2em] mb-5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#6B9E50] animate-pulse" />
+              Campana activa ahora mismo
+            </div>
+            <h2 className="landing-heading text-[2rem] md:text-[2.8rem] text-[#F0EBE0] mb-3">Cronograma del proyecto</h2>
+            <p className="text-[14px] text-[#B0A898] font-light mb-6">Arrancamos en marzo 2026. Cada fase depende del exito de la campana.</p>
             <div className="title-divider" />
           </div>
         </FadeIn>
         <div className="relative max-w-4xl mx-auto">
           {/* Vertical line (desktop) */}
-          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#6B9E50]/30 via-[#E86A33]/30 to-[#C8A96E]/30 -translate-x-1/2" />
+          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#6B9E50]/60 via-[#E86A33]/30 to-[#C8A96E]/20 -translate-x-1/2" />
 
           <div className="space-y-8 lg:space-y-12">
             {phases.map((p, i) => (
               <FadeIn key={i} delay={100 + i * 150} direction={i % 2 === 0 ? 'left' : 'right'}>
                 <div className={`lg:flex items-center gap-8 ${i % 2 === 0 ? '' : 'lg:flex-row-reverse'}`}>
                   <div className={`flex-1 ${i % 2 === 0 ? 'lg:text-right' : ''}`}>
-                    <div className="card-dark relative overflow-hidden">
-                      <div className="absolute top-0 left-0 w-full h-[2px]" style={{ background: `linear-gradient(90deg, transparent, ${p.color}, transparent)`, opacity: 0.4 }} />
-                      <div className="flex items-center gap-3 mb-3">
-                        <span className="text-2xl">{p.icon}</span>
-                        <div>
-                          <h3 className="font-bold text-[#F0EBE0] text-[15px]">{p.phase}</h3>
-                          <p className="text-[11px] font-light" style={{ color: p.color }}>{p.date}</p>
+                    <div className="card-dark relative overflow-hidden" style={p.active ? { borderColor: `${p.color}50`, boxShadow: `0 0 30px ${p.color}15` } : {}}>
+                      {/* Top accent */}
+                      <div className="absolute top-0 left-0 w-full h-[2px]" style={{ background: `linear-gradient(90deg, transparent, ${p.color}, transparent)`, opacity: p.active ? 0.9 : 0.35 }} />
+
+                      <div className="flex items-start justify-between gap-3 mb-3 flex-wrap">
+                        <div className="flex items-center gap-3">
+                          <span className="text-2xl">{p.icon}</span>
+                          <div>
+                            <h3 className="font-bold text-[#F0EBE0] text-[15px]">{p.phase}</h3>
+                            <p className="text-[11px] font-medium" style={{ color: p.color }}>{p.date}</p>
+                          </div>
                         </div>
+                        {p.active && (
+                          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold bg-[#6B9E50]/15 border border-[#6B9E50]/30 text-[#6B9E50]">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#6B9E50] animate-pulse" />
+                            AHORA
+                          </div>
+                        )}
                       </div>
                       {p.items.map((item, j) => (
-                        <div key={j} className="text-[13px] text-[#B0A898] font-light py-0.5 flex gap-2">
+                        <div key={j} className="text-[13px] font-light py-1 flex gap-2" style={{ color: p.active ? '#D0C8BC' : '#B0A898' }}>
                           <span style={{ color: p.color }}>→</span> {item}
                         </div>
                       ))}
                     </div>
                   </div>
                   {/* Center dot */}
-                  <div className="hidden lg:flex w-5 h-5 rounded-full border-[3px] shrink-0 shadow-lg" style={{ borderColor: p.color, backgroundColor: '#3A3830', boxShadow: `0 0 15px ${p.color}40` }} />
+                  <div className="hidden lg:flex w-5 h-5 rounded-full border-[3px] shrink-0 shadow-lg"
+                    style={{ borderColor: p.color, backgroundColor: '#3A3830', boxShadow: p.active ? `0 0 20px ${p.color}70` : `0 0 10px ${p.color}30` }} />
                   <div className="flex-1 hidden lg:block" />
                 </div>
               </FadeIn>
@@ -1233,10 +1360,19 @@ function Team() {
             <FadeIn delay={300} direction="right">
               <div className="card-dark">
                 <h4 className="font-bold text-[#F0EBE0] mb-5 text-[11px] uppercase tracking-[0.2em]">Alianzas</h4>
-                {[{ n: 'Fab Lab Leon', s: 'Confirmada', c: '#6B9E50' }, { n: 'Canal Rural Goteo', s: 'Confirmada', c: '#6B9E50' }, { n: 'REAS CyL', s: 'En conversacion', c: '#C8A96E' }, { n: 'Grupos rurales Leon', s: 'Buscando', c: '#E86A33' }, { n: 'Entidades tech eticas', s: 'Buscando', c: '#E86A33' }].map((a, i) => (
-                  <div key={i} className="flex justify-between py-2.5 border-b border-white/5 last:border-0 text-[13px]">
-                    <span className="text-[#B0A898] font-light">{a.n}</span>
-                    <span className="text-[11px] px-2.5 py-0.5 rounded-full border font-medium" style={{ color: a.c, borderColor: `${a.c}30` }}>{a.s}</span>
+                {[
+                  { n: 'Fab Lab Leon', desc: 'Espacio maker para prototipado y facenderas tecnologicas', c: '#6B9E50' },
+                  { n: 'Canal Rural Goteo', desc: 'Plataforma de crowdfunding civico que acoge la campana', c: '#6B9E50' },
+                  { n: 'REAS CyL', desc: 'Red de economia alternativa y solidaria de Castilla y Leon', c: '#C8A96E' },
+                  { n: 'Grupos rurales Leon', desc: 'Comunidades locales que activan facenderas en el territorio', c: '#E86A33' },
+                  { n: 'Entidades tech eticas', desc: 'Colectivos tecnologicos que comparten valores de procomun', c: '#E86A33' },
+                ].map((a, i) => (
+                  <div key={i} className="py-3 border-b border-white/5 last:border-0">
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: a.c }} />
+                      <span className="text-[#F0EBE0] text-[13px] font-medium">{a.n}</span>
+                    </div>
+                    <p className="text-[11px] text-[#B0A898]/60 font-light pl-3.5 leading-snug">{a.desc}</p>
                   </div>
                 ))}
               </div>
@@ -1254,7 +1390,7 @@ function FAQ() {
   const faqs = [
     { q: 'Que pasa si no se llega al objetivo minimo?', a: 'Si la campana no alcanza los 10.700 EUR, se devuelve todo el dinero a los mecenas. Goteo funciona con el modelo de "todo o nada" en la primera ronda.' },
     { q: 'Cual es la diferencia entre minimo y optimo?', a: 'El minimo (10.700 EUR) cubre el desarrollo de la app y 5 facenderas piloto en Leon. El optimo (55.000 EUR) permite expandir a red estatal, crear el Jardin-Homenaje, formacion avanzada y documentacion profesional.' },
-    { q: 'Cuando se entregan las recompensas?', a: 'Las recompensas digitales se entregan en el primer trimestre de 2026. Las experienciales (rutas, talleres, facenderas) entre mayo y diciembre de 2026.' },
+    { q: 'Cuando se entregan las recompensas?', a: 'Las recompensas digitales se entregan nada mas finalizar la campana (mayo 2026). Las experienciales (rutas, talleres, bano de bosque, taller de domo) entre agosto y diciembre de 2026.' },
     { q: 'El codigo de la app sera realmente abierto?', a: 'Si. Publicaremos todo el codigo bajo licencia AGPL-3.0 y el contenido bajo CC BY-SA 4.0. Cualquier persona o comunidad podra replicar, adaptar y mejorar la plataforma.' },
     { q: 'Puedo colaborar sin dinero?', a: 'Por supuesto. Necesitamos personas que difundan, que participen en facenderas, que aporten saberes, que ayuden con traduccion, diseno, codigo... Contacta en hola@ruralmakers.net.' },
     { q: 'Quien gestiona los fondos?', a: 'La Asociacion Indira es la entidad beneficiaria inicial. El proyecto evoluciona hacia una estructura confederal (ASASA) con gobernanza participativa.' },
@@ -1537,7 +1673,7 @@ function Footer() {
           </div>
         </div>
         <div className="border-t border-white/5 pt-8 flex flex-wrap justify-between items-center gap-4">
-          <p className="text-[11px] text-[#B0A898]/30">2025-2026 Rural Makers. Proyecto de codigo abierto.</p>
+          <p className="text-[11px] text-[#B0A898]/30">2026-2027 Rural Makers. Proyecto de codigo abierto.</p>
           <a href={GOTEO_PROJECT_URL} target="_blank" rel="noopener noreferrer" className="text-[11px] text-[#B0A898]/30 hover:text-[#6B9E50] transition">
             Impulsado con Goteo.org
           </a>

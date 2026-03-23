@@ -107,8 +107,19 @@ export const rewardTypes = [
   { id: 'mecenazgo', label: 'Mecenazgo', icon: '🌳' },
 ]
 
-// Dynamic getter: returns custom rewards from localStorage if available, otherwise defaults
+// Dynamic getter: returns visible rewards (filters hidden ones) from localStorage if available
 export function getRewardTiers() {
+  try {
+    const custom = JSON.parse(localStorage.getItem('rm-rewards-custom'))
+    if (custom && Array.isArray(custom) && custom.length > 0) {
+      return custom.filter(r => !r.hidden).sort((a, b) => a.amount - b.amount)
+    }
+  } catch { /* ignore parse errors */ }
+  return rewardTiers.filter(r => !r.hidden)
+}
+
+// Admin getter: returns ALL rewards including hidden ones (for admin panel)
+export function getAllRewardTiers() {
   try {
     const custom = JSON.parse(localStorage.getItem('rm-rewards-custom'))
     if (custom && Array.isArray(custom) && custom.length > 0) {
@@ -121,57 +132,63 @@ export function getRewardTiers() {
 export const collaborations = [
   {
     title: 'Personas Programadoras con IA y Full-Stack',
-    description: 'Disenar, implementar y optimizar modelos de IA e integrarlos en la app (frontend + backend).',
+    description: 'Disenar, implementar y optimizar modelos de IA e integrarlos en la app (frontend + backend). Se requiere Python, frameworks IA, Git y APIs.',
     category: 'Programacion', categoryColor: '#3B82F6',
     status: 'Buscando', statusColor: '#E86A33',
     commitment: '10-20h/mes',
     skills: 'Python, Node.js / Django, Docker, Git',
     icon: '💻',
+    image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&q=70&fit=crop',
   },
   {
     title: 'Expertos/as en Inteligencia Artificial',
-    description: 'Colaborar en facenderas sobre IA, creacion de manuales y tutoriales para aplicar IA en el mundo rural.',
+    description: 'Colaborar en facenderas sobre IA, creacion de manuales y tutoriales practicos para aplicar IA etica en el mundo rural.',
     category: 'Inteligencia Artificial', categoryColor: '#8B5CF6',
     status: 'Buscando', statusColor: '#E86A33',
     commitment: 'Flexible',
     skills: 'ML, LLMs, Prompting, Pedagogia IA',
     icon: '🧠',
+    image: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&q=70&fit=crop',
   },
   {
     title: 'Disenadores Graficos y Makers',
-    description: 'Identidad visual, mapas, folletos, merchandising sostenible y artesania con materiales naturales. Impresion 3D, grabado laser.',
+    description: 'Identidad visual, mapas ilustrados, folletos, merchandising sostenible y artesania con materiales naturales. Impresion 3D y grabado laser.',
     category: 'Diseno', categoryColor: '#EC4899',
     status: 'Buscando', statusColor: '#E86A33',
     commitment: 'Por proyecto',
     skills: 'Diseno grafico, impresion 3D, artesania',
     icon: '🎨',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=70&fit=crop',
   },
   {
     title: 'Documentacion y Narrativa Audiovisual',
-    description: 'Fotografia, videografia, redaccion de cronicas y edicion para documentar facenderas y rutas del tesoro.',
+    description: 'Fotografia, videografia, redaccion de cronicas y edicion para documentar facenderas, rutas del tesoro y momentos de comunidad.',
     category: 'Audiovisual', categoryColor: '#EF4444',
     status: 'Buscando', statusColor: '#E86A33',
     commitment: 'Eventos puntuales',
     skills: 'Fotografia, video, edicion, redaccion',
     icon: '🎬',
+    image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=70&fit=crop',
   },
   {
     title: 'Apoyo Logistico y Catering Local',
-    description: 'Cocineras/os, productores locales y alojamiento rural para garantizar el bienestar durante facenderas intensivas.',
+    description: 'Cocineras/os, productores locales y alojamiento rural para garantizar el bienestar y la magia durante facenderas intensivas.',
     category: 'Logistica', categoryColor: '#F97316',
     status: 'Buscando', statusColor: '#E86A33',
     commitment: 'Eventos presenciales',
     skills: 'Cocina local, alojamiento, transporte',
     icon: '🍳',
+    image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=70&fit=crop',
   },
   {
     title: 'Asesores Legales, Fiscales y Gestores',
-    description: 'Constitucion de entidades, proteccion IP de la app, cumplimiento fiscal, acceso a fondos publicos.',
+    description: 'Constitucion de entidades, proteccion IP de la app, cumplimiento fiscal y acceso a fondos publicos europeos y nacionales.',
     category: 'Legal / Fiscal', categoryColor: '#94A3B8',
     status: 'Buscando', statusColor: '#E86A33',
     commitment: 'Consultivo',
     skills: 'Derecho, fiscal, gestion entidades sociales',
     icon: '⚖️',
+    image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=70&fit=crop',
   },
   {
     title: 'Espacios para Facenderas y Talleres',
@@ -181,23 +198,26 @@ export const collaborations = [
     commitment: 'Cesion puntual',
     skills: 'Espacio fisico, accesibilidad',
     icon: '🏠',
+    image: 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=800&q=70&fit=crop',
   },
   {
     title: 'Facilitar Rutas y Saberes de Leon',
-    description: 'Aportar rutas, lugares de interes, fuentes y tesoros del territorio para el Camino Rural y sus rutas de aprendizaje.',
+    description: 'Aportar rutas, lugares de interes, fuentes y tesoros del territorio para el Camino Rural y sus rutas de aprendizaje colectivo.',
     category: 'Facilitacion', categoryColor: '#10B981',
     status: 'Buscando', statusColor: '#E86A33',
     commitment: 'Colaboracion digital',
     skills: 'Conocimiento territorial Leon',
     icon: '🗺',
+    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=70&fit=crop',
   },
   {
     title: 'Fab Lab Leon',
-    description: 'Colaboracion en espacio maker para facenderas tecnologicas y prototipado colaborativo.',
+    description: 'Colaboracion en espacio maker para facenderas tecnologicas y prototipado colaborativo. Ya confirmado como partner estrategico.',
     category: 'Artesania / Makers', categoryColor: '#EAB308',
     status: 'Confirmado', statusColor: '#6B9E50',
     commitment: 'Colaboracion estable',
     skills: 'Fabricacion digital',
     icon: '🔧',
+    image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=70&fit=crop',
   },
 ]

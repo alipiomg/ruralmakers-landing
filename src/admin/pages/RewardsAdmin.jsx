@@ -142,6 +142,13 @@ export default function RewardsAdmin() {
     setPendingDelete(null)
   }
 
+  const toggleHidden = (amount) => {
+    const next = tiers.map((t) =>
+      t.amount === amount ? { ...t, hidden: !t.hidden } : t
+    )
+    setRewards(next)
+  }
+
   const resetDefaults = () => {
     if (!window.confirm('Se restauraran las recompensas originales. Los cambios se perderan.')) return
     setRewards(null)
@@ -295,15 +302,28 @@ export default function RewardsAdmin() {
         {tiers.map((r) => {
           const tc = typeColors[r.type] || typeColors.digital
           return (
-            <div key={r.amount} className="card p-0 overflow-hidden relative group">
-              <div className="h-[2px]" style={{ background: r.color }} />
-              {r.badge && (
-                <span className="absolute top-3 right-3 text-[10px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-medium">
-                  {r.badge}
-                </span>
-              )}
+            <div key={r.amount} className={`card p-0 overflow-hidden relative group transition-opacity ${r.hidden ? 'opacity-50' : ''}`}>
+              <div className="h-[2px]" style={{ background: r.hidden ? '#9CA3AF' : r.color }} />
+
+              {/* Badges top-right */}
+              <div className="absolute top-3 right-3 flex flex-col items-end gap-1 z-10">
+                {r.hidden && (
+                  <span className="text-[10px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full font-medium border border-gray-200 flex items-center gap-1">
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                    </svg>
+                    OCULTA
+                  </span>
+                )}
+                {r.badge && !r.hidden && (
+                  <span className="text-[10px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-medium">
+                    {r.badge}
+                  </span>
+                )}
+              </div>
+
               {r.image && (
-                <img src={r.image} alt={r.name} className="h-20 w-full rounded-t-lg object-cover" />
+                <img src={r.image} alt={r.name} className={`h-20 w-full rounded-t-lg object-cover ${r.hidden ? 'grayscale' : ''}`} />
               )}
               <div className="p-4 space-y-2">
                 <span className={`inline-block text-[11px] px-2 py-0.5 rounded-full border ${tc.border} ${tc.text} ${tc.bg}`}>
@@ -321,7 +341,7 @@ export default function RewardsAdmin() {
                 {r.inheritsUpTo != null && (
                   <p className="text-[11px] text-gray-400">Hereda hasta {r.inheritsUpTo} EUR</p>
                 )}
-                <div className="flex gap-2 pt-2">
+                <div className="flex gap-2 pt-2 flex-wrap">
                   <button
                     onClick={() => openEdit(r)}
                     className="flex-1 text-xs bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg hover:bg-blue-100 transition font-medium"
@@ -329,8 +349,34 @@ export default function RewardsAdmin() {
                     Editar
                   </button>
                   <button
+                    onClick={() => toggleHidden(r.amount)}
+                    title={r.hidden ? 'Mostrar en la landing' : 'Ocultar de la landing'}
+                    className={`flex-1 text-xs px-3 py-1.5 rounded-lg transition font-medium flex items-center justify-center gap-1 ${
+                      r.hidden
+                        ? 'bg-green-50 text-green-600 hover:bg-green-100'
+                        : 'bg-gray-50 text-gray-500 hover:bg-gray-100'
+                    }`}
+                  >
+                    {r.hidden ? (
+                      <>
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                        Mostrar
+                      </>
+                    ) : (
+                      <>
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                        </svg>
+                        Ocultar
+                      </>
+                    )}
+                  </button>
+                  <button
                     onClick={() => setPendingDelete(r.amount)}
-                    className="flex-1 text-xs bg-red-50 text-red-600 px-3 py-1.5 rounded-lg hover:bg-red-100 transition font-medium"
+                    className="text-xs bg-red-50 text-red-600 px-3 py-1.5 rounded-lg hover:bg-red-100 transition font-medium"
                   >
                     Eliminar
                   </button>
