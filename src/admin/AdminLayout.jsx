@@ -23,6 +23,7 @@ export default function AdminLayout() {
           <h1 className="text-lg font-semibold text-gray-800">Rural Makers - Dashboard Campana Goteo</h1>
           <div className="ml-auto flex items-center gap-3">
             <a href="/app" className="text-xs px-2 py-1 bg-rural-green text-white rounded-full font-medium hover:bg-rural-green-dark transition">Ver App</a>
+            <a href="https://www.ruralmakers.net" target="_blank" rel="noopener noreferrer" className="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded-full font-medium hover:bg-gray-200 transition">Landing</a>
             <span className="text-xs px-2 py-1 bg-amber-100 text-amber-700 rounded-full font-medium">Editandose</span>
             <a href="https://www.goteo.org/project/camino-rural-tejiendo-facenderas" target="_blank" rel="noopener noreferrer" className="text-xs text-rural-green hover:underline">Ver en Goteo</a>
           </div>

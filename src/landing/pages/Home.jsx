@@ -206,8 +206,21 @@ function Hero() {
   const posterImg = cfg.heroPosterImage || 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=60'
   const heroTitle = cfg.heroTitle || 'Tejemos futuro rural con'
   const heroSub = cfg.heroSubtitle || 'App de codigo abierto y red humana que conecta personas, proyectos y territorios rurales con la tradicion de las facenderas.'
-  const campaignVideoId = cfg.heroCampaignVideo || ''
+  const campaignVideoRaw = cfg.heroCampaignVideo || ''
   const campaignVideoType = cfg.heroCampaignVideoType || 'youtube'
+  // Extract YouTube/Vimeo ID from full URL or use as-is if already an ID
+  const campaignVideoId = (() => {
+    if (!campaignVideoRaw) return ''
+    if (campaignVideoType === 'youtube') {
+      const m = campaignVideoRaw.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^?&/]+)/)
+      return m ? m[1] : campaignVideoRaw
+    }
+    if (campaignVideoType === 'vimeo') {
+      const m = campaignVideoRaw.match(/vimeo\.com\/(\d+)/)
+      return m ? m[1] : campaignVideoRaw
+    }
+    return campaignVideoRaw
+  })()
 
   useEffect(() => { const t = setInterval(() => setWi(i => (i + 1) % WORDS.length), 2800); return () => clearInterval(t) }, [])
 
@@ -242,8 +255,8 @@ function Hero() {
       <div className="relative w-full max-w-[1280px] mx-auto px-6 md:px-10 pt-28 pb-16 md:pt-36 md:pb-20">
         {/* Centered hero with video below on mobile, side by side on desktop */}
         <div className="grid lg:grid-cols-[1fr,0.85fr] gap-10 lg:gap-14 items-center">
-          {/* LEFT/CENTER: Text content - centered on mobile */}
-          <div className="text-center lg:text-left">
+          {/* LEFT/CENTER: Text content - always centered */}
+          <div className="text-center">
             <FadeIn>
               <div className="inline-flex items-center gap-2.5 px-5 py-2 bg-[#6B9E50]/12 border border-[#6B9E50]/25 text-[#6B9E50] text-[13px] rounded-full mb-8 font-bold tracking-[0.15em] uppercase backdrop-blur-sm">
                 <span className="w-2 h-2 bg-[#6B9E50] rounded-full animate-pulse shadow-lg shadow-[#6B9E50]/50" />
@@ -261,13 +274,13 @@ function Hero() {
             </FadeIn>
 
             <FadeIn delay={300}>
-              <p className="text-[1rem] md:text-[1.15rem] text-[#B0A898] mb-6 leading-[1.8] font-light max-w-lg mx-auto lg:mx-0">
+              <p className="text-[1rem] md:text-[1.15rem] text-[#B0A898] mb-6 leading-[1.8] font-light max-w-lg mx-auto">
                 {heroSub}
               </p>
             </FadeIn>
 
             <FadeIn delay={400}>
-              <div className="flex flex-wrap gap-2 mb-8 justify-center lg:justify-start">
+              <div className="flex flex-wrap gap-2 mb-8 justify-center">
                 {['Facenderas', 'IA Etica', 'Codigo Abierto', 'Procomun', 'Leon', 'Artesania', 'Saberes', 'Territorio'].map(tag => (
                   <span key={tag} className="px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] text-[#6B9E50] bg-[#6B9E50]/8 border border-[#6B9E50]/15 rounded-full backdrop-blur-sm hover:bg-[#6B9E50]/15 transition-all cursor-default">
                     {tag}
@@ -277,7 +290,7 @@ function Hero() {
             </FadeIn>
 
             <FadeIn delay={500}>
-              <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
+              <div className="flex flex-wrap gap-3 justify-center">
                 <a href={GOTEO_PROJECT_URL} target="_blank" rel="noopener noreferrer"
                   className="btn-coral text-[14px] px-8 py-[14px] shadow-xl shadow-[#E86A33]/20 hover:shadow-[#E86A33]/40">
                   Apoyar en Goteo
@@ -296,7 +309,7 @@ function Hero() {
               <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/40 bg-[#1A1A14] aspect-video">
                 {showVideo ? (
                   <iframe
-                    src={campaignVideoType === 'vimeo' ? `https://player.vimeo.com/video/${campaignVideoId}?autoplay=1` : `https://www.youtube.com/embed/${campaignVideoId || 'dQw4w9WgXcQ'}?autoplay=1&rel=0`}
+                    src={campaignVideoType === 'vimeo' ? `https://player.vimeo.com/video/${campaignVideoId}?autoplay=1` : campaignVideoType === 'mp4' ? campaignVideoId : `https://www.youtube.com/embed/${campaignVideoId}?autoplay=1&rel=0`}
                     className="w-full h-full"
                     allow="autoplay; encrypted-media" allowFullScreen
                     title="Video de campana Rural Makers" />

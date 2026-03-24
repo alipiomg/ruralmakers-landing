@@ -180,14 +180,26 @@ function HeroTab({ config, update }) {
           </select>
         </Field>
         <Field label="URL o ID del video" help={
-          config.heroCampaignVideoType === 'youtube' ? 'Solo el ID (ej: dQw4w9WgXcQ), no la URL completa.' :
-          config.heroCampaignVideoType === 'vimeo' ? 'Solo el ID numerico de Vimeo.' : 'URL directa al MP4.'
+          config.heroCampaignVideoType === 'youtube' ? 'Pega la URL completa de YouTube o solo el ID. Ejemplo: https://youtu.be/11Ud97j7MpE o 11Ud97j7MpE' :
+          config.heroCampaignVideoType === 'vimeo' ? 'URL de Vimeo o ID numerico.' : 'URL directa al MP4.'
         }>
-          <TextInput value={config.heroCampaignVideo} onChange={e => update('heroCampaignVideo', e.target.value)} />
+          <TextInput value={config.heroCampaignVideo} onChange={e => update('heroCampaignVideo', e.target.value)}
+            placeholder={config.heroCampaignVideoType === 'youtube' ? 'https://youtu.be/xxxxx o ID' : 'URL del video'} />
         </Field>
+        {config.heroCampaignVideo && config.heroCampaignVideoType === 'youtube' && (
+          <div className="rounded-lg overflow-hidden bg-gray-100 aspect-video">
+            <iframe
+              src={`https://www.youtube.com/embed/${(() => {
+                const v = config.heroCampaignVideo
+                const match = v.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^?&/]+)/)
+                return match ? match[1] : v
+              })()}?rel=0`}
+              className="w-full h-full" allow="encrypted-media" allowFullScreen title="Preview video campana" />
+          </div>
+        )}
         {!config.heroCampaignVideo && (
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
-            <p className="text-xs text-amber-700 font-medium">El video de campana es obligatorio en Goteo (max 4 min). Pega aqui el ID cuando lo tengas.</p>
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+            <p className="text-xs text-blue-700 font-medium">Pega aqui la URL del video de campana. Recomendado max 4 min para Goteo, pero sin limite en la landing.</p>
           </div>
         )}
       </SectionCard>
