@@ -36,6 +36,8 @@ const defaultConfig = {
   teamOrg: 'Asociacion Indira',
   teamBio: 'Mas de 25 anos construyendo alternativas: fundador de Ecoalternative y Certyetic, coordinador de redes de economia social. Experto en WordPress, IA y blockchain al servicio del bien comun.',
   teamQuote: 'Demostrar que la tecnologia puede ponerse al servicio de la cooperacion rural, uniendo tradicion e innovacion.',
+  teamPhoto: '',
+  teamVideo: 'https://youtu.be/11Ud97j7MpE',
   // CTA
   ctaTitle: 'Tu tambien puedes ser parte de esta red',
   ctaText: 'Cada euro cuenta. Cada persona que se suma activa la red. La campana dura 40 dias — si no llegamos al minimo, se devuelve todo.',
@@ -282,6 +284,33 @@ function TeamTab({ config, update }) {
         <Field label="Organizacion"><TextInput value={config.teamOrg} onChange={e => update('teamOrg', e.target.value)} /></Field>
         <Field label="Bio"><TextInput value={config.teamBio} onChange={e => update('teamBio', e.target.value)} multiline /></Field>
         <Field label="Cita / Motivacion"><TextInput value={config.teamQuote} onChange={e => update('teamQuote', e.target.value)} multiline rows={2} /></Field>
+      </SectionCard>
+
+      <SectionCard title="Foto del impulsor" icon="📸">
+        <Field label="Foto de perfil" help="Se muestra en la seccion de equipo junto a la bio. Si no hay foto, se muestra una inicial.">
+          <ImageUpload value={config.teamPhoto} onChange={v => update('teamPhoto', v)} label="Foto Alipio" />
+        </Field>
+      </SectionCard>
+
+      <SectionCard title="Video destacado" icon="🎥">
+        <Field label="Video de YouTube (URL o ID)" help="Se muestra embebido debajo del perfil. Ejemplo: CowoCyL — Lugar de Sinergias.">
+          <TextInput value={config.teamVideo} onChange={e => update('teamVideo', e.target.value)} placeholder="https://youtu.be/11Ud97j7MpE" />
+        </Field>
+        {config.teamVideo && (
+          <div className="rounded-lg overflow-hidden bg-gray-100 aspect-video">
+            <iframe
+              src={`https://www.youtube.com/embed/${(() => {
+                const v = config.teamVideo
+                const match = v.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^?&/]+)/)
+                return match ? match[1] : v
+              })()}?rel=0`}
+              className="w-full h-full"
+              allow="encrypted-media"
+              allowFullScreen
+              title="Preview video"
+            />
+          </div>
+        )}
       </SectionCard>
     </div>
   )

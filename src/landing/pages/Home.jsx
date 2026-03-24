@@ -456,6 +456,15 @@ function Problem() {
       color: '#6B9E50',
       gradient: 'from-emerald-900/90',
     },
+    {
+      stat: '4M+',
+      statLabel: 'casas vacias en pueblos',
+      action: 'Rehabilitar rehabitando',
+      description: 'Facilitamos encontrar lugares, espacios y oportunidades para acercarse a un pueblo. Para generar recursos, negocios o vida personal.',
+      image: 'https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=600&q=70',
+      color: '#C8A96E',
+      gradient: 'from-yellow-900/90',
+    },
   ]
 
   return (
@@ -490,8 +499,8 @@ function Problem() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
           {challenges.map((c, i) => (
             <FadeIn key={i} delay={200 + i * 120}>
-              <div className={`group relative rounded-2xl overflow-hidden cursor-default transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-black/30 ${i === 0 ? 'md:col-span-2 lg:col-span-2 md:row-span-1' : ''}`}
-                style={{ minHeight: i === 0 ? '320px' : '280px' }}>
+              <div className="group relative rounded-2xl overflow-hidden cursor-default transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-black/30 h-full"
+                style={{ minHeight: '280px' }}>
                 {/* Background image */}
                 <img src={c.image} alt="" loading="lazy"
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
@@ -533,15 +542,10 @@ function Problem() {
           ))}
         </div>
 
-        {/* Bottom CTA */}
+        {/* Bottom text */}
         <FadeIn delay={800}>
           <div className="text-center mt-12">
-            <p className="text-[#B0A898] text-sm mb-5 font-light">Cada facendera es una oportunidad. Cada persona que se suma, multiplica.</p>
-            <a href="#recompensas"
-              className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-gradient-to-r from-[#6B9E50] to-[#4A7A35] text-white font-semibold rounded-full hover:shadow-lg hover:shadow-[#6B9E50]/25 transition-all duration-300 hover:-translate-y-0.5 text-[0.95rem]">
-              Unete a la red
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-            </a>
+            <p className="text-[#B0A898] text-sm font-light">Cada facendera es una oportunidad. Cada persona que se suma, multiplica.</p>
           </div>
         </FadeIn>
       </div>
@@ -1311,8 +1315,79 @@ function Timeline() {
   )
 }
 
+// ─── TEAM CARD ──────────────────────────────────────────────────
+function TeamVideoEmbed({ videoUrl }) {
+  const id = (() => {
+    const match = videoUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^?&/]+)/)
+    return match ? match[1] : videoUrl
+  })()
+  return (
+    <iframe
+      src={`https://www.youtube.com/embed/${id}?rel=0`}
+      className="w-full h-full"
+      allow="encrypted-media"
+      allowFullScreen
+      loading="lazy"
+      title="CowoCyL — Lugar de Sinergias"
+    />
+  )
+}
+
+function TeamCard({ cfg }) {
+  const videoUrl = cfg.teamVideo || 'https://youtu.be/11Ud97j7MpE'
+
+  return (
+    <div className="card-dark relative overflow-hidden mb-8" style={{ background: 'linear-gradient(135deg, rgba(107,158,80,0.08) 0%, rgba(107,158,80,0.02) 100%)', borderColor: 'rgba(107,158,80,0.15)' }}>
+      <GlowOrb color="#6B9E50" size="200px" top="-50px" right="-50px" blur={100} opacity={0.08} />
+      <style>{`@media(min-width:768px){.team-row{flex-direction:row!important}.team-vid-side{display:flex!important}}`}</style>
+
+      <div className="relative team-row flex flex-col gap-7" style={{ flexDirection: 'column' }}>
+        {/* Info */}
+        <div style={{ flex: 1 }}>
+          <div className="flex items-center gap-4 mb-5">
+            {cfg.teamPhoto ? (
+              <img src={cfg.teamPhoto} alt="Alipio" className="w-20 h-20 rounded-2xl object-cover shadow-xl shadow-[#6B9E50]/20 border-2 border-[#6B9E50]/20" style={{ flexShrink: 0 }} />
+            ) : (
+              <div className="w-20 h-20 bg-gradient-to-br from-[#6B9E50] to-[#4E7A38] rounded-2xl flex items-center justify-center text-white text-3xl font-bold landing-heading shadow-xl shadow-[#6B9E50]/20" style={{ flexShrink: 0 }}>A</div>
+            )}
+            <div>
+              <div className="text-[10px] text-[#6B9E50] uppercase tracking-[0.2em] font-bold mb-0.5">Impulsor del proyecto</div>
+              <h3 className="text-xl font-bold text-[#F0EBE0] landing-heading">{cfg.teamName || 'Alipio'}</h3>
+              <p className="text-[12px] text-[#B0A898]/60 font-light">{cfg.teamOrg || 'Asociacion Indira'} | La Omana, Leon</p>
+            </div>
+          </div>
+          <p className="text-[14px] text-[#B0A898] leading-[1.8] mb-4 font-light">
+            {cfg.teamBio || 'Mas de 25 anos construyendo alternativas: fundador de Ecoalternative y Certyetic, coordinador de redes de economia social. Experto en WordPress, IA y blockchain al servicio del bien comun.'}
+          </p>
+          <p className="text-[14px] text-[#C8A96E] italic landing-heading leading-[1.6]">
+            &ldquo;{cfg.teamQuote || 'Demostrar que la tecnologia puede ponerse al servicio de la cooperacion rural, uniendo tradicion e innovacion.'}&rdquo;
+          </p>
+        </div>
+
+        {/* Video vertical — visible solo en desktop via CSS */}
+        <div className="team-vid-side flex-col items-center" style={{ display: 'none', width: 220, flexShrink: 0 }}>
+          <div className="text-[9px] text-[#6B9E50] uppercase tracking-[0.2em] font-bold mb-2 text-center">CowoCyL — Sinergias</div>
+          <div className="rounded-xl overflow-hidden bg-black/40 w-full" style={{ aspectRatio: '9/16' }}>
+            <TeamVideoEmbed videoUrl={videoUrl} />
+          </div>
+        </div>
+      </div>
+
+      {/* Video mobile fallback (solo visible <768px, oculto por CSS en desktop via team-vid-side) */}
+      <div className="mt-6 pt-5 border-t border-white/5 team-vid-mobile">
+        <style>{`@media(min-width:768px){.team-vid-mobile{display:none!important}}`}</style>
+        <div className="text-[9px] text-[#6B9E50] uppercase tracking-[0.2em] font-bold mb-2">CowoCyL — Lugar de Sinergias</div>
+        <div className="rounded-xl overflow-hidden bg-black/40 mx-auto" style={{ aspectRatio: '9/16', maxWidth: 280 }}>
+          <TeamVideoEmbed videoUrl={videoUrl} />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ─── TEAM ───────────────────────────────────────────────────────
 function Team() {
+  const cfg = useLandingConfig()
   return (
     <section id="team" className="py-24 md:py-32 bg-[#2C2A25]">
       <div className="max-w-[1280px] mx-auto px-6 md:px-10">
@@ -1325,24 +1400,7 @@ function Team() {
 
         <div className="max-w-4xl mx-auto">
           <FadeIn delay={100}>
-            <div className="card-dark relative overflow-hidden mb-8" style={{ background: 'linear-gradient(135deg, rgba(107,158,80,0.08) 0%, rgba(107,158,80,0.02) 100%)', borderColor: 'rgba(107,158,80,0.15)' }}>
-              <GlowOrb color="#6B9E50" size="200px" top="-50px" right="-50px" blur={100} opacity={0.08} />
-              <div className="relative flex flex-col md:flex-row gap-7">
-                <div className="w-24 h-24 bg-gradient-to-br from-[#6B9E50] to-[#4E7A38] rounded-2xl flex items-center justify-center text-white text-3xl font-bold shrink-0 mx-auto md:mx-0 landing-heading shadow-xl shadow-[#6B9E50]/20">A</div>
-                <div>
-                  <div className="text-[10px] text-[#6B9E50] uppercase tracking-[0.2em] font-bold mb-1">Impulsor del proyecto</div>
-                  <h3 className="text-xl font-bold text-[#F0EBE0] landing-heading mb-1">Alipio</h3>
-                  <p className="text-[13px] text-[#B0A898]/60 mb-4 font-light">Asociacion Indira | La Omana, Leon</p>
-                  <p className="text-[14px] text-[#B0A898] leading-[1.8] mb-4 font-light">
-                    Mas de 25 anos construyendo alternativas: fundador de Ecoalternative y Certyetic, coordinador de redes de economia social.
-                    Experto en WordPress, IA y blockchain al servicio del bien comun.
-                  </p>
-                  <p className="text-[14px] text-[#C8A96E] italic landing-heading leading-[1.6]">
-                    "Demostrar que la tecnologia puede ponerse al servicio de la cooperacion rural, uniendo tradicion e innovacion."
-                  </p>
-                </div>
-              </div>
-            </div>
+            <TeamCard cfg={cfg} />
           </FadeIn>
 
           <div className="grid md:grid-cols-2 gap-6">
