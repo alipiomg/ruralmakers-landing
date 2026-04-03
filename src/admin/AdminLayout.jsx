@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import Sidebar from './components/Sidebar.jsx'
+import AdminAuth from './AdminAuth.jsx'
 
 export default function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
+    <AdminAuth>
     <div className="flex h-screen overflow-hidden">
       {sidebarOpen && (
         <div className="fixed inset-0 bg-black/50 z-20 lg:hidden" onClick={() => setSidebarOpen(false)} />
@@ -33,5 +35,6 @@ export default function AdminLayout() {
         </main>
       </div>
     </div>
+    </AdminAuth>
   )
 }

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rural Makers - Enlaces del Proyecto</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f5f5f0;
+      color: #1a1a1a;
+      padding: 2rem;
+    }
+    .container { max-width: 700px; margin: 0 auto; }
+    h1 {
+      font-size: 1.5rem;
+      color: #2C2A25;
+      margin-bottom: 0.5rem;
+    }
+    .subtitle {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+    }
+    .section {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .section h2 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #6B9E50;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #f0f0eb;
+    }
+    .link-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #f5f5f0;
+    }
+    .link-row:last-child { border-bottom: none; }
+    .link-label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #333;
+    }
+    .link-url {
+      font-size: 0.85rem;
+      color: #6B9E50;
+      text-decoration: none;
+      padding: 0.3rem 0.75rem;
+      border-radius: 6px;
+      background: #f0f8ec;
+      transition: all 0.2s;
+    }
+    .link-url:hover {
+      background: #6B9E50;
+      color: white;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      margin-left: 0.5rem;
+    }
+    .badge-prod { background: #dcfce7; color: #166534; }
+    .badge-local { background: #fef3c7; color: #92400e; }
+    .badge-tool { background: #e0e7ff; color: #3730a3; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Rural Makers - Enlaces del Proyecto</h1>
+    <p class="subtitle">Acceso rapido a todos los entornos y herramientas</p>
+
+    <div class="section">
+      <h2>Produccion</h2>
+      <div class="link-row">
+        <span class="link-label">Landing <span class="badge badge-prod">PROD</span></span>
+        <a class="link-url" href="https://www.ruralmakers.net" target="_blank">ruralmakers.net</a>
+      </div>
+      <div class="link-row">
+        <span class="link-label">Vercel (tecnica) <span class="badge badge-prod">PROD</span></span>
+        <a class="link-url" href="https://ruralmakers.vercel.app" target="_blank">ruralmakers.vercel.app</a>
+      </div>
+      <div class="link-row">
+        <span class="link-label">Admin <span class="badge badge-prod">PROD</span></span>
+        <a class="link-url" href="https://www.ruralmakers.net/admin" target="_blank">ruralmakers.net/admin</a>
+      </div>
+      <div class="link-row">
+        <span class="link-label">App <span class="badge badge-prod">PROD</span></span>
+        <a class="link-url" href="https://www.ruralmakers.net/app" target="_blank">ruralmakers.net/app</a>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Desarrollo local</h2>
+      <div class="link-row">
+        <span class="link-label">Landing <span class="badge badge-local">LOCAL</span></span>
+        <a class="link-url" href="http://localhost:5173" target="_blank">localhost:5173</a>
+      </div>
+      <div class="link-row">
+        <span class="link-label">Admin <span class="badge badge-local">LOCAL</span></span>
+        <a class="link-url" href="http://localhost:5173/admin" target="_blank">localhost:5173/admin</a>
+      </div>
+      <div class="link-row">
+        <span class="link-label">App <span class="badge badge-local">LOCAL</span></span>
+        <a class="link-url" href="http://localhost:5173/app" target="_blank">localhost:5173/app</a>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Herramientas</h2>
+      <div class="link-row">
+        <span class="link-label">GitHub <span class="badge badge-tool">REPO</span></span>
+        <a class="link-url" href="https://github.com/alipiomg/ruralmakers-landing" target="_blank">alipiomg/ruralmakers-landing</a>
+      </div>
+      <div class="link-row">
+        <span class="link-label">Vercel Dashboard <span class="badge badge-tool">DEPLOY</span></span>
+        <a class="link-url" href="https://vercel.com/alipiomgs-projects/ruralmakers" target="_blank">Vercel Dashboard</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

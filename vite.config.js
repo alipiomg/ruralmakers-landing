@@ -10,14 +10,6 @@ export default defineConfig({
         target: 'http://localhost:3001',
         changeOrigin: true,
       },
-      '/api/higgsfield': {
-        target: 'https://platform.higgsfield.ai',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/higgsfield/, ''),
-        headers: {
-          'Origin': 'https://platform.higgsfield.ai',
-        },
-      }
     }
   }
 })

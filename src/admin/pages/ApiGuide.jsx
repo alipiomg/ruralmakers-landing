@@ -188,7 +188,7 @@ export default function ApiGuide() {
           'Clic en "Create API Key"',
           'Selecciona o crea un proyecto de Google Cloud (gratis)',
           'Copia la key generada (formato: AIzaSy...)',
-          <>Pegala en el archivo <code className="bg-gray-100 px-1.5 py-0.5 rounded text-xs font-mono text-gray-800">.env</code> como <code className="bg-gray-100 px-1.5 py-0.5 rounded text-xs font-mono text-gray-800">VITE_GEMINI_API_KEY</code></>,
+          <>Pegala en el archivo <code className="bg-gray-100 px-1.5 py-0.5 rounded text-xs font-mono text-gray-800">.env</code> como <code className="bg-gray-100 px-1.5 py-0.5 rounded text-xs font-mono text-gray-800">GEMINI_API_KEY</code> (sin prefijo VITE_)</>,
         ]} />
 
         <WarningBox>
@@ -237,7 +237,7 @@ export default function ApiGuide() {
           'Ve a Dashboard > API Keys',
           'Crea una nueva API key',
           'Copia el Key ID y el Key Secret',
-          <>Pegalos en <code className="bg-gray-100 px-1.5 py-0.5 rounded text-xs font-mono text-gray-800">.env</code> como <code className="bg-gray-100 px-1.5 py-0.5 rounded text-xs font-mono text-gray-800">VITE_HIGGSFIELD_API_KEY_ID</code> y <code className="bg-gray-100 px-1.5 py-0.5 rounded text-xs font-mono text-gray-800">VITE_HIGGSFIELD_API_SECRET</code></>,
+          <>Pegalos en <code className="bg-gray-100 px-1.5 py-0.5 rounded text-xs font-mono text-gray-800">.env</code> como <code className="bg-gray-100 px-1.5 py-0.5 rounded text-xs font-mono text-gray-800">HIGGSFIELD_API_KEY_ID</code> y <code className="bg-gray-100 px-1.5 py-0.5 rounded text-xs font-mono text-gray-800">HIGGSFIELD_API_SECRET</code> (sin prefijo VITE_)</>,
         ]} />
 
         <SectionTitle>Modelos disponibles</SectionTitle>

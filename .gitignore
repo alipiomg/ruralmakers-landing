@@ -1,25 +1,46 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# Environment (CRITICO - nunca commitear)
+.env
+.env.local
+.env.*.local
+
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# OS files
 .DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE / Editor
+.vscode/
+!.vscode/extensions.json
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-.env
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Browser exports (artefactos accidentales)
+*_files/
+*.html.bak
+
+# Temp / backups
+*.tmp
+*.bak
+*.orig
+~$*

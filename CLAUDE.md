@@ -31,9 +31,12 @@ src/
   shared/lib/constants.js    # Constantes globales
 ```
 
-## Variables de entorno
-- `VITE_GEMINI_API_KEY` - Google Gemini API (imagenes/video IA)
-- `VITE_HIGGSFIELD_API_KEY_ID` / `VITE_HIGGSFIELD_API_SECRET` - Higgsfield (backup)
+## Variables de entorno (solo backend, SIN prefijo VITE_)
+- `GOTEO_USER` / `GOTEO_KEY` - Credenciales API Goteo (backend proxy)
+- `GEMINI_API_KEY` - Google Gemini API (desactivada hasta implementar proxy backend)
+- `HIGGSFIELD_API_KEY_ID` / `HIGGSFIELD_API_SECRET` - Higgsfield (desactivada)
+
+**IMPORTANTE**: NUNCA usar prefijo `VITE_` para API keys. Las variables con `VITE_` se exponen en el JS del navegador.
 
 ## Notas
 - La API de Goteo solo funciona en local (requiere proxy en vite.config.js a localhost:3001)

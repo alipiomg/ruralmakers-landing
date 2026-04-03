@@ -17,13 +17,26 @@ try {
   })
 } catch (e) { /* .env optional */ }
 
-const GOTEO_USER = process.env.GOTEO_USER || 'alipio'
-const GOTEO_KEY = process.env.GOTEO_KEY || ''
+const GOTEO_USER = process.env.GOTEO_USER
+const GOTEO_KEY = process.env.GOTEO_KEY
+if (!GOTEO_USER || !GOTEO_KEY) {
+  console.warn('GOTEO_USER o GOTEO_KEY no definidos en .env — el proxy de Goteo no funcionara')
+}
 const GOTEO_BASE = 'https://api.goteo.org/v1'
 
-// CORS for dev
+// CORS - restringido a dominios propios
+const ALLOWED_ORIGINS = [
+  'http://localhost:5173',
+  'http://localhost:3001',
+  'https://www.ruralmakers.net',
+  'https://ruralmakers.net',
+  'https://ruralmakers.vercel.app',
+]
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
+  const origin = req.headers.origin
+  if (ALLOWED_ORIGINS.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin)
+  }
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
   next()
 })
