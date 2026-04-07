@@ -14,7 +14,7 @@ const defaultConfig = {
   aboutTitle: 'Tu plataforma de cooperacion rural',
   aboutText1: 'Rural Makers Tejiendo Facenderas es un proyecto de impacto social que rescata la tradicion de las facenderas — trabajo colectivo y solidario — y la combina con tecnologia de codigo abierto e inteligencia artificial etica.',
   aboutText2: 'La campana busca financiar una app colaborativa que conecte personas, proyectos y saberes en el mundo rural de Leon y mas alla.',
-  aboutText3: 'Impulsada por la comunidad Rural Makers y el Fab Lab Leon. Un proyecto de codigo abierto, licencia libre y retorno colectivo.',
+  aboutText3: 'Impulsada por la comunidad Rural Makers y la Asociación Indira. Un proyecto de código abierto, licencia libre y retorno colectivo.',
   // Problem
   problemTitle: 'El mundo rural necesita una nueva red',
   problemQuote: 'Lo que afecta al campo acaba afectando a todos. La solucion tambien puede ser de todos.',

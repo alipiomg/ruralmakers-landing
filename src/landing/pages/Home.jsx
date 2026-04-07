@@ -201,11 +201,11 @@ function Hero() {
   const [bgLoaded, setBgLoaded] = useState(false)
   const [showVideo, setShowVideo] = useState(false)
   const parallax = useParallax(0.3)
-  const WORDS = ['Cooperacion', 'Facenderas', 'Codigo abierto', 'IA etica', 'Procomun', 'Artesania', 'Leon rural', 'Sostenibilidad', 'Territorio', 'Red humana', 'Innovacion', 'Saberes']
+  const WORDS = ['Cooperación', 'Facenderas', 'Código abierto', 'IA ética', 'Procomún', 'Artesanía', 'León rural', 'Sostenibilidad', 'Territorio', 'Red humana', 'Innovación', 'Saberes']
   const bgVideo = cfg.heroBgVideo || 'https://cdn.pixabay.com/video/2020/07/30/45717-445039937_large.mp4'
   const posterImg = cfg.heroPosterImage || 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=60'
   const heroTitle = cfg.heroTitle || 'Tejemos futuro rural con'
-  const heroSub = cfg.heroSubtitle || 'App de codigo abierto y red humana que conecta personas, proyectos y territorios rurales con la tradicion de las facenderas.'
+  const heroSub = cfg.heroSubtitle || 'App de código abierto y red humana que conecta personas, proyectos y territorios rurales con la tradición de las facenderas.'
   const campaignVideoRaw = cfg.heroCampaignVideo || ''
   const campaignVideoType = cfg.heroCampaignVideoType || 'youtube'
   // Extract YouTube/Vimeo ID from full URL or use as-is if already an ID
@@ -225,9 +225,9 @@ function Hero() {
   useEffect(() => { const t = setInterval(() => setWi(i => (i + 1) % WORDS.length), 2800); return () => clearInterval(t) }, [])
 
   const milestones = [
-    { icon: '🌐', label: 'Red de cooperacion', value: 'Activas tu pasaporte Rural Maker', sub: 'y entras en la red', color: '#6B9E50' },
-    { icon: '🎯', label: 'Minimo', value: `${FUNDING_MIN.toLocaleString('es')} EUR`, sub: 'App + 5 facenderas piloto en Leon', color: '#6B9E50' },
-    { icon: '🚀', label: 'Optimo', value: `${FUNDING_OPT.toLocaleString('es')} EUR`, sub: 'Red estatal, jardin-homenaje, formacion', color: '#C8A96E' },
+    { icon: '🌐', label: 'Red de cooperación', value: 'Activas tu pasaporte Rural Maker', sub: 'y entras en la red', color: '#6B9E50' },
+    { icon: '🎯', label: 'Mínimo', value: `${FUNDING_MIN.toLocaleString('es')} EUR`, sub: 'App + 5 facenderas piloto en León', color: '#6B9E50' },
+    { icon: '🚀', label: 'Óptimo', value: `${FUNDING_OPT.toLocaleString('es')} EUR`, sub: 'Red estatal, jardín-homenaje, formación', color: '#C8A96E' },
   ]
 
   return (
@@ -274,14 +274,14 @@ function Hero() {
             </FadeIn>
 
             <FadeIn delay={300}>
-              <p className="text-[1rem] md:text-[1.15rem] text-[#B0A898] mb-6 leading-[1.8] font-light max-w-lg mx-auto">
+              <p className="text-[1.05rem] md:text-[1.2rem] text-[#D0C8BC] mb-6 leading-[1.8] font-normal max-w-lg mx-auto">
                 {heroSub}
               </p>
             </FadeIn>
 
             <FadeIn delay={400}>
               <div className="flex flex-wrap gap-2 mb-8 justify-center">
-                {['Facenderas', 'IA Etica', 'Codigo Abierto', 'Procomun', 'Leon', 'Artesania', 'Saberes', 'Territorio'].map(tag => (
+                {['Facenderas', 'IA Ética', 'Código Abierto', 'Procomún', 'León', 'Artesanía', 'Saberes', 'Territorio'].map(tag => (
                   <span key={tag} className="px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] text-[#6B9E50] bg-[#6B9E50]/8 border border-[#6B9E50]/15 rounded-full backdrop-blur-sm hover:bg-[#6B9E50]/15 transition-all cursor-default">
                     {tag}
                   </span>
@@ -312,11 +312,11 @@ function Hero() {
                     src={campaignVideoType === 'vimeo' ? `https://player.vimeo.com/video/${campaignVideoId}?autoplay=1` : campaignVideoType === 'mp4' ? campaignVideoId : `https://www.youtube.com/embed/${campaignVideoId}?autoplay=1&rel=0`}
                     className="w-full h-full"
                     allow="autoplay; encrypted-media" allowFullScreen
-                    title="Video de campana Rural Makers" />
+                    title="Vídeo de campaña Rural Makers" />
                 ) : (
                   <div className="relative w-full h-full cursor-pointer group" onClick={() => setShowVideo(true)}>
                     {/* Video poster/thumbnail */}
-                    <img src={posterImg} alt="Video de campana"
+                    <img src={posterImg} alt="Vídeo de campaña"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#2C2A25]/80 via-transparent to-[#2C2A25]/30" />
                     {/* Play button */}
@@ -330,7 +330,7 @@ function Hero() {
                     {/* Label */}
                     <div className="absolute bottom-4 left-4 flex items-center gap-2 px-3 py-1.5 bg-[#2C2A25]/80 backdrop-blur-sm rounded-full border border-white/10">
                       <span className="text-sm">🎬</span>
-                      <span className="text-[12px] text-[#F0EBE0] font-medium">Video de campana</span>
+                      <span className="text-[12px] text-[#F0EBE0] font-medium">Vídeo de campaña</span>
                     </div>
                   </div>
                 )}
@@ -350,7 +350,7 @@ function Hero() {
                 <div>
                   <div className="text-[10px] uppercase tracking-[0.2em] font-bold mb-1" style={{ color: m.color }}>{m.label}</div>
                   <div className="text-[15px] font-bold text-[#F0EBE0] landing-heading leading-tight">{m.value}</div>
-                  <div className="text-[11px] text-[#B0A898]/70 mt-0.5 font-light">{m.sub}</div>
+                  <div className="text-[12px] text-[#E0D8CC] mt-0.5 font-semibold">{m.sub}</div>
                 </div>
               </div>
             ))}
@@ -375,7 +375,7 @@ function About() {
       <div className="max-w-[1280px] mx-auto px-6 md:px-10">
         <FadeIn>
           <div className="text-center mb-16">
-            <h2 className="landing-heading text-[2rem] md:text-[2.8rem] text-[#F0EBE0] mb-3">Tu plataforma de cooperacion rural</h2>
+            <h2 className="landing-heading text-[2rem] md:text-[2.8rem] text-[#F0EBE0] mb-3">Tu plataforma de cooperación rural</h2>
             <div className="title-divider" />
           </div>
         </FadeIn>
@@ -383,17 +383,17 @@ function About() {
         <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto items-start">
           <FadeIn delay={100} direction="left">
             <div className="space-y-5">
-              <p className="text-[#B0A898] leading-[1.8] font-light text-[15px]">
+              <p className="text-[#D0C8BC] leading-[1.8] font-normal text-[15px]">
                 <strong className="text-[#F0EBE0] font-bold">Rural Makers Tejiendo Facenderas</strong> es un proyecto de impacto social
-                que rescata la tradicion de las facenderas — trabajo colectivo y solidario — y la combina con tecnologia
-                de codigo abierto e inteligencia artificial etica.
+                que rescata la tradición de las facenderas — trabajo colectivo y solidario — y la combina con tecnología
+                de código abierto e inteligencia artificial ética.
               </p>
-              <p className="text-[#B0A898] leading-[1.8] font-light text-[15px]">
-                La campana busca financiar una app colaborativa que conecte personas, proyectos y saberes en el mundo rural
-                de Leon y mas alla. Con tu apoyo, organizamos facenderas piloto, documentamos la metodologia y lanzamos la plataforma.
+              <p className="text-[#D0C8BC] leading-[1.8] font-normal text-[15px]">
+                La campaña busca financiar una app colaborativa que conecte personas, proyectos y saberes en el mundo rural
+                de León y más allá. Con tu apoyo, organizamos facenderas piloto, documentamos la metodología y lanzamos la plataforma.
               </p>
-              <p className="text-[#B0A898] leading-[1.8] font-light text-[15px]">
-                Impulsada por la comunidad Rural Makers y el Fab Lab Leon. Un proyecto de <strong className="text-[#F0EBE0] font-bold">codigo abierto,
+              <p className="text-[#D0C8BC] leading-[1.8] font-normal text-[15px]">
+                Impulsada por la comunidad Rural Makers y la Asociación Indira. Un proyecto de <strong className="text-[#F0EBE0] font-bold">código abierto,
                 licencia libre y retorno colectivo</strong>.
               </p>
             </div>
@@ -401,16 +401,16 @@ function About() {
           <FadeIn delay={250} direction="right">
             <div className="grid grid-cols-2 gap-4">
               {[
-                { icon: '📜', label: 'Licencia', value: 'AGPL-3.0', desc: 'Codigo libre y abierto' },
+                { icon: '📜', label: 'Licencia', value: 'AGPL-3.0', desc: 'Código libre y abierto' },
                 { icon: '🎨', label: 'Contenido', value: 'CC BY-SA 4.0', desc: 'Compartir y adaptar' },
-                { icon: '🏛', label: 'Entidad', value: 'Asoc. Indira', desc: 'La Omana, Leon' },
-                { icon: '📍', label: 'Territorio', value: 'Leon, Espana', desc: 'Castilla y Leon' },
+                { icon: '🏛', label: 'Entidad', value: 'Asoc. Indira', desc: 'La Omaña, León' },
+                { icon: '📍', label: 'Territorio', value: 'León, España', desc: 'Castilla y León' },
               ].map(item => (
                 <div key={item.label} className="card-dark group text-center py-5">
                   <div className="text-2xl mb-2 group-hover:scale-110 transition-transform">{item.icon}</div>
                   <div className="text-[10px] text-[#B0A898]/60 uppercase tracking-[0.15em] font-bold">{item.label}</div>
                   <div className="text-sm font-bold text-[#F0EBE0] mt-1">{item.value}</div>
-                  <div className="text-[11px] text-[#B0A898]/50 mt-0.5 font-light">{item.desc}</div>
+                  <div className="text-[11px] text-[#C8BEB0]/80 mt-0.5 font-normal">{item.desc}</div>
                 </div>
               ))}
             </div>
@@ -437,7 +437,7 @@ function Problem() {
       stat: '1 de 3',
       statLabel: 'iniciativas muere sola',
       action: 'Tejemos red de apoyo mutuo',
-      description: 'Las facenderas unen lo que la distancia separa. Ningun proyecto camina solo cuando hay red.',
+      description: 'Las facenderas unen lo que la distancia separa. Ningún proyecto camina solo cuando hay red.',
       image: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&q=70',
       color: '#6B9E50',
       gradient: 'from-green-900/90',
@@ -446,7 +446,7 @@ function Problem() {
       stat: '+200',
       statLabel: 'saberes por documentar',
       action: 'Recopilamos saberes vivos',
-      description: 'Oficios, recetas, tecnicas y relatos que se transmitian de boca en boca, ahora documentados y accesibles.',
+      description: 'Oficios, recetas, técnicas y relatos que se transmitían de boca en boca, ahora documentados y accesibles.',
       image: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=600&q=70',
       color: '#C8A96E',
       gradient: 'from-amber-900/90',
@@ -455,7 +455,7 @@ function Problem() {
       stat: '2x',
       statLabel: 'brecha digital vs urbana',
       action: 'Cerramos la brecha digital y natural',
-      description: 'La tecnologia al servicio del campo, no al reves. Herramientas abiertas que cualquiera puede usar.',
+      description: 'La tecnología al servicio del campo, no al revés. Herramientas abiertas que cualquiera puede usar.',
       image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=70',
       color: '#7C8CF0',
       gradient: 'from-indigo-900/90',
@@ -464,14 +464,14 @@ function Problem() {
       stat: '89%',
       statLabel: 'proyectos necesitan red',
       action: 'Incubamos proyectos rurales',
-      description: 'Acompanamos desde la semilla hasta el fruto. Mentoria, recursos compartidos y comunidad que sostiene.',
+      description: 'Acompañamos desde la semilla hasta el fruto. Mentoría, recursos compartidos y comunidad que sostiene.',
       image: 'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=600&q=70',
       color: '#6B9E50',
       gradient: 'from-emerald-900/90',
     },
     {
       stat: '4M+',
-      statLabel: 'casas vacias en pueblos',
+      statLabel: 'casas vacías en pueblos',
       action: 'Rehabilitar rehabitando',
       description: 'Facilitamos encontrar lugares, espacios y oportunidades para acercarse a un pueblo. Para generar recursos, negocios o vida personal.',
       image: 'https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=600&q=70',
@@ -502,9 +502,9 @@ function Problem() {
 
         <FadeIn delay={100}>
           <blockquote className="text-center text-[1.2rem] md:text-[1.5rem] max-w-3xl mx-auto mb-20 leading-[1.7]">
-            <span className="text-[#B0A898] font-light">"Lo que afecta al campo nos afecta a todos.</span>
+            <span className="text-[#D0C8BC] font-normal">"Lo que afecta al campo nos afecta a todos.</span>
             <br />
-            <span className="text-[#C8A96E] landing-heading italic font-medium">La solucion tambien nace de todos."</span>
+            <span className="text-[#C8A96E] landing-heading italic font-medium">La solución también nace de todos."</span>
           </blockquote>
         </FadeIn>
 
@@ -539,7 +539,7 @@ function Problem() {
                     <h3 className="text-[1.4rem] md:text-[1.6rem] font-bold text-white leading-tight mb-2 drop-shadow-lg group-hover:translate-x-1 transition-transform duration-300">
                       {c.action}
                     </h3>
-                    <p className="text-[0.9rem] text-white/70 leading-[1.7] font-light max-w-md drop-shadow-md">
+                    <p className="text-[0.95rem] text-white/90 leading-[1.7] font-normal max-w-md drop-shadow-md">
                       {c.description}
                     </p>
                     {/* Animated line */}
@@ -558,7 +558,7 @@ function Problem() {
         {/* Bottom text */}
         <FadeIn delay={800}>
           <div className="text-center mt-12">
-            <p className="text-[#B0A898] text-sm font-light">Cada facendera es una oportunidad. Cada persona que se suma, multiplica.</p>
+            <p className="text-[#C8BEB0] text-sm font-normal">Cada facendera es una oportunidad. Cada persona que se suma, multiplica.</p>
           </div>
         </FadeIn>
       </div>
@@ -566,50 +566,123 @@ function Problem() {
   )
 }
 
-// ─── SOLUTION ───────────────────────────────────────────────────
+// ─── SOLUTION — FLOR DE PÉTALOS ────────────────────────────────
 function Solution() {
-  const features = [
-    { icon: '🤝', title: 'Facenderas', desc: 'Encuentros cooperativos tradicionales reinventados para conectar personas y proyectos', color: '#6B9E50' },
-    { icon: '💻', title: 'App abierta', desc: 'Plataforma digital de codigo abierto, accesible desde cualquier dispositivo', color: '#3B82F6' },
-    { icon: '🤖', title: 'IA Etica', desc: 'Inteligencia artificial al servicio del procomun: herramientas y agentes rurales', color: '#8B5CF6' },
-    { icon: '🗺', title: 'Mapa vivo', desc: 'Red geolocalizada de iniciativas, rutas y saberes del territorio leones', color: '#C8A96E' },
-    { icon: '🔓', title: 'Procomun', desc: 'Todo el codigo y metodologia en abierto, licencia libre para replicar', color: '#10B981' },
-    { icon: '👥', title: 'Red humana', desc: 'Comunidad de makers, artesanos, facilitadores y vecinos que cooperan', color: '#E86A33' },
+  const petals = [
+    { title: 'Facenderas', desc: 'Encuentros cooperativos tradicionales reinventados para conectar personas y proyectos', color: '#6B9E50' },
+    { title: 'App abierta', desc: 'Plataforma digital de código abierto, accesible desde cualquier dispositivo', color: '#3B82F6' },
+    { title: 'IA Ética', desc: 'Inteligencia artificial al servicio del procomún: herramientas y agentes rurales', color: '#8B5CF6' },
+    { title: 'Mapa vivo', desc: 'Red geolocalizada de iniciativas, rutas y saberes del territorio leonés', color: '#C8A96E' },
+    { title: 'Procomún', desc: 'Todo el código y metodología en abierto, licencia libre para replicar', color: '#10B981' },
+    { title: 'Red humana', desc: 'Comunidad de makers, artesanos, facilitadores y vecinos que cooperan', color: '#E86A33' },
   ]
 
+  // Ángulos para colocar pétalos en círculo (desktop)
+  const angles = [270, 330, 30, 90, 150, 210] // arriba, arriba-der, abajo-der, abajo, abajo-izq, arriba-izq
+  const radius = 260 // px desde el centro
+
   return (
-    <section id="solution" className="py-24 md:py-32 bg-[#2C2A25]">
+    <section id="solution" className="py-24 md:py-32 bg-[#2C2A25] overflow-hidden">
       <div className="max-w-[1280px] mx-auto px-6 md:px-10">
         <FadeIn>
           <div className="text-center mb-6">
-            <h2 className="landing-heading text-[2rem] md:text-[2.8rem] text-[#F0EBE0] mb-3">La app que une el campo y la cooperacion</h2>
+            <h2 className="landing-heading text-[2rem] md:text-[2.8rem] text-[#F0EBE0] mb-3">La app que une el campo y la cooperación</h2>
             <div className="title-divider" />
           </div>
         </FadeIn>
 
         <FadeIn delay={100}>
-          <p className="text-center text-[#B0A898] max-w-3xl mx-auto mb-16 font-light text-[15px] leading-[1.8]">
+          <p className="text-center text-[#D0C8BC] max-w-3xl mx-auto mb-16 font-normal text-[16px] leading-[1.8]">
             La app conecta personas con proyectos, facilita encuentros presenciales y documenta saberes en un mapa vivo.
             No es solo una plataforma digital: <strong className="text-[#F0EBE0]">es una red humana que se activa con cada facendera
             y crece con cada persona que se une.</strong>
           </p>
         </FadeIn>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((f, i) => (
-            <FadeIn key={i} delay={150 + i * 80}>
-              <div className="card-dark group cursor-default relative overflow-hidden">
-                {/* Accent line */}
-                <div className="absolute top-0 left-0 w-full h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: `linear-gradient(90deg, transparent, ${f.color}, transparent)` }} />
-                <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-5 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg"
-                  style={{ background: `${f.color}15`, boxShadow: 'none' }}>
-                  {f.icon}
+        {/* ── FLOR: Desktop (lg+) ── */}
+        <FadeIn delay={200} scale>
+          <div className="hidden lg:block">
+            <div className="relative mx-auto" style={{ width: 680, height: 680 }}>
+              {/* Líneas de conexión centro → pétalos */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 680 680">
+                {petals.map((p, i) => {
+                  const a = (angles[i] * Math.PI) / 180
+                  const x = 340 + Math.cos(a) * (radius - 40)
+                  const y = 340 + Math.sin(a) * (radius - 40)
+                  return <line key={i} x1="340" y1="340" x2={x} y2={y} stroke={p.color} strokeWidth="1" opacity="0.15" strokeDasharray="4,4" />
+                })}
+              </svg>
+
+              {/* Centro de la flor */}
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                <div className="w-[120px] h-[120px] rounded-full flex flex-col items-center justify-center text-center"
+                  style={{ background: 'radial-gradient(circle, rgba(107,158,80,0.25) 0%, rgba(107,158,80,0.05) 70%)', border: '2px solid rgba(107,158,80,0.3)', boxShadow: '0 0 60px rgba(107,158,80,0.15)' }}>
+                  <span className="text-3xl mb-1">🌱</span>
+                  <span className="text-[11px] text-[#6B9E50] font-bold uppercase tracking-[0.15em]">Rural</span>
+                  <span className="text-[11px] text-[#6B9E50] font-bold uppercase tracking-[0.15em]">Makers</span>
                 </div>
-                <h3 className="font-bold text-[#F0EBE0] mb-2 text-[15px] group-hover:text-[#6B9E50] transition-colors">{f.title}</h3>
-                <p className="text-[13px] text-[#B0A898] leading-[1.7] font-light">{f.desc}</p>
               </div>
-            </FadeIn>
-          ))}
+
+              {/* 6 pétalos posicionados radialmente */}
+              {petals.map((p, i) => {
+                const a = (angles[i] * Math.PI) / 180
+                const x = 340 + Math.cos(a) * radius
+                const y = 340 + Math.sin(a) * radius
+                return (
+                  <div key={i} className="absolute z-10 group cursor-default"
+                    style={{
+                      left: x, top: y,
+                      transform: 'translate(-50%, -50%)',
+                      width: 200,
+                    }}>
+                    <div className="rounded-[1.5rem] p-5 transition-all duration-500 group-hover:scale-105"
+                      style={{
+                        background: `linear-gradient(135deg, ${p.color}18 0%, ${p.color}08 100%)`,
+                        border: `1.5px solid ${p.color}30`,
+                        boxShadow: `0 0 0 0 transparent`,
+                      }}
+                      onMouseEnter={e => e.currentTarget.style.boxShadow = `0 0 30px ${p.color}25, 0 8px 24px rgba(0,0,0,0.3)`}
+                      onMouseLeave={e => e.currentTarget.style.boxShadow = `0 0 0 0 transparent`}
+                    >
+                      {/* Barra de color */}
+                      <div className="w-10 h-1 rounded-full mb-3" style={{ background: p.color }} />
+                      <h3 className="font-bold text-[15px] mb-2 leading-tight" style={{ color: p.color }}>{p.title}</h3>
+                      <p className="text-[13px] text-[#E0D8CC] leading-[1.6] font-normal">{p.desc}</p>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </FadeIn>
+
+        {/* ── FLOR: Mobile/Tablet (< lg) — grid 2 cols ── */}
+        <div className="lg:hidden">
+          {/* Centro mobile */}
+          <FadeIn delay={150}>
+            <div className="flex justify-center mb-8">
+              <div className="w-[90px] h-[90px] rounded-full flex flex-col items-center justify-center"
+                style={{ background: 'radial-gradient(circle, rgba(107,158,80,0.25) 0%, rgba(107,158,80,0.05) 70%)', border: '2px solid rgba(107,158,80,0.3)' }}>
+                <span className="text-2xl mb-0.5">🌱</span>
+                <span className="text-[9px] text-[#6B9E50] font-bold uppercase tracking-[0.15em]">Rural Makers</span>
+              </div>
+            </div>
+          </FadeIn>
+          <div className="grid grid-cols-2 gap-4 max-w-xl mx-auto">
+            {petals.map((p, i) => (
+              <FadeIn key={i} delay={200 + i * 80}>
+                <div className="rounded-[1.2rem] p-4 transition-all duration-300 hover:scale-[1.03]"
+                  style={{
+                    background: `linear-gradient(135deg, ${p.color}18 0%, ${p.color}08 100%)`,
+                    border: `1.5px solid ${p.color}30`,
+                  }}>
+                  <div className="w-8 h-1 rounded-full mb-2.5" style={{ background: p.color }} />
+                  <h3 className="font-bold text-[14px] mb-1.5 leading-tight" style={{ color: p.color }}>{p.title}</h3>
+                  <p className="text-[12px] text-[#E0D8CC] leading-[1.6] font-normal">{p.desc}</p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -621,7 +694,7 @@ function HowItWorks() {
   const steps = [
     { icon: '🌱', title: 'Semilla', desc: 'Apoya el crowdfunding y planta tu semilla' },
     { icon: '🌿', title: 'Brote', desc: 'Participa en facenderas, conecta tu comarca' },
-    { icon: '🌳', title: 'Arbol', desc: 'Impulsa proyectos, comparte saberes' },
+    { icon: '🌳', title: 'Árbol', desc: 'Impulsa proyectos, comparte saberes' },
     { icon: '🌲', title: 'Bosque', desc: 'La red crece con cada nueva facendera' },
   ]
 
@@ -631,7 +704,7 @@ function HowItWorks() {
         <FadeIn>
           <div className="text-center mb-16">
             <h2 className="landing-heading text-[2rem] md:text-[2.8rem] text-[#F0EBE0] mb-3">De semilla a bosque</h2>
-            <p className="text-[15px] text-[#B0A898] font-light mt-4">Tu participacion hace crecer la red paso a paso</p>
+            <p className="text-[15px] text-[#D0C8BC] font-normal mt-4">Tu participación hace crecer la red paso a paso</p>
             <div className="title-divider" />
           </div>
         </FadeIn>
@@ -647,7 +720,7 @@ function HowItWorks() {
                   <div className="w-9 h-9 bg-[#6B9E50] text-white text-sm rounded-full flex items-center justify-center font-bold mx-auto mb-4 shadow-lg shadow-[#6B9E50]/30 group-hover:shadow-[#6B9E50]/50 group-hover:scale-110 transition-all">{i + 1}</div>
                   <div className="text-4xl mb-3 group-hover:scale-125 transition-transform duration-500">{s.icon}</div>
                   <h3 className="font-bold text-[#F0EBE0] mb-1 text-[15px]">{s.title}</h3>
-                  <p className="text-[12px] text-[#B0A898] font-light leading-[1.6]">{s.desc}</p>
+                  <p className="text-[13px] text-[#C8BEB0] font-normal leading-[1.6]">{s.desc}</p>
                 </div>
               </FadeIn>
             ))}
@@ -658,65 +731,14 @@ function HowItWorks() {
   )
 }
 
-// ─── PROGRESS / STATS ───────────────────────────────────────────
-function Progress() {
-  const ref = useRef(null)
-  const visible = useInView(ref, 0.2)
-  const facenderas = useCounter(127, 2000, visible)
-  const participantes = useCounter(1234, 2500, visible)
-  const comunidades = useCounter(23, 1500, visible)
-  const proyectos = useCounter(89, 1800, visible)
-
-  const stats = [
-    { value: facenderas, label: 'Facenderas realizadas', icon: '🤝', color: '#6B9E50', pct: 85 },
-    { value: participantes.toLocaleString('es'), label: 'Participantes activos', icon: '👥', color: '#E86A33', pct: 62 },
-    { value: comunidades, label: 'Comunidades conectadas', icon: '📍', color: '#C8A96E', pct: 46 },
-    { value: proyectos, label: 'Proyectos completados', icon: '🚀', color: '#8B5CF6', pct: 74 },
-  ]
-
-  return (
-    <section id="progress" ref={ref} className="py-24 md:py-32 bg-[#2C2A25] relative overflow-hidden">
-      <GlowOrb color="#6B9E50" size="500px" top="50%" left="-200px" blur={200} opacity={0.06} />
-      <GlowOrb color="#C8A96E" size="400px" bottom="-100px" right="-100px" blur={150} opacity={0.05} />
-
-      <div className="relative max-w-[1280px] mx-auto px-6 md:px-10">
-        <FadeIn>
-          <div className="text-center mb-16">
-            <h2 className="landing-heading text-[2rem] md:text-[2.8rem] text-[#F0EBE0] mb-3">Impacto de la comunidad</h2>
-            <p className="text-[15px] text-[#B0A898] font-light mt-4">Numeros que crecen con cada facendera</p>
-            <div className="title-divider" />
-          </div>
-        </FadeIn>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-          {stats.map((s, i) => (
-            <FadeIn key={i} delay={100 + i * 120}>
-              <div className="card-dark text-center py-8 group">
-                <div className="text-3xl mb-3 group-hover:scale-125 transition-transform duration-300">{s.icon}</div>
-                <div className="text-[2.5rem] font-bold text-[#F0EBE0] landing-heading leading-none mb-1" style={{ color: s.color }}>{s.value}</div>
-                <div className="text-[11px] text-[#B0A898]/60 uppercase tracking-[0.15em] font-bold mb-4">{s.label}</div>
-                {/* Progress bar */}
-                <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                  <div className="h-full rounded-full transition-all duration-[2000ms] ease-out"
-                    style={{ width: visible ? `${s.pct}%` : '0%', backgroundColor: s.color }} />
-                </div>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
 // ─── TESTIMONIALS ───────────────────────────────────────────────
 function Testimonials() {
   const [idx, setIdx] = useState(0)
   const testimonials = [
-    { quote: 'Aprendi a instalar paneles solares con 60 anos. Las facenderas me devolvieron las ganas de aprender.', name: 'Maria Gonzalez', role: 'Agricultora, Astorga' },
-    { quote: 'Encontre mi comunidad sin salir del pueblo. Rural Makers conecta personas que comparten vision.', name: 'Javier Prieto', role: 'Programador, Bembibre' },
-    { quote: 'Mis ceramicas ahora llegan a toda la provincia gracias a la red de makers rurales.', name: 'Carmen Alvarez', role: 'Artesana, El Bierzo' },
-    { quote: 'La tecnologia no tiene que ser enemiga de lo rural. Aqui demostramos que puede ser aliada.', name: 'Pablo Martinez', role: 'Bioconstructor, Villablino' },
+    { quote: 'Aprendí a instalar paneles solares con 60 años. Las facenderas me devolvieron las ganas de aprender.', name: 'María González', role: 'Agricultora, Astorga' },
+    { quote: 'Encontré mi comunidad sin salir del pueblo. Rural Makers conecta personas que comparten visión.', name: 'Javier Prieto', role: 'Programador, Bembibre' },
+    { quote: 'Mis cerámicas ahora llegan a toda la provincia gracias a la red de makers rurales.', name: 'Carmen Álvarez', role: 'Artesana, El Bierzo' },
+    { quote: 'La tecnología no tiene que ser enemiga de lo rural. Aquí demostramos que puede ser aliada.', name: 'Pablo Martínez', role: 'Bioconstructor, Villablino' },
   ]
 
   useEffect(() => { const t = setInterval(() => setIdx(i => (i + 1) % testimonials.length), 6000); return () => clearInterval(t) }, [])
@@ -791,7 +813,7 @@ function RewardDetail({ reward, allRewards }) {
       <div className="bg-white/[0.03] border border-white/5 rounded-lg p-3">
         <div className="text-[10px] text-[#C8A96E] font-bold uppercase tracking-wider mb-2">+ Exclusivo de este nivel:</div>
         {reward.own.map((item, j) => (
-          <div key={j} className="text-[11px] text-[#F0EBE0] font-light flex items-start gap-1.5 py-0.5">
+          <div key={j} className="text-[11px] text-[#F0EBE0] font-normal flex items-start gap-1.5 py-0.5">
             <span className="shrink-0 mt-0.5" style={{ color: reward.color }}>★</span> {item}
           </div>
         ))}
@@ -825,7 +847,7 @@ function RewardDetail({ reward, allRewards }) {
                     <span className="text-[9px] text-[#B0A898]/40">{tier.amount} EUR</span>
                   </div>
                   {tier.own.map((item, j) => (
-                    <div key={j} className="text-[11px] text-[#B0A898]/70 font-light flex items-start gap-1.5 py-0.5">
+                    <div key={j} className="text-[11px] text-[#C8BEB0] font-normal flex items-start gap-1.5 py-0.5">
                       <span className="shrink-0 mt-0.5 text-[#6B9E50]">✓</span> {item}
                     </div>
                   ))}
@@ -860,8 +882,8 @@ function Rewards() {
           <div className="text-center mb-6">
             <div className="text-[11px] text-[#6B9E50] uppercase tracking-[0.25em] font-bold mb-3">Gracias por apoyar</div>
             <h2 className="landing-heading text-[2rem] md:text-[2.8rem] text-[#F0EBE0] mb-4">Elige tu recompensa</h2>
-            <p className="text-[15px] text-[#B0A898] font-light max-w-2xl mx-auto leading-[1.7]">
-              Cada aportacion activa la red. Ademas de las recompensas individuales, recuerda que <strong className="text-[#F0EBE0]">todo lo que creamos es procomun</strong>: codigo abierto, metodologias libres, documentacion accesible.
+            <p className="text-[15px] text-[#D0C8BC] font-normal max-w-2xl mx-auto leading-[1.7]">
+              Cada aportación activa la red. Además de las recompensas individuales, recuerda que <strong className="text-[#F0EBE0]">todo lo que creamos es procomún</strong>: código abierto, metodologías libres, documentación accesible.
             </p>
             <div className="title-divider" />
           </div>
@@ -916,18 +938,18 @@ function Rewards() {
 
                   {/* Price + Name */}
                   <div className="text-[2rem] font-bold landing-heading mb-0.5 leading-none" style={{ color: r.color }}>
-                    {r.amount} <span className="text-[14px] font-normal text-[#B0A898]">EUR</span>
+                    {r.amount} <span className="text-[14px] font-medium text-[#D0C8BC]">EUR</span>
                   </div>
-                  <div className="font-bold text-[#F0EBE0] text-[14px] mb-1 group-hover:text-[#6B9E50] transition-colors">{r.name}</div>
-                  <div className="text-[11px] text-[#B0A898]/50 italic mb-3 font-light">{r.tagline}</div>
+                  <div className="font-bold text-[#F0EBE0] text-[15px] mb-1 group-hover:text-[#6B9E50] transition-colors">{r.name}</div>
+                  <div className="text-[12px] text-[#D0C8BC] italic mb-3 font-medium">{r.tagline}</div>
 
                   {/* Description */}
-                  <p className="text-[12px] text-[#B0A898]/80 leading-[1.7] font-light mb-3">{r.description}</p>
+                  <p className="text-[13px] text-[#C8BEB0] leading-[1.7] font-normal mb-3">{r.description}</p>
 
                   {/* Expand/collapse for details */}
                   <button onClick={() => setExpandedId(isExpanded ? null : r.amount)}
                     className="text-[11px] text-[#6B9E50] font-bold mb-2 text-left hover:text-[#8BC06A] transition-colors flex items-center gap-1">
-                    {isExpanded ? 'Ocultar detalle' : 'Ver que incluye'}
+                    {isExpanded ? 'Ocultar detalle' : 'Ver qué incluye'}
                     <svg className={`w-3 h-3 transition-transform ${isExpanded ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                   </button>
 
@@ -956,29 +978,29 @@ function Rewards() {
               <div className="relative grid md:grid-cols-2 gap-8 items-center">
                 <div>
                   <div className="text-[10px] text-[#C8A96E] uppercase tracking-[0.25em] font-bold mb-2">Mecenazgo de alto impacto</div>
-                  <h3 className="landing-heading text-[1.5rem] md:text-[1.8rem] text-[#F0EBE0] mb-4">El Jardin-Homenaje NaturArt</h3>
-                  <p className="text-[14px] text-[#B0A898] leading-[1.8] font-light mb-4">
-                    Un espacio fisico permanente en la provincia de Leon donde cada mecenas deja su huella viva.
-                    Arboles plantados a tu nombre, espacios dedicados y un jardin que crece con la comunidad.
+                  <h3 className="landing-heading text-[1.5rem] md:text-[1.8rem] text-[#F0EBE0] mb-4">El Jardín-Homenaje NaturArt</h3>
+                  <p className="text-[15px] text-[#D0C8BC] leading-[1.8] font-normal mb-4">
+                    Un espacio físico permanente en la provincia de León donde cada mecenas deja su huella viva.
+                    Árboles plantados a tu nombre, espacios dedicados y un jardín que crece con la comunidad.
                   </p>
-                  <p className="text-[14px] text-[#B0A898] leading-[1.8] font-light">
-                    El Jardin-Homenaje es parte del <strong className="text-[#F0EBE0]">plan de consolidacion</strong> del proyecto (fase 4, agosto-diciembre 2026).
-                    Sera inaugurado con una facendera especial donde los mecenas plantaran sus arboles en persona.
+                  <p className="text-[15px] text-[#D0C8BC] leading-[1.8] font-normal">
+                    El Jardín-Homenaje es parte del <strong className="text-[#F0EBE0]">plan de consolidación</strong> del proyecto (fase 4, agosto-diciembre 2026).
+                    Será inaugurado con una facendera especial donde los mecenas plantarán sus árboles en persona.
                     Un legado vivo que trasciende lo digital.
                   </p>
                 </div>
                 <div className="grid grid-cols-3 gap-3">
                   {[
-                    { amount: '1.000 EUR', area: '10m2', trees: '1 arbol', label: 'Sembradora' },
-                    { amount: '2.000 EUR', area: '20m2', trees: '2 arboles', label: 'Hilandera' },
-                    { amount: '4.000 EUR', area: '50m2', trees: '5 arboles', label: 'Eco del Valle' },
+                    { amount: '1.000 EUR', area: '10m2', trees: '1 árbol', label: 'Sembradora' },
+                    { amount: '2.000 EUR', area: '20m2', trees: '2 árboles', label: 'Hilandera' },
+                    { amount: '4.000 EUR', area: '50m2', trees: '5 árboles', label: 'Eco del Valle' },
                   ].map((m, i) => (
                     <div key={i} className="card-dark text-center py-4 group hover:border-[#C8A96E]/30">
                       <div className="text-2xl mb-2">🌳</div>
                       <div className="text-[14px] font-bold text-[#C8A96E] landing-heading">{m.amount}</div>
                       <div className="text-[11px] text-[#F0EBE0] font-bold mt-1">{m.label}</div>
-                      <div className="text-[10px] text-[#B0A898]/60 mt-2 space-y-0.5">
-                        <div>{m.area} de jardin</div>
+                      <div className="text-[12px] text-[#E0D8CC] font-semibold mt-2 space-y-0.5">
+                        <div>{m.area} de jardín</div>
                         <div>{m.trees}</div>
                       </div>
                     </div>
@@ -1006,7 +1028,6 @@ function Rewards() {
 function CollabCard({ c, i }) {
   const ref = useRef(null)
   const visible = useInView(ref, 0.1)
-  const isConfirmed = c.status === 'Confirmado'
 
   return (
     <div ref={ref}
@@ -1035,34 +1056,17 @@ function CollabCard({ c, i }) {
         <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
           style={{ boxShadow: `inset 0 0 0 1.5px ${c.categoryColor}60, 0 0 30px ${c.categoryColor}20` }} />
 
-        {/* Status badge top-right */}
-        <div className="absolute top-4 right-4">
-          <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold backdrop-blur-md border ${isConfirmed ? 'bg-[#6B9E50]/20 border-[#6B9E50]/40 text-[#6B9E50]' : 'bg-[#E86A33]/15 border-[#E86A33]/30 text-[#E86A33]'}`}>
-            <span className={`w-1.5 h-1.5 rounded-full ${isConfirmed ? 'bg-[#6B9E50]' : 'bg-[#E86A33] animate-pulse'}`} />
-            {c.status}
-          </div>
-        </div>
-
-        {/* Category chip top-left */}
-        <div className="absolute top-4 left-4">
-          <div className="px-3 py-1 rounded-full text-[10px] font-bold backdrop-blur-md border"
-            style={{ color: c.categoryColor, borderColor: `${c.categoryColor}40`, background: `${c.categoryColor}15` }}>
-            {c.category}
-          </div>
-        </div>
-
         {/* Content at bottom */}
         <div className="absolute bottom-0 left-0 right-0 p-5">
-          <h3 className="font-bold text-white text-[15px] leading-tight mb-2 group-hover:text-[#6B9E50] transition-colors duration-300">
+          <h3 className="font-bold text-white text-[16px] leading-tight mb-2 group-hover:text-[#6B9E50] transition-colors duration-300">
             {c.title}
           </h3>
-          <p className="text-[12px] text-white/70 leading-[1.65] font-light mb-3 line-clamp-2 group-hover:line-clamp-none transition-all duration-300">
+          <p className="text-[13px] text-white/80 leading-[1.7] font-normal mb-3 line-clamp-2 group-hover:line-clamp-none transition-all duration-300">
             {c.description}
           </p>
 
-          {/* Skills + commitment row */}
-          <div className="flex items-center justify-between gap-3">
-            <span className="text-[10px] text-white/40 italic truncate">{c.skills}</span>
+          {/* Commitment pill */}
+          <div className="flex items-center gap-3">
             <span className="shrink-0 px-2.5 py-1 rounded-full text-[10px] font-semibold bg-white/10 text-white/70 border border-white/10">
               {c.commitment}
             </span>
@@ -1074,16 +1078,6 @@ function CollabCard({ c, i }) {
 }
 
 function Collaborations() {
-  const [filter, setFilter] = useState('Todas')
-  const filters = ['Todas', 'Buscando', 'Confirmado']
-
-  const filtered = filter === 'Todas'
-    ? collaborations
-    : collaborations.filter(c => c.status === filter)
-
-  // Group by category for the "pills" strip
-  const categories = [...new Set(collaborations.map(c => c.category))]
-
   return (
     <section id="colabora" className="py-24 md:py-36 relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #1E1D19 0%, #2C2A25 40%, #1E1D19 100%)' }}>
       {/* Decorative background blobs */}
@@ -1102,36 +1096,16 @@ function Collaborations() {
               Aporta tu talento,<br />
               <span className="text-[#6B9E50]">construye el rural</span>
             </h2>
-            <p className="text-[16px] md:text-[17px] text-[#B0A898] font-light max-w-2xl mx-auto leading-[1.75]">
-              Rural Makers crece con cada persona que aporta su talento. Aqui puedes ver que necesitamos — sin dinero, con tiempo, saberes o espacio.
+            <p className="text-[17px] md:text-[18px] text-[#D0C8BC] font-normal max-w-2xl mx-auto leading-[1.75]">
+              Rural Makers crece con cada persona que aporta su talento. Aquí puedes ver qué necesitamos — sin dinero, con tiempo, saberes o espacio.
             </p>
             <div className="title-divider" />
           </div>
         </FadeIn>
 
-        {/* Filter bar */}
-        <FadeIn delay={100}>
-          <div className="flex items-center justify-center gap-3 mb-12 flex-wrap">
-            {filters.map(f => (
-              <button key={f} onClick={() => setFilter(f)}
-                className={`px-5 py-2 rounded-full text-[13px] font-bold transition-all duration-300 ${filter === f
-                  ? 'bg-[#6B9E50] text-white shadow-lg shadow-[#6B9E50]/25 scale-105'
-                  : 'bg-white/5 text-[#B0A898] border border-white/10 hover:bg-white/10 hover:text-white'}`}>
-                {f}
-                {f !== 'Todas' && (
-                  <span className={`ml-1.5 text-[10px] ${filter === f ? 'text-white/70' : 'text-[#B0A898]/50'}`}>
-                    ({collaborations.filter(c => c.status === f).length})
-                  </span>
-                )}
-              </button>
-            ))}
-            <span className="text-[11px] text-[#B0A898]/40 ml-2">{filtered.length} perfiles</span>
-          </div>
-        </FadeIn>
-
-        {/* Cards grid */}
+        {/* Cards grid — sin filtros */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-          {filtered.map((c, i) => (
+          {collaborations.map((c, i) => (
             <CollabCard key={c.title} c={c} i={i} />
           ))}
         </div>
@@ -1146,10 +1120,10 @@ function Collaborations() {
               <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(107,158,80,0.4) 0%, rgba(44,42,37,0.9) 50%, rgba(232,106,51,0.3) 100%)' }} />
 
               <div className="relative px-8 py-10 md:px-14 md:py-12 text-center">
-                <div className="text-[12px] text-[#6B9E50] uppercase tracking-[0.2em] font-bold mb-3">Tu perfil no esta en la lista?</div>
-                <h3 className="landing-heading text-[1.6rem] md:text-[2rem] text-[#F0EBE0] mb-3">Cuéntanos que puedes aportar</h3>
-                <p className="text-[14px] text-[#B0A898] font-light mb-7 max-w-lg mx-auto">
-                  Si tienes algun saber, recurso o idea que pueda ayudar al movimiento rural, queremos escucharte.
+                <div className="text-[12px] text-[#6B9E50] uppercase tracking-[0.2em] font-bold mb-3">Tu perfil no está en la lista?</div>
+                <h3 className="landing-heading text-[1.6rem] md:text-[2rem] text-[#F0EBE0] mb-3">Cuéntanos qué puedes aportar</h3>
+                <p className="text-[15px] text-[#D0C8BC] font-normal mb-7 max-w-lg mx-auto">
+                  Si tienes algún saber, recurso o idea que pueda ayudar al movimiento rural, queremos escucharte.
                 </p>
                 <a href="mailto:hola@ruralmakers.net"
                   className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#6B9E50] text-white font-bold text-[14px] hover:bg-[#7ab55c] transition-all duration-300 shadow-xl shadow-[#6B9E50]/25 hover:scale-105 hover:shadow-[#6B9E50]/35">
@@ -1168,14 +1142,14 @@ function Collaborations() {
 // ─── BUDGET ─────────────────────────────────────────────────────
 function Budget() {
   const items = [
-    { label: 'Coordinacion desarrollo app', amount: 2000, pct: 19 },
+    { label: 'Coordinación desarrollo app', amount: 2000, pct: 19 },
     { label: 'Herramientas IA y agentes', amount: 2000, pct: 19 },
-    { label: 'Facilitacion desarrollo humano', amount: 2000, pct: 19 },
-    { label: 'Programacion frontend + backend', amount: 1500, pct: 14 },
+    { label: 'Facilitación desarrollo humano', amount: 2000, pct: 19 },
+    { label: 'Programación frontend + backend', amount: 1500, pct: 14 },
     { label: 'Comisiones y llaveros', amount: 1100, pct: 10 },
-    { label: 'Diseno UX/UI colaborativo', amount: 1000, pct: 9 },
-    { label: 'Identidad grafica', amount: 600, pct: 6 },
-    { label: 'Comunicacion y redes', amount: 500, pct: 5 },
+    { label: 'Diseño UX/UI colaborativo', amount: 1000, pct: 9 },
+    { label: 'Identidad gráfica', amount: 600, pct: 6 },
+    { label: 'Comunicación y redes', amount: 500, pct: 5 },
   ]
 
   const ref = useRef(null)
@@ -1187,7 +1161,7 @@ function Budget() {
         <FadeIn>
           <div className="text-center mb-16">
             <h2 className="landing-heading text-[2rem] md:text-[2.8rem] text-[#F0EBE0] mb-3">Presupuesto transparente</h2>
-            <p className="text-[15px] text-[#B0A898] font-light mt-4">Cada euro tiene su destino</p>
+            <p className="text-[15px] text-[#D0C8BC] font-normal mt-4">Cada euro tiene su destino</p>
             <div className="title-divider" />
           </div>
         </FadeIn>
@@ -1196,14 +1170,14 @@ function Budget() {
           <FadeIn delay={100} direction="left">
             <div className="card-dark">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="font-bold text-[#F0EBE0] text-[15px]">Objetivo Minimo</h3>
+                <h3 className="font-bold text-[#F0EBE0] text-[15px]">Objetivo Mínimo</h3>
                 <span className="text-xl font-bold text-[#6B9E50] landing-heading">{FUNDING_MIN.toLocaleString('es')} EUR</span>
               </div>
               <div className="space-y-4">
                 {items.map((item, i) => (
                   <div key={i}>
                     <div className="flex justify-between text-[13px] mb-1">
-                      <span className="text-[#B0A898] font-light">{item.label}</span>
+                      <span className="text-[#D0C8BC] font-normal">{item.label}</span>
                       <span className="font-bold text-[#F0EBE0]">{item.amount.toLocaleString('es')} EUR</span>
                     </div>
                     <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
@@ -1220,13 +1194,13 @@ function Budget() {
               <GlowOrb color="#6B9E50" size="200px" top="-50px" right="-50px" blur={80} opacity={0.1} />
               <div className="relative">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="font-bold text-[#F0EBE0] text-[15px]">Objetivo Optimo</h3>
+                  <h3 className="font-bold text-[#F0EBE0] text-[15px]">Objetivo Óptimo</h3>
                   <span className="text-xl font-bold text-[#C8A96E] landing-heading">{FUNDING_OPT.toLocaleString('es')} EUR</span>
                 </div>
-                <p className="text-[13px] text-[#B0A898] mb-5 font-light">Todo lo del minimo + expansion a red estatal:</p>
-                {['Fondo impulso facenderas — 6.000 EUR', 'Soporte legal integral — 5.000 EUR', 'Jardin-Homenaje NaturArt — 3.000 EUR', 'Promocion y difusion — 3.000 EUR',
-                  'Comisiones Goteo y bancos — 3.000 EUR', 'Expansion territorial estatal', 'Formacion avanzada facilitadores', 'Documentacion audiovisual'].map((item, i) => (
-                  <div key={i} className="flex items-start gap-2.5 text-[13px] py-1.5 font-light">
+                <p className="text-[13px] text-[#D0C8BC] mb-5 font-normal">Todo lo del mínimo + expansión a red estatal:</p>
+                {['Fondo impulso facenderas — 6.000 EUR', 'Soporte legal integral — 5.000 EUR', 'Jardín-Homenaje NaturArt — 3.000 EUR', 'Promoción y difusión — 3.000 EUR',
+                  'Comisiones Goteo y bancos — 3.000 EUR', 'Expansión territorial estatal', 'Formación avanzada facilitadores', 'Documentación audiovisual'].map((item, i) => (
+                  <div key={i} className="flex items-start gap-2.5 text-[13px] py-1.5 font-normal">
                     <span className="text-[#6B9E50] mt-0.5 shrink-0">→</span>
                     <span className="text-[#B0A898]">{item}</span>
                   </div>
@@ -1244,23 +1218,23 @@ function Budget() {
 function Timeline() {
   const phases = [
     {
-      phase: 'Campana activa', date: 'Mar - May 2026', active: true,
-      items: ['Crowdfunding en Goteo.org (40 dias)', 'Difusion y construccion de comunidad', 'Entrega inmediata de recompensas digitales'],
+      phase: 'Campaña activa', date: 'Mar - May 2026', active: true,
+      items: ['Crowdfunding en Goteo.org (40 días)', 'Difusión y construcción de comunidad', 'Entrega inmediata de recompensas digitales'],
       color: '#6B9E50', icon: '🌱',
     },
     {
       phase: 'Desarrollo', date: 'May - Jul 2026',
-      items: ['Desarrollo de la app Rural Makers', 'Integracion de IA etica y agentes', '5 facenderas piloto en Leon'],
+      items: ['Desarrollo de la app Rural Makers', 'Integración de IA ética y agentes', '5 facenderas piloto en León'],
       color: '#3B82F6', icon: '⚙️',
     },
     {
       phase: 'Lanzamiento', date: 'Ago - Oct 2026',
-      items: ['App publica y codigo abierto', 'Entrega de recompensas experienciales', 'Rutas bano de bosque y talleres de domo'],
+      items: ['App pública y código abierto', 'Entrega de recompensas experienciales', 'Rutas baño de bosque y talleres de domo'],
       color: '#E86A33', icon: '🚀',
     },
     {
-      phase: 'Consolidacion', date: 'Nov 2026 - Mar 2027',
-      items: ['Publicacion de metodologia libre', 'Inauguracion del Jardin-Homenaje NaturArt', 'Expansion de red a escala estatal'],
+      phase: 'Consolidación', date: 'Nov 2026 - Mar 2027',
+      items: ['Publicación de metodología libre', 'Inauguración del Jardín-Homenaje NaturArt', 'Expansión de red a escala estatal'],
       color: '#C8A96E', icon: '🌳',
     },
   ]
@@ -1272,10 +1246,10 @@ function Timeline() {
           <div className="text-center mb-6">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#6B9E50]/10 border border-[#6B9E50]/20 text-[#6B9E50] text-[11px] font-bold uppercase tracking-[0.2em] mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#6B9E50] animate-pulse" />
-              Campana activa ahora mismo
+              Campaña activa ahora mismo
             </div>
             <h2 className="landing-heading text-[2rem] md:text-[2.8rem] text-[#F0EBE0] mb-3">Cronograma del proyecto</h2>
-            <p className="text-[14px] text-[#B0A898] font-light mb-6">Arrancamos en marzo 2026. Cada fase depende del exito de la campana.</p>
+            <p className="text-[15px] text-[#D0C8BC] font-normal mb-6">Arrancamos en marzo 2026. Cada fase depende del éxito de la campaña.</p>
             <div className="title-divider" />
           </div>
         </FadeIn>
@@ -1308,7 +1282,7 @@ function Timeline() {
                         )}
                       </div>
                       {p.items.map((item, j) => (
-                        <div key={j} className="text-[13px] font-light py-1 flex gap-2" style={{ color: p.active ? '#D0C8BC' : '#B0A898' }}>
+                        <div key={j} className="text-[13px] font-normal py-1 flex gap-2" style={{ color: p.active ? '#D0C8BC' : '#B0A898' }}>
                           <span style={{ color: p.color }}>→</span> {item}
                         </div>
                       ))}
@@ -1329,69 +1303,98 @@ function Timeline() {
 }
 
 // ─── TEAM CARD ──────────────────────────────────────────────────
-function TeamVideoEmbed({ videoUrl }) {
-  const id = (() => {
+function TeamCard({ cfg }) {
+  const [showVideo, setShowVideo] = useState(false)
+  const videoUrl = cfg.teamVideo || 'https://youtu.be/11Ud97j7MpE'
+  const videoId = (() => {
     const match = videoUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^?&/]+)/)
     return match ? match[1] : videoUrl
   })()
-  return (
-    <iframe
-      src={`https://www.youtube.com/embed/${id}?rel=0`}
-      className="w-full h-full"
-      allow="encrypted-media"
-      allowFullScreen
-      loading="lazy"
-      title="CowoCyL — Lugar de Sinergias"
-    />
-  )
-}
-
-function TeamCard({ cfg }) {
-  const videoUrl = cfg.teamVideo || 'https://youtu.be/11Ud97j7MpE'
 
   return (
     <div className="card-dark relative overflow-hidden mb-8" style={{ background: 'linear-gradient(135deg, rgba(107,158,80,0.08) 0%, rgba(107,158,80,0.02) 100%)', borderColor: 'rgba(107,158,80,0.15)' }}>
       <GlowOrb color="#6B9E50" size="200px" top="-50px" right="-50px" blur={100} opacity={0.08} />
-      <style>{`@media(min-width:768px){.team-row{flex-direction:row!important}.team-vid-side{display:flex!important}}`}</style>
 
-      <div className="relative team-row flex flex-col gap-7" style={{ flexDirection: 'column' }}>
+      <div className="relative flex flex-col md:flex-row gap-7">
         {/* Info */}
-        <div style={{ flex: 1 }}>
+        <div className="flex-1">
           <div className="flex items-center gap-4 mb-5">
             {cfg.teamPhoto ? (
-              <img src={cfg.teamPhoto} alt="Alipio" className="w-20 h-20 rounded-2xl object-cover shadow-xl shadow-[#6B9E50]/20 border-2 border-[#6B9E50]/20" style={{ flexShrink: 0 }} />
+              <img src={cfg.teamPhoto} alt="Alipio" className="w-20 h-20 rounded-2xl object-cover shadow-xl shadow-[#6B9E50]/20 border-2 border-[#6B9E50]/20 shrink-0" />
             ) : (
-              <div className="w-20 h-20 bg-gradient-to-br from-[#6B9E50] to-[#4E7A38] rounded-2xl flex items-center justify-center text-white text-3xl font-bold landing-heading shadow-xl shadow-[#6B9E50]/20" style={{ flexShrink: 0 }}>A</div>
+              <div className="w-20 h-20 bg-gradient-to-br from-[#6B9E50] to-[#4E7A38] rounded-2xl flex items-center justify-center text-white text-3xl font-bold landing-heading shadow-xl shadow-[#6B9E50]/20 shrink-0">A</div>
             )}
             <div>
               <div className="text-[10px] text-[#6B9E50] uppercase tracking-[0.2em] font-bold mb-0.5">Impulsor del proyecto</div>
               <h3 className="text-xl font-bold text-[#F0EBE0] landing-heading">{cfg.teamName || 'Alipio'}</h3>
-              <p className="text-[12px] text-[#B0A898]/60 font-light">{cfg.teamOrg || 'Asociacion Indira'} | La Omana, Leon</p>
+              <p className="text-[13px] text-[#D0C8BC]/70 font-normal">{cfg.teamOrg || 'Asociación Indira'} | La Omaña, León</p>
             </div>
           </div>
-          <p className="text-[14px] text-[#B0A898] leading-[1.8] mb-4 font-light">
-            {cfg.teamBio || 'Mas de 25 anos construyendo alternativas: fundador de Ecoalternative y Certyetic, coordinador de redes de economia social. Experto en WordPress, IA y blockchain al servicio del bien comun.'}
+          <p className="text-[15px] text-[#D0C8BC] leading-[1.8] mb-4 font-normal">
+            {cfg.teamBio || 'Más de 25 años construyendo alternativas: fundador de Ecoalternative y Certyetic, coordinador de redes de economía social. Experto en WordPress, IA y blockchain al servicio del bien común.'}
           </p>
-          <p className="text-[14px] text-[#C8A96E] italic landing-heading leading-[1.6]">
-            &ldquo;{cfg.teamQuote || 'Demostrar que la tecnologia puede ponerse al servicio de la cooperacion rural, uniendo tradicion e innovacion.'}&rdquo;
+          <p className="text-[15px] text-[#C8A96E] italic landing-heading leading-[1.6]">
+            &ldquo;{cfg.teamQuote || 'Demostrar que la tecnología puede ponerse al servicio de la cooperación rural, uniendo tradición e innovación.'}&rdquo;
           </p>
         </div>
 
-        {/* Video vertical — visible solo en desktop via CSS */}
-        <div className="team-vid-side flex-col items-center" style={{ display: 'none', width: 220, flexShrink: 0 }}>
-          <div className="text-[9px] text-[#6B9E50] uppercase tracking-[0.2em] font-bold mb-2 text-center">CowoCyL — Sinergias</div>
-          <div className="rounded-xl overflow-hidden bg-black/40 w-full" style={{ aspectRatio: '9/16' }}>
-            <TeamVideoEmbed videoUrl={videoUrl} />
+        {/* Vídeo con poster de paisaje + botón play */}
+        <div className="hidden md:flex flex-col items-center shrink-0" style={{ width: 220 }}>
+          <div className="text-[9px] text-[#6B9E50] uppercase tracking-[0.2em] font-bold mb-2 text-center">Conoce el proyecto</div>
+          <div className="rounded-xl overflow-hidden w-full bg-black/40 relative" style={{ aspectRatio: '9/16' }}>
+            {showVideo ? (
+              <iframe
+                src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
+                className="w-full h-full"
+                allow="autoplay; encrypted-media" allowFullScreen
+                title="Vídeo del proyecto Rural Makers" />
+            ) : (
+              <div className="relative w-full h-full cursor-pointer group" onClick={() => setShowVideo(true)}>
+                <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400&q=80&fit=crop" alt="Paisaje rural León"
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#2C2A25]/80 via-[#2C2A25]/30 to-transparent" />
+                {/* Play button */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-14 h-14 rounded-full bg-[#6B9E50]/90 flex items-center justify-center shadow-2xl shadow-[#6B9E50]/40 group-hover:scale-110 group-hover:bg-[#6B9E50] transition-all duration-300">
+                    <svg className="w-6 h-6 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                </div>
+                <div className="absolute bottom-3 left-3 right-3">
+                  <p className="text-[10px] text-[#F0EBE0] font-bold uppercase tracking-[0.12em]">▶ Ver vídeo</p>
+                  <p className="text-[9px] text-[#D0C8BC]/70 font-normal mt-0.5">CowoCyL — Sinergias</p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Video mobile fallback (solo visible <768px, oculto por CSS en desktop via team-vid-side) */}
-      <div className="mt-6 pt-5 border-t border-white/5 team-vid-mobile">
-        <style>{`@media(min-width:768px){.team-vid-mobile{display:none!important}}`}</style>
-        <div className="text-[9px] text-[#6B9E50] uppercase tracking-[0.2em] font-bold mb-2">CowoCyL — Lugar de Sinergias</div>
-        <div className="rounded-xl overflow-hidden bg-black/40 mx-auto" style={{ aspectRatio: '9/16', maxWidth: 280 }}>
-          <TeamVideoEmbed videoUrl={videoUrl} />
+      {/* Vídeo mobile */}
+      <div className="mt-6 pt-5 border-t border-white/5 md:hidden">
+        <div className="rounded-xl overflow-hidden bg-black/40 mx-auto relative" style={{ aspectRatio: '16/9', maxWidth: 400 }}>
+          {showVideo ? (
+            <iframe
+              src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
+              className="w-full h-full"
+              allow="autoplay; encrypted-media" allowFullScreen
+              title="Vídeo del proyecto Rural Makers" />
+          ) : (
+            <div className="relative w-full h-full cursor-pointer group" onClick={() => setShowVideo(true)}>
+              <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=70&fit=crop" alt="Paisaje rural"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div className="absolute inset-0 bg-black/30" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-14 h-14 rounded-full bg-[#6B9E50]/90 flex items-center justify-center shadow-xl group-hover:scale-110 transition-all">
+                  <svg className="w-6 h-6 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                </div>
+              </div>
+              <div className="absolute bottom-3 left-3">
+                <p className="text-[11px] text-white font-bold">▶ Ver vídeo del proyecto</p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -1415,40 +1418,6 @@ function Team() {
           <FadeIn delay={100}>
             <TeamCard cfg={cfg} />
           </FadeIn>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <FadeIn delay={200} direction="left">
-              <div className="card-dark">
-                <h4 className="font-bold text-[#F0EBE0] mb-5 text-[11px] uppercase tracking-[0.2em]">Roles del equipo</h4>
-                {[{ r: 'Desarrollo tech', s: 'Buscando', c: '#E86A33' }, { r: 'Coordinacion', s: 'Alipio + equipo', c: '#6B9E50' }, { r: 'Comunicacion', s: 'En formacion', c: '#C8A96E' }, { r: 'Facilitacion', s: 'Red activa', c: '#6B9E50' }, { r: 'Diseno', s: 'Buscando', c: '#E86A33' }].map((item, i) => (
-                  <div key={i} className="flex justify-between py-2.5 border-b border-white/5 last:border-0 text-[13px]">
-                    <span className="text-[#B0A898] font-light">{item.r}</span>
-                    <span className="text-[11px] px-2.5 py-0.5 rounded-full border font-medium" style={{ color: item.c, borderColor: `${item.c}30` }}>{item.s}</span>
-                  </div>
-                ))}
-              </div>
-            </FadeIn>
-            <FadeIn delay={300} direction="right">
-              <div className="card-dark">
-                <h4 className="font-bold text-[#F0EBE0] mb-5 text-[11px] uppercase tracking-[0.2em]">Alianzas</h4>
-                {[
-                  { n: 'Fab Lab Leon', desc: 'Espacio maker para prototipado y facenderas tecnologicas', c: '#6B9E50' },
-                  { n: 'Canal Rural Goteo', desc: 'Plataforma de crowdfunding civico que acoge la campana', c: '#6B9E50' },
-                  { n: 'REAS CyL', desc: 'Red de economia alternativa y solidaria de Castilla y Leon', c: '#C8A96E' },
-                  { n: 'Grupos rurales Leon', desc: 'Comunidades locales que activan facenderas en el territorio', c: '#E86A33' },
-                  { n: 'Entidades tech eticas', desc: 'Colectivos tecnologicos que comparten valores de procomun', c: '#E86A33' },
-                ].map((a, i) => (
-                  <div key={i} className="py-3 border-b border-white/5 last:border-0">
-                    <div className="flex items-center gap-2 mb-0.5">
-                      <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: a.c }} />
-                      <span className="text-[#F0EBE0] text-[13px] font-medium">{a.n}</span>
-                    </div>
-                    <p className="text-[11px] text-[#B0A898]/60 font-light pl-3.5 leading-snug">{a.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </FadeIn>
-          </div>
         </div>
       </div>
     </section>
@@ -1459,14 +1428,14 @@ function Team() {
 function FAQ() {
   const [openIdx, setOpenIdx] = useState(null)
   const faqs = [
-    { q: 'Que pasa si no se llega al objetivo minimo?', a: 'Si la campana no alcanza los 10.700 EUR, se devuelve todo el dinero a los mecenas. Goteo funciona con el modelo de "todo o nada" en la primera ronda.' },
-    { q: 'Cual es la diferencia entre minimo y optimo?', a: 'El minimo (10.700 EUR) cubre el desarrollo de la app y 5 facenderas piloto en Leon. El optimo (55.000 EUR) permite expandir a red estatal, crear el Jardin-Homenaje, formacion avanzada y documentacion profesional.' },
-    { q: 'Cuando se entregan las recompensas?', a: 'Las recompensas digitales se entregan nada mas finalizar la campana (mayo 2026). Las experienciales (rutas, talleres, bano de bosque, taller de domo) entre agosto y diciembre de 2026.' },
-    { q: 'El codigo de la app sera realmente abierto?', a: 'Si. Publicaremos todo el codigo bajo licencia AGPL-3.0 y el contenido bajo CC BY-SA 4.0. Cualquier persona o comunidad podra replicar, adaptar y mejorar la plataforma.' },
-    { q: 'Puedo colaborar sin dinero?', a: 'Por supuesto. Necesitamos personas que difundan, que participen en facenderas, que aporten saberes, que ayuden con traduccion, diseno, codigo... Contacta en hola@ruralmakers.net.' },
-    { q: 'Quien gestiona los fondos?', a: 'La Asociacion Indira es la entidad beneficiaria inicial. El proyecto evoluciona hacia una estructura confederal (ASASA) con gobernanza participativa.' },
-    { q: 'Es deducible fiscalmente?', a: 'Las donaciones a traves de Goteo pueden tener ventajas fiscales. Consulta con tu asesor fiscal las deducciones aplicables en tu comunidad autonoma.' },
-    { q: 'Como puedo contactar?', a: 'Escribe a hola@ruralmakers.net o visitanos en ruralmakers.net. Tambien en redes sociales como @ruralmakers.' },
+    { q: '¿Qué pasa si no se llega al objetivo mínimo?', a: 'Si la campaña no alcanza los 10.700 EUR, se devuelve todo el dinero a los mecenas. Goteo funciona con el modelo de "todo o nada" en la primera ronda.' },
+    { q: '¿Cuál es la diferencia entre mínimo y óptimo?', a: 'El mínimo (10.700 EUR) cubre el desarrollo de la app y 5 facenderas piloto en León. El óptimo (55.000 EUR) permite expandir a red estatal, crear el Jardín-Homenaje, formación avanzada y documentación profesional.' },
+    { q: '¿Cuándo se entregan las recompensas?', a: 'Las recompensas digitales se entregan nada más finalizar la campaña (mayo 2026). Las experienciales (rutas, talleres, baño de bosque, taller de domo) entre agosto y diciembre de 2026.' },
+    { q: '¿El código de la app será realmente abierto?', a: 'Sí. Publicaremos todo el código bajo licencia AGPL-3.0 y el contenido bajo CC BY-SA 4.0. Cualquier persona o comunidad podrá replicar, adaptar y mejorar la plataforma.' },
+    { q: '¿Puedo colaborar sin dinero?', a: 'Por supuesto. Necesitamos personas que difundan, que participen en facenderas, que aporten saberes, que ayuden con traducción, diseño, código... Contacta en hola@ruralmakers.net.' },
+    { q: '¿Quién gestiona los fondos?', a: 'La Asociación Indira es la entidad beneficiaria inicial. El proyecto evoluciona hacia una estructura confederal (ASASA) con gobernanza participativa.' },
+    { q: '¿Es deducible fiscalmente?', a: 'Las donaciones a través de Goteo pueden tener ventajas fiscales. Consulta con tu asesor fiscal las deducciones aplicables en tu comunidad autónoma.' },
+    { q: '¿Cómo puedo contactar?', a: 'Escribe a hola@ruralmakers.net o visítanos en ruralmakers.net. También en redes sociales como @ruralmakers.' },
   ]
 
   return (
@@ -1492,7 +1461,7 @@ function FAQ() {
                   </div>
                 </button>
                 <div className={`overflow-hidden transition-all duration-300 ${openIdx === i ? 'max-h-40 opacity-100 mt-4' : 'max-h-0 opacity-0'}`}>
-                  <p className="text-[13px] text-[#B0A898] leading-[1.8] font-light px-1">{faq.a}</p>
+                  <p className="text-[14px] text-[#C8BEB0] leading-[1.8] font-normal px-1">{faq.a}</p>
                 </div>
               </div>
             </FadeIn>
@@ -1506,14 +1475,14 @@ function FAQ() {
 // ─── MAP (interactive La Omaña) ─────────────────────────────────
 function MapSection() {
   const locations = [
-    { name: 'La Omana', lat: 42.82, lng: -6.05, type: 'base', desc: 'Sede del proyecto' },
-    { name: 'Murias de Paredes', lat: 42.85, lng: -6.20, type: 'facendera', desc: 'Facendera de bioconstruccion' },
-    { name: 'Riello', lat: 42.79, lng: -6.07, type: 'facendera', desc: 'Taller de artesania en cuero' },
-    { name: 'Villablino', lat: 42.94, lng: -6.32, type: 'planned', desc: 'Ruta de saberes en preparacion' },
-    { name: 'Leon capital', lat: 42.60, lng: -5.57, type: 'hub', desc: 'Fab Lab Leon - Alianza confirmada' },
+    { name: 'La Omaña', lat: 42.82, lng: -6.05, type: 'base', desc: 'Sede del proyecto' },
+    { name: 'Murias de Paredes', lat: 42.85, lng: -6.20, type: 'facendera', desc: 'Facendera de bioconstrucción' },
+    { name: 'Riello', lat: 42.79, lng: -6.07, type: 'facendera', desc: 'Taller de artesanía en cuero' },
+    { name: 'Villablino', lat: 42.94, lng: -6.32, type: 'planned', desc: 'Ruta de saberes en preparación' },
+    { name: 'León capital', lat: 42.60, lng: -5.57, type: 'hub', desc: 'Hub urbano — conexión rural-ciudad' },
     { name: 'Astorga', lat: 42.46, lng: -6.06, type: 'planned', desc: 'Facendera digital rural' },
-    { name: 'Bembibre', lat: 42.62, lng: -6.42, type: 'planned', desc: 'Cooperativa energetica solar' },
-    { name: 'Riano', lat: 42.98, lng: -5.07, type: 'planned', desc: 'Ruta de bano de bosque' },
+    { name: 'Bembibre', lat: 42.62, lng: -6.42, type: 'planned', desc: 'Cooperativa energética solar' },
+    { name: 'Riaño', lat: 42.98, lng: -5.07, type: 'planned', desc: 'Ruta de baño de bosque' },
   ]
 
   const [active, setActive] = useState(null)
@@ -1535,7 +1504,7 @@ function MapSection() {
         <FadeIn>
           <div className="text-center mb-14">
             <h2 className="landing-heading text-[2rem] md:text-[2.8rem] text-[#F0EBE0] mb-3">Mapa del territorio</h2>
-            <p className="text-[15px] text-[#B0A898] font-light mt-4">Donde nacen y crecen las facenderas</p>
+            <p className="text-[15px] text-[#D0C8BC] font-normal mt-4">Donde nacen y crecen las facenderas</p>
             <div className="title-divider" />
           </div>
         </FadeIn>
@@ -1612,7 +1581,7 @@ function MapSection() {
                       <span className="w-2.5 h-2.5 rounded-full mt-1 shrink-0 shadow-lg" style={{ backgroundColor: typeColors[loc.type], boxShadow: active === i ? `0 0 8px ${typeColors[loc.type]}50` : 'none' }} />
                       <div>
                         <div className="text-[13px] text-[#F0EBE0] font-medium leading-tight">{loc.name}</div>
-                        <div className="text-[11px] text-[#B0A898]/60 font-light mt-0.5">{loc.desc}</div>
+                        <div className="text-[11px] text-[#B0A898]/60 font-normal mt-0.5">{loc.desc}</div>
                       </div>
                     </div>
                   </button>
@@ -1630,10 +1599,32 @@ function MapSection() {
 function FinalCTA() {
   const [email, setEmail] = useState('')
   const [subscribed, setSubscribed] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
-  const subscribe = (e) => {
+  const subscribe = async (e) => {
     e.preventDefault()
-    if (email.includes('@')) { setSubscribed(true); setEmail('') }
+    if (!email.includes('@')) return
+    setSubmitting(true)
+    setError('')
+    try {
+      const res = await fetch('/api/newsletter-subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'landing' }),
+      })
+      const data = await res.json()
+      if (res.ok) {
+        setSubscribed(true)
+        setEmail('')
+      } else {
+        setError(data.error || 'Error al suscribirse')
+      }
+    } catch {
+      setError('Error de conexión')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -1644,13 +1635,13 @@ function FinalCTA() {
       <div className="relative max-w-3xl mx-auto px-6 md:px-10 text-center">
         <FadeIn>
           <h2 className="landing-heading text-[2.2rem] md:text-[3.5rem] text-[#F0EBE0] mb-8 leading-[1.1]">
-            Tu tambien puedes ser parte de esta red
+            Tú también puedes ser parte de esta red
           </h2>
         </FadeIn>
         <FadeIn delay={100}>
-          <p className="text-[1.05rem] text-[#B0A898] mb-4 leading-[1.8] font-light">
+          <p className="text-[1.05rem] text-[#D0C8BC] mb-4 leading-[1.8] font-normal">
             Cada euro cuenta. Cada persona que se suma activa la red.
-            La campana dura 40 dias — si no llegamos al minimo, se devuelve todo.
+            La campaña dura 40 días — si no llegamos al mínimo, se devuelve todo.
           </p>
         </FadeIn>
         <FadeIn delay={200}>
@@ -1666,24 +1657,30 @@ function FinalCTA() {
           </div>
         </FadeIn>
 
-        {/* Newsletter */}
+        {/* Newsletter — desactivado hasta tener BBDD
         <FadeIn delay={350}>
           <div className="max-w-md mx-auto">
-            <p className="text-[12px] text-[#B0A898]/60 uppercase tracking-[0.2em] font-bold mb-4">Mantente informado</p>
+            <p className="text-[12px] text-[#C8BEB0] uppercase tracking-[0.2em] font-bold mb-4">Mantente informado</p>
             {subscribed ? (
               <div className="bg-[#6B9E50]/15 border border-[#6B9E50]/30 rounded-2xl p-4 text-[#6B9E50] text-sm font-medium">
-                Gracias! Te mantendremos al dia.
+                ¡Gracias! Te mantendremos al día.
               </div>
             ) : (
               <form onSubmit={subscribe} className="flex gap-2">
-                <input type="email" value={email} onChange={e => setEmail(e.target.value)}
-                  placeholder="tu@email.com"
-                  className="flex-1 px-5 py-3 bg-white/5 border border-white/10 rounded-full text-sm text-[#F0EBE0] placeholder:text-[#B0A898]/40 focus:outline-none focus:border-[#6B9E50]/50 transition" />
-                <button type="submit" className="btn-primary-landing text-sm py-3 px-6">Suscribir</button>
+                <input type="email" value={email} onChange={e => { setEmail(e.target.value); setError('') }}
+                  placeholder="tu@email.com" disabled={submitting}
+                  className="flex-1 px-5 py-3 bg-white/5 border border-white/10 rounded-full text-sm text-[#F0EBE0] placeholder:text-[#C8BEB0]/40 focus:outline-none focus:border-[#6B9E50]/50 transition disabled:opacity-50" />
+                <button type="submit" disabled={!email.includes('@') || submitting}
+                  className="btn-primary-landing text-sm py-3 px-6 disabled:opacity-50 flex items-center gap-2">
+                  {submitting && <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />}
+                  {submitting ? '...' : 'Suscribir'}
+                </button>
               </form>
             )}
+            {error && <p className="text-xs text-red-400 mt-2 text-center">{error}</p>}
           </div>
         </FadeIn>
+        */}
       </div>
     </section>
   )
@@ -1692,9 +1689,7 @@ function FinalCTA() {
 // ─── FOOTER ─────────────────────────────────────────────────────
 function Footer() {
   const socialLinks = [
-    { label: 'Instagram', icon: 'M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z' },
-    { label: 'Twitter', icon: 'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z' },
-    { label: 'Email', icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', stroke: true },
+    { label: 'Email', icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', stroke: true, href: 'mailto:hola@ruralmakers.net' },
   ]
 
   return (
@@ -1709,12 +1704,12 @@ function Footer() {
                 <span className="text-[10px] text-[#6B9E50] tracking-[0.2em] uppercase font-bold">Tejiendo Facenderas</span>
               </div>
             </div>
-            <p className="text-[13px] text-[#B0A898]/60 font-light leading-[1.7] max-w-sm mb-5">
-              Proyecto de codigo abierto para conectar comunidades rurales. Impulsado por Asociacion Indira desde La Omana, Leon.
+            <p className="text-[13px] text-[#C8BEB0]/80 font-normal leading-[1.7] max-w-sm mb-5">
+              Proyecto de código abierto para conectar comunidades rurales. Impulsado por Asociación Indira desde La Omaña, León.
             </p>
             <div className="flex gap-3">
               {socialLinks.map(s => (
-                <a key={s.label} href={s.label === 'Email' ? 'mailto:hola@ruralmakers.net' : '#'} target={s.label !== 'Email' ? '_blank' : undefined}
+                <a key={s.label} href={s.href}
                   className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#6B9E50]/20 hover:border-[#6B9E50]/30 transition-all group">
                   <svg className="w-4 h-4 text-[#B0A898] group-hover:text-[#6B9E50] transition-colors" viewBox="0 0 24 24"
                     fill={s.stroke ? 'none' : 'currentColor'} stroke={s.stroke ? 'currentColor' : 'none'} strokeWidth={s.stroke ? 1.5 : 0}>
@@ -1727,24 +1722,30 @@ function Footer() {
           <div>
             <div className="text-[10px] text-[#B0A898]/40 uppercase tracking-[0.2em] mb-4 font-bold">Enlaces</div>
             <div className="space-y-2.5 text-[13px]">
-              <a href="https://ruralmakers.net" target="_blank" rel="noopener noreferrer" className="block text-[#B0A898]/60 hover:text-[#F0EBE0] transition font-light">ruralmakers.net</a>
-              <a href={GOTEO_PROJECT_URL} target="_blank" rel="noopener noreferrer" className="block text-[#B0A898]/60 hover:text-[#F0EBE0] transition font-light">Campana en Goteo</a>
-              <Link to="/app" className="block text-[#B0A898]/60 hover:text-[#F0EBE0] transition font-light">Abrir App</Link>
-              <Link to="/admin" className="block text-[#B0A898]/60 hover:text-[#F0EBE0] transition font-light">Dashboard Admin</Link>
+              <a href="https://ruralmakers.net" target="_blank" rel="noopener noreferrer" className="block text-[#C8BEB0] hover:text-[#F0EBE0] transition font-normal">ruralmakers.net</a>
+              <a href={GOTEO_PROJECT_URL} target="_blank" rel="noopener noreferrer" className="block text-[#C8BEB0] hover:text-[#F0EBE0] transition font-normal">Campaña en Goteo</a>
+              <Link to="/app" className="block text-[#C8BEB0] hover:text-[#F0EBE0] transition font-normal">Abrir App</Link>
+              <Link to="/admin" className="block text-[#C8BEB0] hover:text-[#F0EBE0] transition font-normal">Dashboard Admin</Link>
             </div>
           </div>
           <div>
             <div className="text-[10px] text-[#B0A898]/40 uppercase tracking-[0.2em] mb-4 font-bold">Legal</div>
             <div className="space-y-2.5 text-[13px]">
-              <a href="mailto:hola@ruralmakers.net" className="block text-[#B0A898]/60 hover:text-[#F0EBE0] transition font-light">hola@ruralmakers.net</a>
-              <p className="text-[#B0A898]/40 font-light">Licencia: AGPL-3.0</p>
-              <p className="text-[#B0A898]/40 font-light">Contenido: CC BY-SA 4.0</p>
-              <p className="text-[#B0A898]/40 font-light">Beneficiaria: Asoc. Indira</p>
+              <a href="mailto:hola@ruralmakers.net" className="block text-[#C8BEB0] hover:text-[#F0EBE0] transition font-normal">hola@ruralmakers.net</a>
+              <p className="text-[#C8BEB0]/70 font-normal">Licencia: AGPL-3.0</p>
+              <p className="text-[#C8BEB0]/70 font-normal">Contenido: CC BY-SA 4.0</p>
+              <p className="text-[#C8BEB0]/70 font-normal">Beneficiaria: Asoc. Indira</p>
             </div>
           </div>
         </div>
         <div className="border-t border-white/5 pt-8 flex flex-wrap justify-between items-center gap-4">
-          <p className="text-[11px] text-[#B0A898]/30">2026-2027 Rural Makers. Proyecto de codigo abierto.</p>
+          <p className="text-[11px] text-[#B0A898]/30">
+            2026-2027 Rural Makers.{' '}
+            <a href="https://www.gnu.org/licenses/copyleft.es.html" target="_blank" rel="noopener noreferrer" className="hover:text-[#6B9E50] transition underline underline-offset-2">
+              Copyleft
+            </a>
+            {' '}— Proyecto de código abierto bajo licencia libre.
+          </p>
           <a href={GOTEO_PROJECT_URL} target="_blank" rel="noopener noreferrer" className="text-[11px] text-[#B0A898]/30 hover:text-[#6B9E50] transition">
             Impulsado con Goteo.org
           </a>
@@ -1769,7 +1770,7 @@ export default function LandingHome() {
       <Solution />
       <WaveDivider from="#2C2A25" to="#3A3830" type="wave" />
       <HowItWorks />
-      <WaveDivider from="#3A3830" to="#3A3830" type="mountain" flip />
+      <WaveDivider from="#3A3830" to="#3A3830" type="wave" flip />
       <Testimonials />
       <WaveDivider from="#3A3830" to="#3A3830" type="wave" flip />
       <Rewards />

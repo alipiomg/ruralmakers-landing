@@ -48,6 +48,7 @@ import LandingAdmin from './admin/pages/LandingAdmin'
 import HiggsFieldGenerator from './admin/pages/HiggsFieldGenerator'
 import RewardsAdmin from './admin/pages/RewardsAdmin'
 import ApiGuide from './admin/pages/ApiGuide'
+import NewsletterLeads from './admin/pages/NewsletterLeads'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -91,6 +92,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="goteo-optimizer" element={<GoteoOptimizer />} />
           <Route path="goteo-api" element={<GoteoApi />} />
           <Route path="crm" element={<ContactCRM />} />
+          <Route path="newsletter" element={<NewsletterLeads />} />
           <Route path="content-generator" element={<ContentGenerator />} />
           <Route path="templates" element={<Templates />} />
           <Route path="publish" element={<PublishPanel />} />

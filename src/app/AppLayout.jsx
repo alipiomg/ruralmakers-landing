@@ -3,9 +3,13 @@ import BottomNav from './components/BottomNav'
 
 export default function AppLayout() {
   return (
-    <div className="min-h-screen bg-rural-cream flex flex-col">
+    <div className="min-h-screen bg-rural-cream flex flex-col pt-7">
+      <div className="fixed top-0 left-0 right-0 z-50 bg-amber-500 text-amber-950 text-center text-xs font-semibold py-1.5 tracking-wide">
+        Versión prototipo — Solo de muestra, datos de prueba
+      </div>
+
       {/* App header */}
-      <header className="h-14 bg-white border-b border-gray-200 flex items-center px-4 shrink-0 sticky top-0 z-40">
+      <header className="h-14 bg-white border-b border-gray-200 flex items-center px-4 shrink-0 sticky top-7 z-40">
         <div className="w-8 h-8 bg-rural-green rounded-lg flex items-center justify-center text-white text-sm font-bold mr-3">RM</div>
         <h1 className="text-lg font-semibold text-gray-800">Rural Makers</h1>
         <div className="ml-auto flex items-center gap-2">
