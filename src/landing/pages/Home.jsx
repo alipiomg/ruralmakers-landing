@@ -162,7 +162,7 @@ function Nav() {
               {l.label}
             </button>
           ))}
-          <Link to="/app" className="text-[13px] text-[#6B9E50] font-bold hover:text-[#8BC06A] transition">App</Link>
+          <Link to="/conoce-la-app" className="text-[13px] text-[#6B9E50] font-bold hover:text-[#8BC06A] transition">La App</Link>
           <a href={GOTEO_PROJECT_URL} target="_blank" rel="noopener noreferrer"
             className="btn-primary-landing text-[13px] py-2.5 px-6 shadow-lg shadow-[#6B9E50]/20 hover:shadow-[#6B9E50]/40">
             Apoyar en Goteo
@@ -178,7 +178,7 @@ function Nav() {
         <div className="lg:hidden bg-[#2C2A25]/98 backdrop-blur-xl border-t border-white/5 px-6 py-5 space-y-1 animate-[fadeInDown_0.3s_ease]">
           {links.map(l => <button key={l.label} onClick={() => go(l.href)} className="block text-[#B0A898] text-sm py-2.5 hover:text-[#F0EBE0] hover:pl-2 transition-all w-full text-left">{l.label}</button>)}
           <div className="pt-3 mt-3 border-t border-white/5 space-y-3">
-            <Link to="/app" onClick={() => setOpen(false)} className="block text-[#6B9E50] font-bold text-sm py-1">Abrir App</Link>
+            <Link to="/conoce-la-app" onClick={() => setOpen(false)} className="block text-[#6B9E50] font-bold text-sm py-1">Conoce la App</Link>
             <a href={GOTEO_PROJECT_URL} target="_blank" rel="noopener noreferrer" className="btn-coral w-full text-sm py-3">Apoyar en Goteo</a>
           </div>
         </div>
@@ -1755,12 +1755,32 @@ function Footer() {
   )
 }
 
+// ─── BACK TO TOP ────────────────────────────────────────────────
+function BackToTop() {
+  const [show, setShow] = useState(false)
+  useEffect(() => {
+    const h = () => setShow(window.scrollY > 600)
+    window.addEventListener('scroll', h, { passive: true })
+    return () => window.removeEventListener('scroll', h)
+  }, [])
+  if (!show) return null
+  return (
+    <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      className="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-[#6B9E50] text-white shadow-xl shadow-[#6B9E50]/30 flex items-center justify-center hover:bg-[#4E7A38] hover:scale-110 transition-all animate-[fadeInUp_0.3s_ease]">
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+      </svg>
+    </button>
+  )
+}
+
 // ─── MAIN ───────────────────────────────────────────────────────
 export default function LandingHome() {
   return (
     <div className="overflow-hidden">
       <Nav />
       <StickyCTA />
+      <BackToTop />
       <Hero />
       <WaveDivider from="#1A1A14" to="#3A3830" type="mountain" />
       <About />

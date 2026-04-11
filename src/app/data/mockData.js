@@ -263,11 +263,177 @@ export const groupsLocales = [
 ]
 
 export const groupsTroncales = [
-  { id: 'gt1', name: 'IA & Tecnologia Rural', theme: 'Innovacion tecnologica aplicada al campo', members: 34, facenderasCount: 8, status: 'activo' },
-  { id: 'gt2', name: 'Agroecologia y Semillas', theme: 'Cultivo sostenible y preservacion de variedades locales', members: 45, facenderasCount: 12, status: 'activo' },
-  { id: 'gt3', name: 'Energia Comunitaria', theme: 'Autogestion energetica y renovables', members: 28, facenderasCount: 6, status: 'activo' },
-  { id: 'gt4', name: 'Patrimonio y Saberes', theme: 'Preservacion de oficios y conocimiento tradicional', members: 31, facenderasCount: 9, status: 'en_expansion' },
-  { id: 'gt5', name: 'Bioconstruccion', theme: 'Tecnicas constructivas sostenibles y materiales locales', members: 19, facenderasCount: 4, status: 'recien_formado' },
+  { id: 'gt1', name: 'IA & Tecnología Rural', theme: 'Innovación tecnológica aplicada al campo', members: 34, facenderasCount: 8, status: 'activo' },
+  { id: 'gt2', name: 'Agroecología y Semillas', theme: 'Cultivo sostenible y preservación de variedades locales', members: 45, facenderasCount: 12, status: 'activo' },
+  { id: 'gt3', name: 'Energía Comunitaria', theme: 'Autogestión energética y renovables', members: 28, facenderasCount: 6, status: 'activo' },
+  { id: 'gt4', name: 'Patrimonio y Saberes', theme: 'Preservación de oficios y conocimiento tradicional', members: 31, facenderasCount: 9, status: 'en_expansion' },
+  { id: 'gt5', name: 'Bioconstrucción', theme: 'Técnicas constructivas sostenibles y materiales locales', members: 19, facenderasCount: 4, status: 'recien_formado' },
+]
+
+// ─── RED DE REDES ─────────────────────────────────────────────
+export const redes = [
+  {
+    id: 'claude-makers', slug: 'claude-makers',
+    nombre: 'Claude Makers', icono: '🤖', color: '#8B5CF6',
+    categoria: 'tecnología', estado: 'activa', destacado: true,
+    imagen: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&q=70&fit=crop',
+    descripcion: 'Aprende a crear apps, webs y agentes con Claude Code. La comunidad donde makers rurales descubren el poder de la IA para construir herramientas propias.',
+    miembros: 12, facenderasCount: 3,
+    subRedes: [
+      { nombre: 'Apps & Webs', desc: 'Crear aplicaciones y webs completas con Claude' },
+      { nombre: 'Agentes IA', desc: 'Diseñar agentes autónomos que trabajan por ti' },
+      { nombre: 'Skills & Plugins', desc: 'Crear herramientas y extensiones para Claude Code' },
+    ],
+    recursos: [
+      { tipo: 'guía', titulo: 'Primeros pasos con Claude Code', url: '#' },
+      { tipo: 'proyecto', titulo: 'Tu primera web en 30 minutos', url: '#' },
+      { tipo: 'vídeo', titulo: 'De 0 a app con IA', url: '#' },
+    ],
+    proximasFacenderas: [
+      { id: 'fc1', titulo: 'Tu primera web con Claude', fecha: '15 Abril 2026', participantes: 8 },
+      { id: 'fc2', titulo: 'Crea un agente IA rural', fecha: '22 Abril 2026', participantes: 6 },
+      { id: 'fc3', titulo: 'Skills para automatizar tareas', fecha: '29 Abril 2026', participantes: 5 },
+    ],
+  },
+  {
+    id: 'agroecologia', slug: 'agroecologia',
+    nombre: 'Agroecología y Semillas', icono: '🌱', color: '#6B9E50',
+    categoria: 'alimentación', estado: 'activa', destacado: true,
+    imagen: 'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=800&q=70&fit=crop',
+    descripcion: 'Cultivo sostenible, preservación de variedades locales y soberanía alimentaria. Red de productores y consumidores que cuidan la tierra.',
+    miembros: 45, facenderasCount: 12,
+    subRedes: [
+      { nombre: 'Banco de Semillas', desc: 'Intercambio y preservación de semillas autóctonas' },
+      { nombre: 'Huertos Comunitarios', desc: 'Espacios compartidos de cultivo ecológico' },
+      { nombre: 'Permacultura', desc: 'Diseño de sistemas agrícolas sostenibles' },
+    ],
+    recursos: [
+      { tipo: 'guía', titulo: 'Manual de semillas autóctonas de León', url: '#' },
+      { tipo: 'mapa', titulo: 'Mapa de huertos comunitarios', url: '#' },
+    ],
+    proximasFacenderas: [
+      { id: 'fa1', titulo: 'Intercambio de semillas primavera', fecha: '18 Abril 2026', participantes: 20 },
+      { id: 'fa2', titulo: 'Taller de compostaje comunitario', fecha: '25 Abril 2026', participantes: 15 },
+    ],
+  },
+  {
+    id: 'energia-comunitaria', slug: 'energia-comunitaria',
+    nombre: 'Energía Comunitaria', icono: '⚡', color: '#E86A33',
+    categoria: 'oficios', estado: 'activa', destacado: false,
+    imagen: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=70&fit=crop',
+    descripcion: 'Autogestión energética, instalación de renovables y comunidades energéticas. Electricidad limpia y compartida para el rural.',
+    miembros: 28, facenderasCount: 6,
+    subRedes: [
+      { nombre: 'Solar Comunitaria', desc: 'Instalaciones fotovoltaicas compartidas' },
+      { nombre: 'Biomasa', desc: 'Aprovechamiento de recursos forestales' },
+    ],
+    recursos: [
+      { tipo: 'guía', titulo: 'Cómo crear una comunidad energética', url: '#' },
+    ],
+    proximasFacenderas: [
+      { id: 'fe1', titulo: 'Taller de paneles solares', fecha: '20 Abril 2026', participantes: 12 },
+    ],
+  },
+  {
+    id: 'consumo-eco', slug: 'consumo-eco',
+    nombre: 'Grupos de Consumo Eco', icono: '🥕', color: '#10B981',
+    categoria: 'alimentación', estado: 'en_formación', destacado: false,
+    imagen: 'https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=800&q=70&fit=crop',
+    descripcion: 'Promoción y creación de grupos de consumo ecológico. Conectamos productores locales con consumidores comprometidos.',
+    miembros: 15, facenderasCount: 2,
+    subRedes: [
+      { nombre: 'Cestas Semanales', desc: 'Organización de cestas de productos locales' },
+      { nombre: 'Productores', desc: 'Red de productores ecológicos de la provincia' },
+    ],
+    recursos: [],
+    proximasFacenderas: [
+      { id: 'fg1', titulo: 'Encuentro productores-consumidores', fecha: '27 Abril 2026', participantes: 18 },
+    ],
+  },
+  {
+    id: 'arte-teatro', slug: 'arte-teatro',
+    nombre: 'Arte & Teatro Foro', icono: '🎭', color: '#EC4899',
+    categoria: 'arte', estado: 'activa', destacado: true,
+    imagen: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&q=70&fit=crop',
+    descripcion: 'Pintura, videocomposiciones, teatro foro, música y todas las expresiones artísticas como herramienta de transformación comunitaria.',
+    miembros: 22, facenderasCount: 7,
+    subRedes: [
+      { nombre: 'Teatro Foro', desc: 'Teatro participativo para resolver conflictos' },
+      { nombre: 'Artes Plásticas', desc: 'Pintura, escultura y muralismo colectivo' },
+      { nombre: 'Audiovisual', desc: 'Documentales, vídeo-arte y narrativa visual' },
+    ],
+    recursos: [
+      { tipo: 'vídeo', titulo: 'Qué es el Teatro Foro', url: '#' },
+      { tipo: 'guía', titulo: 'Cómo organizar un taller de muralismo', url: '#' },
+    ],
+    proximasFacenderas: [
+      { id: 'ft1', titulo: 'Taller de Teatro Foro', fecha: '19 Abril 2026', participantes: 14 },
+      { id: 'ft2', titulo: 'Mural colectivo en Astorga', fecha: '26 Abril 2026', participantes: 10 },
+    ],
+  },
+  {
+    id: 'bioconstruccion', slug: 'bioconstruccion',
+    nombre: 'Bioconstrucción', icono: '🏗', color: '#C8A96E',
+    categoria: 'oficios', estado: 'activa', destacado: false,
+    imagen: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=70&fit=crop',
+    descripcion: 'Técnicas constructivas sostenibles con materiales locales. Domos, adobe, piedra seca y rehabilitación de arquitectura tradicional.',
+    miembros: 19, facenderasCount: 4,
+    subRedes: [
+      { nombre: 'Domos Geodésicos', desc: 'Construcción de domos con técnicas maker' },
+      { nombre: 'Piedra Seca', desc: 'Recuperación de muros y construcciones tradicionales' },
+      { nombre: 'Adobe y Barro', desc: 'Construcción natural con tierra' },
+    ],
+    recursos: [
+      { tipo: 'guía', titulo: 'Manual de construcción de domos', url: '#' },
+    ],
+    proximasFacenderas: [
+      { id: 'fb1', titulo: 'Facendera de piedra seca', fecha: '21 Abril 2026', participantes: 8 },
+    ],
+  },
+  {
+    id: 'patrimonio-saberes', slug: 'patrimonio-saberes',
+    nombre: 'Patrimonio y Saberes', icono: '📜', color: '#3B82F6',
+    categoria: 'territorio', estado: 'activa', destacado: false,
+    imagen: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=70&fit=crop',
+    descripcion: 'Preservación de oficios, recetas, técnicas y conocimiento tradicional. Documentación y transmisión de saberes vivos del territorio.',
+    miembros: 31, facenderasCount: 9,
+    subRedes: [
+      { nombre: 'Oficios Tradicionales', desc: 'Herrería, cestería, alfarería y más' },
+      { nombre: 'Memoria Oral', desc: 'Grabación y archivo de historias y cantares' },
+    ],
+    recursos: [
+      { tipo: 'archivo', titulo: 'Banco de saberes de La Omaña', url: '#' },
+    ],
+    proximasFacenderas: [
+      { id: 'fp1', titulo: 'Filandón: saberes del valle', fecha: '24 Abril 2026', participantes: 25 },
+    ],
+  },
+  {
+    id: 'oficios-rurales', slug: 'oficios-rurales',
+    nombre: 'Oficios Rurales', icono: '🔧', color: '#F97316',
+    categoria: 'oficios', estado: 'en_formación', destacado: false,
+    imagen: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=70&fit=crop',
+    descripcion: 'Red de profesionales rurales: fontanería, electricidad, carpintería, mecánica. Compartir herramientas, conocimientos y trabajos.',
+    miembros: 8, facenderasCount: 1,
+    subRedes: [
+      { nombre: 'Electricidad', desc: 'Instalaciones y mantenimiento eléctrico' },
+      { nombre: 'Carpintería', desc: 'Trabajo con madera y restauración' },
+      { nombre: 'Fontanería', desc: 'Instalaciones y reparaciones hidráulicas' },
+    ],
+    recursos: [],
+    proximasFacenderas: [
+      { id: 'fo1', titulo: 'Taller de fontanería básica', fecha: '30 Abril 2026', participantes: 6 },
+    ],
+  },
+]
+
+export const redesCategorias = [
+  { id: 'todas', label: 'Todas', icono: '🌐' },
+  { id: 'tecnología', label: 'Tecnología', icono: '💻' },
+  { id: 'alimentación', label: 'Alimentación', icono: '🌱' },
+  { id: 'oficios', label: 'Oficios', icono: '🔧' },
+  { id: 'arte', label: 'Arte', icono: '🎭' },
+  { id: 'territorio', label: 'Territorio', icono: '📍' },
 ]
 
 // ─── EVENTOS DE AGENDA ─────────────────────────────────────────

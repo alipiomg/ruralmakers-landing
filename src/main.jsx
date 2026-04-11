@@ -10,6 +10,7 @@ import AdminLayout from './admin/AdminLayout'
 
 // Landing
 import LandingHome from './landing/pages/Home'
+import AppShowcase from './landing/pages/AppShowcase'
 
 // App pages
 import Feed from './app/pages/Feed'
@@ -28,6 +29,7 @@ import Notifications from './app/pages/Notifications'
 import Agenda from './app/pages/Agenda'
 import Organizations from './app/pages/Organizations'
 import Groups from './app/pages/Groups'
+import RedDetail from './app/pages/RedDetail'
 
 // Admin pages
 import DashboardHome from './admin/pages/DashboardHome'
@@ -57,6 +59,7 @@ createRoot(document.getElementById('root')).render(
         {/* Landing publica */}
         <Route element={<LandingLayout />}>
           <Route index element={<LandingHome />} />
+          <Route path="conoce-la-app" element={<AppShowcase />} />
         </Route>
 
         {/* App Rural Makers */}
@@ -77,6 +80,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="agenda" element={<Agenda />} />
           <Route path="organizaciones" element={<Organizations />} />
           <Route path="grupos" element={<Groups />} />
+          <Route path="redes/:slug" element={<RedDetail />} />
         </Route>
 
         {/* Admin Dashboard */}
