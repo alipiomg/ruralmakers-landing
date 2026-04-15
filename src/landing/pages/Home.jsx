@@ -1319,14 +1319,10 @@ function TeamCard({ cfg }) {
         {/* Info */}
         <div className="flex-1">
           <div className="flex items-center gap-4 mb-5">
-            {cfg.teamPhoto ? (
-              <img src={cfg.teamPhoto} alt="Alipio" className="w-20 h-20 rounded-2xl object-cover shadow-xl shadow-[#6B9E50]/20 border-2 border-[#6B9E50]/20 shrink-0" />
-            ) : (
-              <div className="w-20 h-20 bg-gradient-to-br from-[#6B9E50] to-[#4E7A38] rounded-2xl flex items-center justify-center text-white text-3xl font-bold landing-heading shadow-xl shadow-[#6B9E50]/20 shrink-0">A</div>
-            )}
+            <img src={cfg.teamPhoto || '/alipio.jpg'} alt="Alipio Muñiz de Gorostiza" className="w-20 h-20 rounded-2xl object-cover object-[center_20%] shadow-xl shadow-[#6B9E50]/20 border-2 border-[#6B9E50]/20 shrink-0" />
             <div>
               <div className="text-[10px] text-[#6B9E50] uppercase tracking-[0.2em] font-bold mb-0.5">Impulsor del proyecto</div>
-              <h3 className="text-xl font-bold text-[#F0EBE0] landing-heading">{cfg.teamName || 'Alipio'}</h3>
+              <h3 className="text-xl font-bold text-[#F0EBE0] landing-heading">{cfg.teamName || 'Alipio Muñiz de Gorostiza'}</h3>
               <p className="text-[13px] text-[#D0C8BC]/70 font-normal">{cfg.teamOrg || 'Asociación Indira'} | La Omaña, León</p>
             </div>
           </div>
