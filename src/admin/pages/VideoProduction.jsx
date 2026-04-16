@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
 import { useLocalStorage } from '../../shared/hooks/useLocalStorage'
 import { storyboardTemplate, sceneCycles, videoTools, videoEffects, productionWorkflow, technicalSpecs } from '../../data/videoPrompts'
+import { seedanceImageChain, seedanceClips, capcutInserts, finalTimeline, audioDesign, productionSteps as seedanceSteps, seedanceTips, checklist as seedanceChecklist } from '../../data/seedanceProduction'
 
 function copyToClipboard(text) {
   if (navigator.clipboard && document.hasFocus()) {
@@ -581,11 +582,511 @@ function NotesTab() {
   )
 }
 
+// ─── TAB: SEEDANCE 2 ───────────────────────────────────────────
+function SeedanceTab() {
+  const [expandedClip, setExpandedClip] = useState(null)
+  const [expandedImage, setExpandedImage] = useState(null)
+  const [checkState, setCheckState] = useLocalStorage('rm-seedance-checklist', {})
+  const [copiedId, setCopiedId] = useState('')
+  const [view, setView] = useState('clips') // clips | chain | timeline | checklist
+
+  const copyPrompt = (text, id) => {
+    copyToClipboard(text)
+    setCopiedId(id)
+    setTimeout(() => setCopiedId(''), 2000)
+  }
+
+  const toggleCheck = (task) => {
+    setCheckState(prev => ({ ...prev, [task]: !prev[task] }))
+  }
+
+  const completedCount = Object.values(checkState).filter(Boolean).length
+  const totalTasks = seedanceChecklist.length
+
+  const subviews = [
+    { id: 'clips', label: 'Clips Seedance' },
+    { id: 'chain', label: 'Cadena de Imagenes' },
+    { id: 'timeline', label: 'Timeline Final' },
+    { id: 'checklist', label: `Checklist (${completedCount}/${totalTasks})` },
+  ]
+
+  return (
+    <div className="space-y-4">
+      {/* Header */}
+      <div className="card bg-gradient-to-r from-cyan-500 to-teal-500 text-white">
+        <h3 className="text-lg font-bold">Seedance 2 — Produccion</h3>
+        <p className="text-sm opacity-90 mt-1">
+          13 imagenes encadenadas → 12 clips de 15s + 3 inserts CapCut = ~3:19 de video fluido
+        </p>
+        <div className="flex items-center gap-3 mt-3 text-xs">
+          <span className="bg-white/20 px-2 py-1 rounded">Foto inicio + Foto final = 15s video</span>
+          <span className="bg-white/20 px-2 py-1 rounded">Foto final clip N = Foto inicio clip N+1</span>
+        </div>
+      </div>
+
+      {/* Stats */}
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+        <div className="card text-center py-3">
+          <div className="text-xl font-bold text-cyan-600">13</div>
+          <div className="text-xs text-gray-500">Imagenes</div>
+        </div>
+        <div className="card text-center py-3">
+          <div className="text-xl font-bold text-teal-600">12</div>
+          <div className="text-xs text-gray-500">Clips Seedance</div>
+        </div>
+        <div className="card text-center py-3">
+          <div className="text-xl font-bold text-amber-600">3</div>
+          <div className="text-xs text-gray-500">Inserts CapCut</div>
+        </div>
+        <div className="card text-center py-3">
+          <div className="text-xl font-bold text-purple-600">3:19</div>
+          <div className="text-xs text-gray-500">Duracion total</div>
+        </div>
+        <div className="card text-center py-3">
+          <div className="text-xl font-bold text-rural-green">{completedCount}/{totalTasks}</div>
+          <div className="text-xs text-gray-500">Completado</div>
+        </div>
+      </div>
+
+      {/* Sub-navigation */}
+      <div className="flex flex-wrap gap-1 bg-gray-100 p-1 rounded-lg">
+        {subviews.map(sv => (
+          <button key={sv.id} onClick={() => setView(sv.id)}
+            className={`px-3 py-1.5 rounded-md text-xs font-medium transition flex-1 min-w-[80px] text-center ${view === sv.id ? 'bg-white shadow text-cyan-700' : 'text-gray-600 hover:text-gray-800'}`}>
+            {sv.label}
+          </button>
+        ))}
+      </div>
+
+      {/* ─── VIEW: CLIPS SEEDANCE ─── */}
+      {view === 'clips' && (
+        <div className="space-y-3">
+          <div className="card bg-cyan-50 border border-cyan-200">
+            <p className="text-sm text-cyan-700">Cada clip usa <strong>foto inicio + foto final</strong>. Seedance 2 genera 15 segundos de video fluido entre ambas. Haz click en cada clip para ver los detalles y copiar prompts.</p>
+          </div>
+
+          {seedanceClips.map(clip => {
+            const startImg = seedanceImageChain.find(i => i.id === clip.startImage)
+            const endImg = seedanceImageChain.find(i => i.id === clip.endImage)
+            const isExpanded = expandedClip === clip.clip
+            const isStarClip = clip.name.includes('★')
+
+            return (
+              <div key={clip.clip} className={`card border-2 transition ${isStarClip ? 'border-amber-300 bg-amber-50/30' : 'border-gray-100'}`}>
+                {/* Clip header */}
+                <div className="flex items-center gap-3 cursor-pointer" onClick={() => setExpandedClip(isExpanded ? null : clip.clip)}>
+                  <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${isStarClip ? 'bg-amber-500 text-white' : 'bg-cyan-100 text-cyan-700'}`}>
+                    {clip.clip}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-semibold text-sm text-gray-800">{clip.name}</div>
+                    <div className="text-xs text-gray-400 flex flex-wrap gap-x-2 gap-y-0.5">
+                      <span>{clip.startImage} → {clip.endImage}</span>
+                      <span>|</span>
+                      <span>{clip.time}</span>
+                      <span>|</span>
+                      <span className="text-gray-500">{clip.act}</span>
+                    </div>
+                  </div>
+                  <Badge color={
+                    clip.act.includes('GANCHO') ? 'bg-blue-100 text-blue-700' :
+                    clip.act.includes('PROBLEMA') ? 'bg-gray-200 text-gray-700' :
+                    clip.act.includes('GIRO') ? 'bg-amber-100 text-amber-700' :
+                    clip.act.includes('SOLUCION') ? 'bg-green-100 text-green-700' :
+                    'bg-purple-100 text-purple-700'
+                  }>{clip.act}</Badge>
+                  <svg className={`w-4 h-4 text-gray-400 transition-transform shrink-0 ${isExpanded ? 'rotate-180' : ''}`}
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+
+                {isExpanded && (
+                  <div className="mt-4 space-y-4">
+                    {/* Start + End images */}
+                    <div className="grid md:grid-cols-2 gap-3">
+                      <div className="rounded-lg border-2 border-cyan-200 overflow-hidden">
+                        <div className="bg-cyan-50 px-3 py-1.5 flex items-center gap-2">
+                          <span className="w-5 h-5 rounded-full bg-cyan-500 text-white flex items-center justify-center text-[10px] font-bold">A</span>
+                          <span className="font-semibold text-cyan-800 text-xs">FOTO INICIO: {clip.startImage}</span>
+                        </div>
+                        <div className="p-3">
+                          <p className="text-xs text-gray-600 mb-2">{startImg?.name}</p>
+                          <div className="bg-gray-50 rounded p-2">
+                            <div className="flex justify-between items-start mb-1">
+                              <span className="text-[10px] text-gray-500 font-semibold uppercase">Prompt imagen</span>
+                              <button onClick={(e) => { e.stopPropagation(); copyPrompt(startImg?.imagePrompt.prompt, clip.startImage) }}
+                                className={`text-[10px] px-2 py-0.5 rounded font-medium ${copiedId === clip.startImage ? 'bg-green-100 text-green-700' : 'bg-cyan-100 text-cyan-700 hover:bg-cyan-200'}`}>
+                                {copiedId === clip.startImage ? 'Copiado!' : 'Copiar'}
+                              </button>
+                            </div>
+                            <p className="text-[11px] text-gray-600 font-mono leading-relaxed line-clamp-4">{startImg?.imagePrompt.prompt}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="rounded-lg border-2 border-teal-200 overflow-hidden">
+                        <div className="bg-teal-50 px-3 py-1.5 flex items-center gap-2">
+                          <span className="w-5 h-5 rounded-full bg-teal-500 text-white flex items-center justify-center text-[10px] font-bold">B</span>
+                          <span className="font-semibold text-teal-800 text-xs">FOTO FINAL: {clip.endImage}</span>
+                        </div>
+                        <div className="p-3">
+                          <p className="text-xs text-gray-600 mb-2">{endImg?.name}</p>
+                          <div className="bg-gray-50 rounded p-2">
+                            <div className="flex justify-between items-start mb-1">
+                              <span className="text-[10px] text-gray-500 font-semibold uppercase">Prompt imagen</span>
+                              <button onClick={(e) => { e.stopPropagation(); copyPrompt(endImg?.imagePrompt.prompt, clip.endImage) }}
+                                className={`text-[10px] px-2 py-0.5 rounded font-medium ${copiedId === clip.endImage ? 'bg-green-100 text-green-700' : 'bg-teal-100 text-teal-700 hover:bg-teal-200'}`}>
+                                {copiedId === clip.endImage ? 'Copiado!' : 'Copiar'}
+                              </button>
+                            </div>
+                            <p className="text-[11px] text-gray-600 font-mono leading-relaxed line-clamp-4">{endImg?.imagePrompt.prompt}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Transition note */}
+                    {endImg?.transitionNote && (
+                      <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
+                        <span className="text-xs font-semibold text-amber-700">Nota de transicion: </span>
+                        <span className="text-xs text-amber-600">{endImg.transitionNote}</span>
+                      </div>
+                    )}
+
+                    {/* Seedance prompt */}
+                    <div className="rounded-lg border-2 border-purple-200 overflow-hidden">
+                      <div className="bg-purple-50 px-4 py-2 flex items-center gap-2">
+                        <span className="font-semibold text-purple-800 text-sm">Prompt Seedance 2</span>
+                        <Badge color="bg-purple-100 text-purple-700">15 segundos</Badge>
+                      </div>
+                      <div className="p-4">
+                        <div className="bg-gray-50 rounded-lg p-3">
+                          <div className="flex justify-between items-start mb-1">
+                            <span className="text-xs text-gray-500 font-semibold uppercase">Prompt de movimiento/transicion</span>
+                            <button onClick={(e) => { e.stopPropagation(); copyPrompt(clip.seedancePrompt, `sd-${clip.clip}`) }}
+                              className={`text-xs px-2.5 py-1 rounded-lg font-medium transition ${copiedId === `sd-${clip.clip}` ? 'bg-green-100 text-green-700' : 'bg-purple-100 text-purple-700 hover:bg-purple-200'}`}>
+                              {copiedId === `sd-${clip.clip}` ? 'Copiado!' : 'Copiar prompt'}
+                            </button>
+                          </div>
+                          <p className="text-sm text-gray-700 font-mono whitespace-pre-wrap leading-relaxed">{clip.seedancePrompt}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Subtitle + mood + sound */}
+                    <div className="grid md:grid-cols-3 gap-3">
+                      <div className="bg-gray-50 rounded-lg p-3">
+                        <div className="text-xs font-semibold text-gray-500 uppercase mb-1">Subtitulo</div>
+                        <p className="text-sm text-gray-800 font-medium whitespace-pre-wrap">{clip.subtitle}</p>
+                        <div className="mt-1">
+                          <CopyButton text={clip.subtitle} label="Copiar" />
+                        </div>
+                      </div>
+                      <div className="bg-pink-50 rounded-lg p-3">
+                        <div className="text-xs font-semibold text-pink-600 uppercase mb-1">Mood / Emocion</div>
+                        <p className="text-xs text-pink-700">{clip.mood}</p>
+                      </div>
+                      <div className="bg-blue-50 rounded-lg p-3">
+                        <div className="text-xs font-semibold text-blue-600 uppercase mb-1">Sonido</div>
+                        <p className="text-xs text-blue-700">{clip.soundDesign}</p>
+                      </div>
+                    </div>
+
+                    {/* Production note */}
+                    {clip.productionNote && (
+                      <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                        <span className="text-xs font-bold text-red-700">IMPORTANTE: </span>
+                        <span className="text-xs text-red-600">{clip.productionNote}</span>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            )
+          })}
+
+          {/* CapCut inserts */}
+          <div className="mt-6">
+            <h4 className="text-sm font-semibold text-gray-700 mb-3">Inserts CapCut (motion graphics, NO Seedance)</h4>
+            {capcutInserts.map(insert => (
+              <div key={insert.id} className="card border border-green-200 mb-3">
+                <div className="flex items-center gap-2 mb-2">
+                  <Badge color="bg-green-100 text-green-700">CapCut</Badge>
+                  <span className="font-semibold text-sm text-gray-800">{insert.name}</span>
+                  <Badge>{insert.duration}</Badge>
+                </div>
+                <p className="text-xs text-gray-600">{insert.description}</p>
+                <p className="text-xs text-gray-400 mt-1">Insertar: {insert.insertAfter}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ─── VIEW: CADENA DE IMAGENES ─── */}
+      {view === 'chain' && (
+        <div className="space-y-3">
+          <div className="card bg-blue-50 border border-blue-200">
+            <h4 className="font-semibold text-blue-800 text-sm">Cadena de 13 imagenes</h4>
+            <p className="text-xs text-blue-600 mt-1">Cada imagen es un nodo. Los clips Seedance se forman con pares consecutivos. La imagen final de un clip ES la imagen inicial del siguiente.</p>
+          </div>
+
+          {/* Visual chain */}
+          <div className="card overflow-x-auto">
+            <div className="flex items-center gap-1 min-w-max pb-2">
+              {seedanceImageChain.map((img, i) => (
+                <div key={img.id} className="flex items-center">
+                  <div className={`flex flex-col items-center cursor-pointer group ${expandedImage === img.id ? 'scale-105' : ''}`}
+                    onClick={() => setExpandedImage(expandedImage === img.id ? null : img.id)}>
+                    <div className={`w-14 h-14 rounded-lg flex items-center justify-center text-xs font-bold transition-all ${
+                      img.id === 'SD_05' || img.id === 'SD_06' ? 'bg-amber-100 text-amber-700 border-2 border-amber-400' :
+                      i <= 4 ? 'bg-gray-100 text-gray-600 border border-gray-300' :
+                      'bg-cyan-100 text-cyan-700 border border-cyan-300'
+                    } group-hover:shadow-md`}>
+                      {img.id.replace('SD_', '')}
+                    </div>
+                    <span className="text-[9px] text-gray-500 mt-1 text-center max-w-[60px] leading-tight">{img.name.split(' ').slice(0, 2).join(' ')}</span>
+                  </div>
+                  {i < seedanceImageChain.length - 1 && (
+                    <div className="flex flex-col items-center mx-1">
+                      <svg className="w-5 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                      <span className="text-[8px] text-gray-400">Clip {i + 1}</span>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Expanded image detail */}
+          {expandedImage && (() => {
+            const img = seedanceImageChain.find(i => i.id === expandedImage)
+            if (!img) return null
+            return (
+              <div className="card border-2 border-cyan-300">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-lg font-bold text-cyan-700">{img.id}</span>
+                  <span className="font-semibold text-gray-800">{img.name}</span>
+                  <Badge color="bg-cyan-100 text-cyan-700">{img.chainRole}</Badge>
+                </div>
+                <p className="text-sm text-gray-600 mb-3">{img.description}</p>
+
+                <div className="bg-gray-50 rounded-lg p-3 mb-3">
+                  <div className="flex justify-between items-start mb-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-gray-500 font-semibold uppercase">Prompt de imagen</span>
+                      <Badge>{img.imagePrompt.tool}</Badge>
+                    </div>
+                    <button onClick={() => copyPrompt(img.imagePrompt.prompt, img.id)}
+                      className={`text-xs px-2.5 py-1 rounded-lg font-medium transition ${copiedId === img.id ? 'bg-green-100 text-green-700' : 'bg-cyan-100 text-cyan-700 hover:bg-cyan-200'}`}>
+                      {copiedId === img.id ? 'Copiado!' : 'Copiar prompt'}
+                    </button>
+                  </div>
+                  <p className="text-sm text-gray-700 font-mono whitespace-pre-wrap leading-relaxed">{img.imagePrompt.prompt}</p>
+                </div>
+
+                {img.imagePrompt.tips && (
+                  <div className="bg-amber-50 rounded-lg p-2 mb-2">
+                    <span className="text-xs font-semibold text-amber-700">Tips: </span>
+                    <span className="text-xs text-amber-600">{img.imagePrompt.tips}</span>
+                  </div>
+                )}
+                {img.transitionNote && (
+                  <div className="bg-purple-50 rounded-lg p-2 mb-2">
+                    <span className="text-xs font-semibold text-purple-700">Transicion: </span>
+                    <span className="text-xs text-purple-600">{img.transitionNote}</span>
+                  </div>
+                )}
+                <div className="text-xs text-gray-400">
+                  Composicion: {img.compositionGuide}
+                  {img.basedOn && <span className="ml-2">| Basado en: {img.basedOn}</span>}
+                </div>
+              </div>
+            )
+          })()}
+
+          {/* All image prompts quick copy */}
+          <div className="card">
+            <h4 className="font-semibold text-gray-800 text-sm mb-3">Todos los prompts de imagen</h4>
+            <div className="space-y-2">
+              {seedanceImageChain.map(img => (
+                <div key={img.id} className="flex items-start gap-2 py-2 border-b border-gray-50 last:border-0">
+                  <span className="text-xs font-bold text-cyan-600 shrink-0 w-12">{img.id}</span>
+                  <span className="text-xs text-gray-600 flex-1 line-clamp-1">{img.name} — {img.imagePrompt.tool}</span>
+                  <button onClick={() => copyPrompt(img.imagePrompt.prompt, `all-${img.id}`)}
+                    className={`text-[10px] px-2 py-0.5 rounded font-medium shrink-0 ${copiedId === `all-${img.id}` ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
+                    {copiedId === `all-${img.id}` ? 'OK' : 'Copiar'}
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Tips */}
+          <div className="card bg-yellow-50 border border-yellow-200">
+            <h4 className="font-semibold text-yellow-800 text-sm mb-2">Tips Seedance 2</h4>
+            <div className="space-y-1.5">
+              {seedanceTips.map((tip, i) => (
+                <div key={i} className="flex gap-2 text-xs">
+                  <span className="text-yellow-600 shrink-0 font-bold">{i + 1}.</span>
+                  <span className="text-yellow-700">{tip}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ─── VIEW: TIMELINE FINAL ─── */}
+      {view === 'timeline' && (
+        <div className="space-y-4">
+          <div className="card bg-purple-50 border border-purple-200">
+            <h4 className="font-semibold text-purple-800 text-sm">Timeline Final — 3:19</h4>
+            <p className="text-xs text-purple-600 mt-1">Orden de montaje en CapCut. Los clips Seedance van encadenados con cross-dissolve de 0.3s. Los inserts CapCut son motion graphics.</p>
+          </div>
+
+          <div className="card">
+            <div className="space-y-0">
+              {finalTimeline.map((item, i) => {
+                const isSeedance = item.type === 'seedance'
+                const clip = isSeedance ? seedanceClips.find(c => `Clip ${c.clip}` === item.ref) : null
+                return (
+                  <div key={i} className={`flex items-center gap-3 py-2.5 border-b border-gray-50 last:border-0 ${!isSeedance ? 'bg-green-50/50 -mx-4 px-4 rounded' : ''}`}>
+                    <span className="text-xs text-gray-400 w-16 shrink-0 font-mono">{item.time}</span>
+                    <div className={`w-2.5 h-2.5 rounded-full shrink-0 ${isSeedance ? 'bg-cyan-400' : 'bg-green-400'}`} />
+                    <div className="flex-1 min-w-0">
+                      <span className="text-sm font-medium text-gray-800">{item.name}</span>
+                      {clip && <span className="text-xs text-gray-400 ml-2">{clip.startImage} → {clip.endImage}</span>}
+                    </div>
+                    <Badge color={isSeedance ? 'bg-cyan-100 text-cyan-700' : 'bg-green-100 text-green-700'}>
+                      {isSeedance ? 'Seedance' : 'CapCut'}
+                    </Badge>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Audio structure */}
+          <div className="card">
+            <h4 className="font-semibold text-gray-800 text-sm mb-3">Estructura Musical</h4>
+            <div className="space-y-1">
+              {audioDesign.music.structure.map((s, i) => (
+                <div key={i} className="flex gap-3 py-1.5 border-b border-gray-50 last:border-0">
+                  <span className="text-xs text-gray-400 w-20 shrink-0 font-mono">{s.time}</span>
+                  <span className="text-xs text-gray-700">{s.mood}</span>
+                </div>
+              ))}
+            </div>
+            <div className="mt-3 bg-blue-50 rounded-lg p-2">
+              <span className="text-xs font-semibold text-blue-700">Donde buscar: </span>
+              <span className="text-xs text-blue-600">{audioDesign.music.freeSources.join(' | ')}</span>
+            </div>
+          </div>
+
+          {/* Ambient sounds */}
+          <div className="card">
+            <h4 className="font-semibold text-gray-800 text-sm mb-3">Sonidos Ambiente por Clip</h4>
+            <div className="space-y-1">
+              {audioDesign.ambientSounds.layers.map((l, i) => (
+                <div key={i} className="flex gap-3 py-1.5 border-b border-gray-50 last:border-0">
+                  <span className="text-xs text-gray-400 w-16 shrink-0">Clip {l.clips}</span>
+                  <span className="text-xs text-gray-700 flex-1">{l.sound}</span>
+                  <span className="text-[10px] text-gray-400 shrink-0">{l.source}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Production steps */}
+          <div className="card">
+            <h4 className="font-semibold text-gray-800 text-sm mb-3">Pasos de Produccion</h4>
+            <div className="space-y-3">
+              {seedanceSteps.map(step => (
+                <div key={step.step} className="flex items-start gap-3">
+                  <span className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600 shrink-0">{step.step}</span>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="font-semibold text-sm text-gray-800">{step.title}</span>
+                      <Badge>{step.time}</Badge>
+                    </div>
+                    <ul className="mt-1 space-y-0.5">
+                      {step.details.map((d, i) => (
+                        <li key={i} className="text-xs text-gray-600 flex gap-1.5">
+                          <span className="text-gray-400 shrink-0">-</span>
+                          <span>{d}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ─── VIEW: CHECKLIST ─── */}
+      {view === 'checklist' && (
+        <div className="space-y-4">
+          <div className="card bg-green-50 border border-green-200">
+            <div className="flex items-center justify-between">
+              <div>
+                <h4 className="font-semibold text-green-800 text-sm">Checklist de Produccion</h4>
+                <p className="text-xs text-green-600 mt-0.5">Marca cada tarea al completarla. Se guarda automaticamente.</p>
+              </div>
+              <div className="text-right">
+                <div className="text-2xl font-bold text-rural-green">{completedCount}/{totalTasks}</div>
+                <div className="text-xs text-gray-500">{Math.round((completedCount / totalTasks) * 100)}%</div>
+              </div>
+            </div>
+            <div className="mt-2 w-full bg-green-200 rounded-full h-2">
+              <div className="h-full bg-rural-green rounded-full transition-all"
+                style={{ width: `${(completedCount / totalTasks) * 100}%` }} />
+            </div>
+          </div>
+
+          {['imagenes', 'seedance', 'capcut', 'montaje'].map(phase => {
+            const phaseLabels = { imagenes: 'Generar Imagenes', seedance: 'Clips Seedance', capcut: 'Inserts CapCut', montaje: 'Montaje Final' }
+            const phaseColors = { imagenes: 'blue', seedance: 'cyan', capcut: 'green', montaje: 'purple' }
+            const items = seedanceChecklist.filter(c => c.phase === phase)
+            const phaseDone = items.filter(c => checkState[c.task]).length
+            const color = phaseColors[phase]
+
+            return (
+              <div key={phase} className="card">
+                <div className="flex items-center gap-2 mb-3">
+                  <h4 className={`font-semibold text-sm text-${color}-700`}>{phaseLabels[phase]}</h4>
+                  <span className="text-xs text-gray-400">{phaseDone}/{items.length}</span>
+                </div>
+                <div className="space-y-1">
+                  {items.map(item => (
+                    <label key={item.task} className="flex items-center gap-2.5 py-1.5 cursor-pointer hover:bg-gray-50 rounded px-1 -mx-1">
+                      <input type="checkbox" checked={!!checkState[item.task]} onChange={() => toggleCheck(item.task)}
+                        className="w-4 h-4 rounded border-gray-300 text-rural-green focus:ring-rural-green" />
+                      <span className={`text-sm ${checkState[item.task] ? 'text-gray-400 line-through' : 'text-gray-700'}`}>
+                        {item.task}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}
+
 // ─── MAIN COMPONENT ─────────────────────────────────────────────
 export default function VideoProduction() {
-  const [activeTab, setActiveTab] = useState('cycles')
+  const [activeTab, setActiveTab] = useState('seedance')
 
   const tabs = [
+    { id: 'seedance', label: 'Seedance 2' },
     { id: 'storyboard', label: 'Guion' },
     { id: 'cycles', label: 'Ciclos Img+Video' },
     { id: 'tools', label: 'Herramientas' },
@@ -646,6 +1147,7 @@ export default function VideoProduction() {
       </div>
 
       {/* Content */}
+      {activeTab === 'seedance' && <SeedanceTab />}
       {activeTab === 'storyboard' && <StoryboardTab />}
       {activeTab === 'cycles' && <CyclesTab />}
       {activeTab === 'tools' && <ToolsTab />}

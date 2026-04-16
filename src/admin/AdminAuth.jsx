@@ -10,9 +10,12 @@ export default function AdminAuth({ children }) {
   useEffect(() => {
     fetch('/api/admin-verify', { credentials: 'include' })
       .then(res => {
-        setStatus(res.ok ? 'authenticated' : 'unauthenticated')
+        if (res.ok) return setStatus('authenticated')
+        // DEV: skip auth when API server returns 502 (not running)
+        if (import.meta.env.DEV && res.status >= 500) return setStatus('authenticated')
+        setStatus('unauthenticated')
       })
-      .catch(() => setStatus('unauthenticated'))
+      .catch(() => setStatus(import.meta.env.DEV ? 'authenticated' : 'unauthenticated'))
   }, [])
 
   const handleLogin = async (e) => {
