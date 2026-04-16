@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react'
 import { useLocalStorage } from '../../shared/hooks/useLocalStorage'
 import { storyboardTemplate, sceneCycles, videoTools, videoEffects, productionWorkflow, technicalSpecs } from '../../data/videoPrompts'
-import { seedanceImageChain, seedanceClips, capcutInserts, finalTimeline, audioDesign, productionSteps as seedanceSteps, seedanceTips, checklist as seedanceChecklist } from '../../data/seedanceProduction'
+import { seedanceImageChain, seedanceClips, capcutInserts, finalTimeline, audioDesign, productionSteps as seedanceSteps, seedanceTips, checklist as seedanceChecklist, subtitleAlternatives, subtitleScript } from '../../data/seedanceProduction'
 
 function copyToClipboard(text) {
   if (navigator.clipboard && document.hasFocus()) {
@@ -588,7 +588,8 @@ function SeedanceTab() {
   const [expandedImage, setExpandedImage] = useState(null)
   const [checkState, setCheckState] = useLocalStorage('rm-seedance-checklist', {})
   const [copiedId, setCopiedId] = useState('')
-  const [view, setView] = useState('clips') // clips | chain | timeline | checklist
+  const [view, setView] = useState('clips') // clips | guion | chain | timeline | checklist
+  const [scriptEdits, setScriptEdits] = useLocalStorage('rm-seedance-script', {})
 
   const copyPrompt = (text, id) => {
     copyToClipboard(text)
@@ -605,10 +606,38 @@ function SeedanceTab() {
 
   const subviews = [
     { id: 'clips', label: 'Clips Seedance' },
+    { id: 'guion', label: 'Guion' },
     { id: 'chain', label: 'Cadena de Imagenes' },
     { id: 'timeline', label: 'Timeline Final' },
     { id: 'checklist', label: `Checklist (${completedCount}/${totalTasks})` },
   ]
+
+  // Script helpers
+  const getSubtitle = (clipNum) => {
+    if (scriptEdits[clipNum] !== undefined) return scriptEdits[clipNum]
+    // Fallback: use the default from seedanceClips or clip 13 (CTA from audioDesign / CTA_03)
+    const clip = seedanceClips.find(c => c.clip === clipNum)
+    if (clip) return clip.subtitle
+    // Clip 13 is the CTA card (CapCut insert) - use from alternatives
+    if (clipNum === 13) return 'Apoyanos en goteo.org\nDesde 13 EUR eres parte del cambio.'
+    return ''
+  }
+  const setSubtitle = (clipNum, text) => {
+    setScriptEdits(prev => ({ ...prev, [clipNum]: text }))
+  }
+  const resetSubtitle = (clipNum) => {
+    setScriptEdits(prev => {
+      const next = { ...prev }
+      delete next[clipNum]
+      return next
+    })
+  }
+  const fullScript = Object.keys(subtitleAlternatives)
+    .map(n => parseInt(n))
+    .sort((a, b) => a - b)
+    .map(n => getSubtitle(n))
+    .join('\n\n')
+  const editedCount = Object.keys(scriptEdits).length
 
   return (
     <div className="space-y-4">
@@ -819,6 +848,151 @@ function SeedanceTab() {
                 <p className="text-xs text-gray-400 mt-1">Insertar: {insert.insertAfter}</p>
               </div>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* ─── VIEW: GUION ─── */}
+      {view === 'guion' && (
+        <div className="space-y-4">
+          <div className="card bg-gradient-to-r from-amber-50 to-rose-50 border border-amber-200">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <div>
+                <h4 className="font-semibold text-amber-800 text-sm">Guion Completo — Subtitulos Editables</h4>
+                <p className="text-xs text-amber-700 mt-1">
+                  Sin voiceover. La narrativa va en subtitulos. Cada clip tiene 4 variantes de tono. Edita libremente o elige la que mas te guste.
+                </p>
+              </div>
+              <div className="text-right">
+                <div className="text-xl font-bold text-rose-600">{editedCount}</div>
+                <div className="text-[10px] text-gray-500">editados</div>
+              </div>
+            </div>
+            <div className="mt-3 text-xs text-amber-700">
+              <span className="font-semibold">Arco narrativo:</span> {subtitleScript.arcoNarrativo}
+            </div>
+          </div>
+
+          {/* Per-clip script editor */}
+          {Object.keys(subtitleAlternatives).map(n => {
+            const num = parseInt(n)
+            const alt = subtitleAlternatives[num]
+            const currentText = getSubtitle(num)
+            const isEdited = scriptEdits[num] !== undefined
+            const clip = seedanceClips.find(c => c.clip === num)
+            const time = clip?.time || (num === 13 ? '3:09 - 3:19' : '')
+
+            return (
+              <div key={num} className={`card border-2 transition ${isEdited ? 'border-rose-200 bg-rose-50/20' : 'border-gray-100'}`}>
+                {/* Header */}
+                <div className="flex items-center gap-3 mb-3 flex-wrap">
+                  <div className="w-8 h-8 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-sm font-bold shrink-0">
+                    {num}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-semibold text-sm text-gray-800">{alt.clip}</div>
+                    <div className="text-xs text-gray-400">{time} — {alt.act}</div>
+                  </div>
+                  {isEdited && (
+                    <button onClick={() => resetSubtitle(num)}
+                      className="text-[10px] px-2 py-1 rounded bg-gray-100 text-gray-600 hover:bg-gray-200">
+                      Restaurar original
+                    </button>
+                  )}
+                </div>
+
+                {/* Current/editable text */}
+                <div className="mb-3">
+                  <label className="text-[10px] text-gray-500 uppercase font-semibold block mb-1">
+                    Subtitulo final {isEdited && <span className="text-rose-500 ml-1">(editado)</span>}
+                  </label>
+                  <textarea value={currentText} onChange={e => setSubtitle(num, e.target.value)}
+                    rows={2}
+                    className="w-full text-sm border border-gray-300 rounded-lg p-2 focus:border-amber-400 focus:outline-none resize-y font-medium"
+                    placeholder="Escribe tu subtitulo..." />
+                  <div className="flex justify-between items-center mt-1">
+                    <span className="text-[10px] text-gray-400">{currentText.length} caracteres | maximo 2 lineas recomendado</span>
+                    <CopyButton text={currentText} label="Copiar" />
+                  </div>
+                </div>
+
+                {/* Alternatives */}
+                <div>
+                  <label className="text-[10px] text-gray-500 uppercase font-semibold block mb-1.5">Sugerencias por tono</label>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    {alt.options.map((opt, i) => {
+                      const isActive = currentText.trim() === opt.text.trim()
+                      return (
+                        <button key={i} onClick={() => setSubtitle(num, opt.text)}
+                          className={`text-left rounded-lg p-2 border-2 transition hover:shadow-sm ${
+                            isActive ? 'border-rose-400 bg-rose-50' : 'border-gray-200 bg-gray-50 hover:border-amber-300'
+                          }`}>
+                          <div className="flex items-center gap-1 mb-1">
+                            <Badge color={isActive ? 'bg-rose-100 text-rose-700' : 'bg-gray-100 text-gray-600'}>
+                              {opt.tone}
+                            </Badge>
+                            {isActive && <span className="text-[10px] text-rose-500">✓ usando</span>}
+                          </div>
+                          <p className="text-xs text-gray-700 whitespace-pre-wrap leading-snug">{opt.text}</p>
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+
+          {/* Full script */}
+          <div className="card bg-gray-900 text-gray-100">
+            <div className="flex items-center justify-between mb-3">
+              <h4 className="font-semibold text-amber-200 text-sm">Guion Completo</h4>
+              <div className="flex gap-2">
+                <button onClick={() => copyPrompt(fullScript, 'full-script')}
+                  className={`text-xs px-3 py-1 rounded font-medium ${copiedId === 'full-script' ? 'bg-green-500 text-white' : 'bg-amber-400 text-amber-900 hover:bg-amber-300'}`}>
+                  {copiedId === 'full-script' ? 'Copiado!' : 'Copiar guion completo'}
+                </button>
+                {editedCount > 0 && (
+                  <button onClick={() => { if (confirm('Restaurar todos los subtitulos al original?')) setScriptEdits({}) }}
+                    className="text-xs px-3 py-1 rounded bg-gray-700 text-gray-200 hover:bg-gray-600">
+                    Restaurar todo
+                  </button>
+                )}
+              </div>
+            </div>
+            <div className="bg-gray-800 rounded-lg p-4 space-y-3 max-h-96 overflow-auto font-mono text-sm leading-relaxed">
+              {Object.keys(subtitleAlternatives).map(n => {
+                const num = parseInt(n)
+                const clip = seedanceClips.find(c => c.clip === num)
+                const time = clip?.time || (num === 13 ? '3:09 - 3:19' : '')
+                return (
+                  <div key={num}>
+                    <span className="text-gray-500 text-xs">[{time} — Clip {num}]</span>
+                    <div className="text-gray-100 whitespace-pre-wrap mt-0.5">{getSubtitle(num)}</div>
+                  </div>
+                )
+              })}
+            </div>
+            <p className="text-[10px] text-gray-400 mt-2">Guardado automatico en localStorage. Los cambios se mantienen entre sesiones.</p>
+          </div>
+
+          {/* Style guide */}
+          <div className="card">
+            <h4 className="font-semibold text-gray-800 text-sm mb-2">Estilo de Subtitulo</h4>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-xs">
+              <div><span className="text-gray-500">Fuente:</span> <span className="font-medium">{subtitleScript.style.font}</span></div>
+              <div><span className="text-gray-500">Tamano:</span> <span className="font-medium">{subtitleScript.style.size}</span></div>
+              <div><span className="text-gray-500">Color:</span> <span className="font-medium">{subtitleScript.style.color}</span></div>
+              <div><span className="text-gray-500">Posicion:</span> <span className="font-medium">{subtitleScript.style.position}</span></div>
+              <div><span className="text-gray-500">Max lineas:</span> <span className="font-medium">{subtitleScript.style.maxLines}</span></div>
+              <div><span className="text-gray-500">Animacion:</span> <span className="font-medium">{subtitleScript.style.animation}</span></div>
+            </div>
+            <div className="mt-3 bg-gray-900 text-white rounded-lg p-4 flex items-end justify-center min-h-[100px] relative">
+              <div className="bg-black/40 px-4 py-2 rounded text-center text-sm">
+                {getSubtitle(5)}
+              </div>
+              <span className="absolute top-2 left-2 text-[9px] text-gray-400">Preview visual del estilo</span>
+            </div>
           </div>
         </div>
       )}

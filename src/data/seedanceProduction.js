@@ -470,6 +470,143 @@ export const subtitleScript = {
   arcoNarrativo: 'Belleza → Abandono → Pregunta → Giro de luz → Solucion × 6 facetas → Vision → CTA',
 }
 
+// ─── SUGERENCIAS ALTERNATIVAS DE SUBTITULOS ──────────────────────
+// Variantes por clip: poetica, directa, datos/impacto, emocional
+// El usuario puede elegir o mezclar para construir su guion final
+
+export const subtitleAlternatives = {
+  1: {
+    clip: 'Descubriendo Leon',
+    act: 'GANCHO',
+    options: [
+      { tone: 'Poetica',    text: 'En los valles de Leon,\nlos pueblos guardan un secreto...' },
+      { tone: 'Directa',    text: 'Leon. Tierra de valles, pueblos y tradiciones vivas.' },
+      { tone: 'Pregunta',   text: 'Y si el futuro\nempezara en un pueblo pequeno?' },
+      { tone: 'Emocional',  text: 'Aqui, donde el tiempo respira despacio,\nempieza algo nuevo.' },
+    ],
+  },
+  2: {
+    clip: 'El silencio llega',
+    act: 'PROBLEMA',
+    options: [
+      { tone: 'Poetica',    text: 'Pero cada ano,\nmas calles se quedan en silencio.' },
+      { tone: 'Directa',    text: 'Los pueblos se vacian.\nLas puertas se cierran.' },
+      { tone: 'Emocional',  text: 'Las risas se apagan.\nLas luces, una a una, se van.' },
+      { tone: 'Dato',       text: 'Cada dia,\nun pueblo espanol pierde a alguien mas.' },
+    ],
+  },
+  3: {
+    clip: 'Escuelas vacias',
+    act: 'PROBLEMA',
+    options: [
+      { tone: 'Dato',       text: 'El 53% de los municipios espanoles\npierde poblacion.' },
+      { tone: 'Impacto',    text: '82% de las escuelas rurales\nhan cerrado en 30 anos.' },
+      { tone: 'Directa',    text: 'Sin escuela, no hay ninos.\nSin ninos, no hay futuro.' },
+      { tone: 'Emocional',  text: 'Los columpios siguen ahi.\nYa no hay nadie que los mueva.' },
+    ],
+  },
+  4: {
+    clip: 'Entrando en la oscuridad',
+    act: 'PROBLEMA → GIRO',
+    options: [
+      { tone: 'Pregunta',   text: 'Y si pudieramos cambiarlo?' },
+      { tone: 'Directa',    text: 'Pero no tiene por que ser asi.' },
+      { tone: 'Emocional',  text: 'Hay quien no se rinde.' },
+      { tone: 'Poetica',    text: 'Basta con abrir una ventana.' },
+    ],
+  },
+  5: {
+    clip: '★ LA LUZ ENTRA ★',
+    act: 'GIRO NARRATIVO',
+    options: [
+      { tone: 'Poetica',    text: 'En Leon existe una tradicion:\nla facendera.' },
+      { tone: 'Directa',    text: 'Se llama facendera.\nY lleva siglos viva.' },
+      { tone: 'Emocional',  text: 'Una palabra antigua\nque vuelve a tener sentido.' },
+      { tone: 'Evocadora',  text: 'La facendera:\ncuando la comunidad se convierte en hogar.' },
+    ],
+  },
+  6: {
+    clip: 'Personas llegan',
+    act: 'SOLUCION',
+    options: [
+      { tone: 'Poetica',    text: 'Vecinos que se unen\npara construir juntos.' },
+      { tone: 'Directa',    text: 'Personas diversas.\nUn mismo proposito.' },
+      { tone: 'Emocional',  text: 'No hace falta ser de aqui\npara hacer comunidad aqui.' },
+      { tone: 'Evocadora',  text: 'Manos que llegan.\nCaminos que vuelven a vivir.' },
+    ],
+  },
+  7: {
+    clip: 'Sembrando',
+    act: 'SOLUCION',
+    options: [
+      { tone: 'Enumerativa', text: 'Huertos, talleres, energia solar,\ntecnologia... todo suma.' },
+      { tone: 'Poetica',     text: 'Se planta semilla.\nSe planta futuro.' },
+      { tone: 'Directa',     text: 'Trabajar la tierra\nes trabajar el vinculo.' },
+      { tone: 'Generacional', text: 'Lo que los mayores saben,\nlos jovenes lo continuan.' },
+    ],
+  },
+  8: {
+    clip: 'Saberes compartidos',
+    act: 'SOLUCION',
+    options: [
+      { tone: 'Marca',      text: 'Rural Makers conecta\npersonas, saberes y territorios.' },
+      { tone: 'Directa',    text: 'La sabiduria del pueblo\nencuentra las herramientas del siglo XXI.' },
+      { tone: 'Emocional',  text: 'Ensenar. Aprender.\nEn el mismo banco de piedra.' },
+      { tone: 'Generacional', text: 'Tradicion y tecnologia\nhablando el mismo idioma.' },
+    ],
+  },
+  9: {
+    clip: 'Artesania viva',
+    act: 'SOLUCION',
+    options: [
+      { tone: 'Reciprocidad', text: 'Cada persona aporta lo que sabe\ny recibe lo que necesita.' },
+      { tone: 'Poetica',      text: 'Las manos que moldean el barro\nmoldean tambien el pueblo.' },
+      { tone: 'Directa',      text: 'Oficios que no se pierden.\nCultura que se transmite.' },
+      { tone: 'Patrimonio',   text: 'El patrimonio vive\ncuando se sigue haciendo.' },
+    ],
+  },
+  10: {
+    clip: 'Energia colectiva',
+    act: 'SOLUCION',
+    options: [
+      { tone: 'Directa',    text: 'Una comunidad que construye\nsu propio futuro.' },
+      { tone: 'Emocional',  text: 'Energia. Autonomia.\nHecho entre todos.' },
+      { tone: 'Innovacion', text: 'Los pueblos tambien\nson laboratorios de futuro.' },
+      { tone: 'Poetica',    text: 'El sol se convierte\nen luz para el pueblo entero.' },
+    ],
+  },
+  11: {
+    clip: 'La herramienta',
+    act: 'SOLUCION → CIERRE',
+    options: [
+      { tone: 'CTA funcional', text: 'Descubre facenderas cerca de ti.\nConecta. Participa. Crea.' },
+      { tone: 'Directa',       text: 'Una app. Una red. Un territorio.' },
+      { tone: 'Beneficio',     text: 'En tu movil:\ntodas las facenderas de tu comarca.' },
+      { tone: 'Accion',        text: 'Abre la app.\nEncuentra a los tuyos.' },
+    ],
+  },
+  12: {
+    clip: 'Horizonte',
+    act: 'CIERRE EMOTIVO',
+    options: [
+      { tone: 'Tagline',    text: 'Tejiendo facenderas,\nsembrando futuro.' },
+      { tone: 'Emocional',  text: 'Somos muchos.\nY somos los que quedamos.' },
+      { tone: 'Vision',     text: 'El pueblo no es pasado.\nEs proyecto.' },
+      { tone: 'Directa',    text: 'Rural Makers.\nLa red que teje lo rural.' },
+    ],
+  },
+  13: {
+    clip: 'Llamada a la accion',
+    act: 'CTA FINAL',
+    options: [
+      { tone: 'Directa CTA',   text: 'Apoyanos en goteo.org\nDesde 13 EUR eres parte del cambio.' },
+      { tone: 'Urgencia',      text: 'Tu granito cuenta.\nDesde 13 EUR en goteo.org.' },
+      { tone: 'Reciprocidad',  text: 'Aporta 13 EUR.\nRecibe una comunidad.' },
+      { tone: 'Minimalista',   text: 'Ruralmakers.net\nApoyanos en Goteo.' },
+    ],
+  },
+}
+
 // ─── MUSICA Y SONIDO ──────────────────────────────────────────────
 
 export const audioDesign = {
