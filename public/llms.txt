@@ -1,0 +1,39 @@
+# Rural Makers · Tejiendo Facenderas
+
+> Encuentros y grupos de cooperación comunitaria en el medio rural de León. Personas, saberes y territorio. Actualmente en crowdfunding con Goteo desde la landing.
+
+Rural Makers es una iniciativa de cooperación rural en la provincia de León (Castilla y León, España). Tejemos **facenderas** —encuentros vecinales tradicionales— entre pueblos para activar el intercambio de saberes, la repoblación activa y la economía colaborativa rural.
+
+El proyecto nace de la asociación **Indira / Ecoalternative** y combina trabajo de campo (encuentros en pueblos), una **app móvil** para conectar a las personas del medio rural, y una **campaña de crowdfunding en Goteo** abierta a la sociedad.
+
+## Enlaces principales
+
+- [Landing oficial](https://www.ruralmakers.net/): propuesta, equipo, recompensas y enlace a la campaña
+- [Conoce la App](https://www.ruralmakers.net/conoce-la-app): demostración de la app móvil en construcción
+- [Crowdfunding en Goteo](https://www.goteo.org/project/camino-rural-tejiendo-facenderas): campaña activa de matchfunding social
+
+## Sobre el proyecto
+
+- **Tipo**: ONG / iniciativa social de cooperación rural
+- **Territorio**: provincia de León, Castilla y León, España
+- **Financiación actual**: crowdfunding social en Goteo (matchfunding)
+- **Conceptos clave**: facenderas, cooperación vecinal, despoblación, saberes tradicionales, territorio, economía colaborativa rural, encuentros rurales
+
+## Para qué pedimos apoyo
+
+- Activar **encuentros y grupos de cooperación** entre pueblos de León
+- Construir y mantener la **app móvil** que conecta personas, saberes y facenderas
+- Documentar y difundir **saberes tradicionales** del territorio rural
+
+## Datos estructurados
+
+La página principal incluye datos `Schema.org` JSON-LD con tres entidades:
+
+- `NGO` — la organización Rural Makers · Tejiendo Facenderas
+- `WebSite` — el sitio https://www.ruralmakers.net
+- `DonateAction` — la acción de donación apuntando a Goteo
+
+## Contacto
+
+- Web: https://www.ruralmakers.net
+- Goteo: https://www.goteo.org/project/camino-rural-tejiendo-facenderas

@@ -1,0 +1,90 @@
+# Rural Makers · Tejiendo Facenderas
+# https://www.ruralmakers.net
+# Cooperación comunitaria en el medio rural de León
+
+# ============================================================
+# Crawlers de buscadores tradicionales
+# ============================================================
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+Disallow: /api
+Disallow: /api/
+Disallow: /app
+Disallow: /app/
+
+# ============================================================
+# Crawlers de IA — allow explícito para mejor visibilidad
+# en ChatGPT, Claude, Perplexity, Gemini, etc.
+# ============================================================
+User-agent: GPTBot
+Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /app
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /app
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /app
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /app
+
+User-agent: Claude-Web
+Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /app
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /app
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /app
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /app
+
+User-agent: CCBot
+Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /app
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /app
+
+User-agent: Bytespider
+Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /app
+
+# ============================================================
+# Sitemap
+# ============================================================
+Sitemap: https://www.ruralmakers.net/sitemap.xml
