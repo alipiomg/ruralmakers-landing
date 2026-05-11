@@ -10,6 +10,18 @@
         { "key": "X-DNS-Prefetch-Control", "value": "on" },
         { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" }
       ]
+    },
+    {
+      "source": "/legal",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive, nosnippet, noimageindex" }
+      ]
+    },
+    {
+      "source": "/legal/(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive, nosnippet, noimageindex" }
+      ]
     }
   ],
   "rewrites": [

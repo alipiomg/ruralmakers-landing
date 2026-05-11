@@ -4,6 +4,8 @@
 
 # ============================================================
 # Crawlers de buscadores tradicionales
+# /legal* siempre disallow (LSSI obliga a publicar los documentos
+# pero no a indexarlos — protegemos datos del responsable).
 # ============================================================
 User-agent: *
 Allow: /
@@ -13,76 +15,101 @@ Disallow: /api
 Disallow: /api/
 Disallow: /app
 Disallow: /app/
+Disallow: /legal
+Disallow: /legal/
 
 # ============================================================
 # Crawlers de IA — allow explícito para mejor visibilidad
 # en ChatGPT, Claude, Perplexity, Gemini, etc.
+# Excepción: /legal* nunca, para que no se cite el aviso legal.
 # ============================================================
 User-agent: GPTBot
 Allow: /
 Disallow: /admin
 Disallow: /api
 Disallow: /app
+Disallow: /legal
+Disallow: /legal/
 
 User-agent: ChatGPT-User
 Allow: /
 Disallow: /admin
 Disallow: /api
 Disallow: /app
+Disallow: /legal
+Disallow: /legal/
 
 User-agent: OAI-SearchBot
 Allow: /
 Disallow: /admin
 Disallow: /api
 Disallow: /app
+Disallow: /legal
+Disallow: /legal/
 
 User-agent: ClaudeBot
 Allow: /
 Disallow: /admin
 Disallow: /api
 Disallow: /app
+Disallow: /legal
+Disallow: /legal/
 
 User-agent: Claude-Web
 Allow: /
 Disallow: /admin
 Disallow: /api
 Disallow: /app
+Disallow: /legal
+Disallow: /legal/
 
 User-agent: anthropic-ai
 Allow: /
 Disallow: /admin
 Disallow: /api
 Disallow: /app
+Disallow: /legal
+Disallow: /legal/
 
 User-agent: PerplexityBot
 Allow: /
 Disallow: /admin
 Disallow: /api
 Disallow: /app
+Disallow: /legal
+Disallow: /legal/
 
 User-agent: Google-Extended
 Allow: /
 Disallow: /admin
 Disallow: /api
 Disallow: /app
+Disallow: /legal
+Disallow: /legal/
 
 User-agent: CCBot
 Allow: /
 Disallow: /admin
 Disallow: /api
 Disallow: /app
+Disallow: /legal
+Disallow: /legal/
 
 User-agent: Applebot-Extended
 Allow: /
 Disallow: /admin
 Disallow: /api
 Disallow: /app
+Disallow: /legal
+Disallow: /legal/
 
 User-agent: Bytespider
 Allow: /
 Disallow: /admin
 Disallow: /api
 Disallow: /app
+Disallow: /legal
+Disallow: /legal/
 
 # ============================================================
 # Sitemap

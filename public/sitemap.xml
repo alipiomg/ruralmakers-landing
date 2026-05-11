@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Las páginas legales (/legal, /legal/cookies, /legal/privacidad,
+  /legal/aviso-legal, /legal/condiciones-uso) se EXCLUYEN
+  intencionalmente de este sitemap. LSSI obliga a publicar el aviso
+  legal y la política de privacidad pero no a indexarlos. Las páginas
+  llevan además meta noindex/nofollow + cabecera HTTP X-Robots-Tag.
+-->
 <urlset
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">

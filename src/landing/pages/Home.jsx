@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { GOTEO_PROJECT_URL, FUNDING_MIN, FUNDING_OPT } from '../../shared/lib/constants'
 import { rewardTiers, rewardTypes, collaborations, getRewardTiers } from '../../data/rewardTiers'
+import { OPEN_BANNER_EVENT } from '../../shared/lib/consent'
 
 // ─── HOOKS ──────────────────────────────────────────────────────
 function useInView(ref, threshold = 0.12) {
@@ -724,69 +725,6 @@ function HowItWorks() {
                 </div>
               </FadeIn>
             ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ─── TESTIMONIALS ───────────────────────────────────────────────
-function Testimonials() {
-  const [idx, setIdx] = useState(0)
-  const testimonials = [
-    { quote: 'Aprendí a instalar paneles solares con 60 años. Las facenderas me devolvieron las ganas de aprender.', name: 'María González', role: 'Agricultora, Astorga' },
-    { quote: 'Encontré mi comunidad sin salir del pueblo. Rural Makers conecta personas que comparten visión.', name: 'Javier Prieto', role: 'Programador, Bembibre' },
-    { quote: 'Mis cerámicas ahora llegan a toda la provincia gracias a la red de makers rurales.', name: 'Carmen Álvarez', role: 'Artesana, El Bierzo' },
-    { quote: 'La tecnología no tiene que ser enemiga de lo rural. Aquí demostramos que puede ser aliada.', name: 'Pablo Martínez', role: 'Bioconstructor, Villablino' },
-  ]
-
-  useEffect(() => { const t = setInterval(() => setIdx(i => (i + 1) % testimonials.length), 6000); return () => clearInterval(t) }, [])
-
-  return (
-    <section className="py-24 md:py-32 bg-[#3A3830] relative overflow-hidden">
-      <GlowOrb color="#6B9E50" size="400px" top="-100px" left="50%" blur={180} opacity={0.05} />
-
-      <div className="relative max-w-[1280px] mx-auto px-6 md:px-10">
-        <FadeIn>
-          <div className="text-center mb-14">
-            <h2 className="landing-heading text-[2rem] md:text-[2.8rem] text-[#F0EBE0] mb-3">Voces de la comunidad</h2>
-            <div className="title-divider" />
-          </div>
-        </FadeIn>
-
-        <div className="max-w-3xl mx-auto">
-          <div className="relative min-h-[200px] flex items-center justify-center">
-            <div key={idx} className="text-center animate-[fadeInUp_0.6s_ease]">
-              <div className="text-5xl text-[#6B9E50]/30 landing-heading mb-4">"</div>
-              <p className="text-[1.2rem] md:text-[1.5rem] text-[#F0EBE0] landing-heading italic leading-[1.5] mb-8">
-                {testimonials[idx].quote}
-              </p>
-              <div>
-                <div className="text-sm font-bold text-[#F0EBE0]">{testimonials[idx].name}</div>
-                <div className="text-[12px] text-[#6B9E50] font-medium tracking-wide">{testimonials[idx].role}</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Navigation dots */}
-          <div className="flex justify-center gap-2 mt-10">
-            {testimonials.map((_, i) => (
-              <button key={i} onClick={() => setIdx(i)}
-                className={`h-2 rounded-full transition-all duration-300 ${idx === i ? 'w-8 bg-[#6B9E50]' : 'w-2 bg-white/20 hover:bg-white/40'}`} />
-            ))}
-          </div>
-
-          {/* Prev/Next */}
-          <div className="flex justify-center gap-4 mt-6">
-            <button onClick={() => setIdx(i => (i - 1 + testimonials.length) % testimonials.length)}
-              className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#B0A898] hover:bg-white/10 hover:text-white transition-all">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-            </button>
-            <button onClick={() => setIdx(i => (i + 1) % testimonials.length)}
-              className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#B0A898] hover:bg-white/10 hover:text-white transition-all">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-            </button>
           </div>
         </div>
       </div>
@@ -1727,10 +1665,23 @@ function Footer() {
           <div>
             <div className="text-[10px] text-[#B0A898]/40 uppercase tracking-[0.2em] mb-4 font-bold">Legal</div>
             <div className="space-y-2.5 text-[13px]">
-              <a href="mailto:hola@ruralmakers.net" className="block text-[#C8BEB0] hover:text-[#F0EBE0] transition font-normal">hola@ruralmakers.net</a>
-              <p className="text-[#C8BEB0]/70 font-normal">Licencia: AGPL-3.0</p>
-              <p className="text-[#C8BEB0]/70 font-normal">Contenido: CC BY-SA 4.0</p>
-              <p className="text-[#C8BEB0]/70 font-normal">Beneficiaria: Asoc. Indira</p>
+              <Link to="/legal/aviso-legal" rel="nofollow noopener" className="block text-[#C8BEB0] hover:text-[#F0EBE0] transition font-normal">Aviso legal</Link>
+              <Link to="/legal/privacidad" rel="nofollow noopener" className="block text-[#C8BEB0] hover:text-[#F0EBE0] transition font-normal">Política de privacidad</Link>
+              <Link to="/legal/cookies" rel="nofollow noopener" className="block text-[#C8BEB0] hover:text-[#F0EBE0] transition font-normal">Política de cookies</Link>
+              <Link to="/legal/condiciones-uso" rel="nofollow noopener" className="block text-[#C8BEB0] hover:text-[#F0EBE0] transition font-normal">Condiciones de uso</Link>
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new CustomEvent(OPEN_BANNER_EVENT))}
+                className="block text-[#C8BEB0] hover:text-[#F0EBE0] transition font-normal text-left"
+              >
+                Configurar cookies
+              </button>
+              <div className="pt-3 mt-3 border-t border-white/5 space-y-1.5">
+                <p className="text-[#C8BEB0]/70 font-normal">Titular: Asoc. Indira (G24730822)</p>
+                <p className="text-[#C8BEB0]/70 font-normal">Licencia código: AGPL-3.0</p>
+                <p className="text-[#C8BEB0]/70 font-normal">Contenido: CC BY-SA 4.0</p>
+                <a href="mailto:hola@ruralmakers.net" className="block text-[#C8BEB0]/70 hover:text-[#F0EBE0] transition font-normal">hola@ruralmakers.net</a>
+              </div>
             </div>
           </div>
         </div>
@@ -1786,8 +1737,6 @@ export default function LandingHome() {
       <Solution />
       <WaveDivider from="#2C2A25" to="#3A3830" type="wave" />
       <HowItWorks />
-      <WaveDivider from="#3A3830" to="#3A3830" type="wave" flip />
-      <Testimonials />
       <WaveDivider from="#3A3830" to="#3A3830" type="wave" flip />
       <Rewards />
       <WaveDivider from="#3A3830" to="#2C2A25" type="mountain" />

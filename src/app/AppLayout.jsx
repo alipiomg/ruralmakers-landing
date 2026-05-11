@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import BottomNav from './components/BottomNav'
+import CookieBanner from '../shared/components/CookieBanner'
 
 export default function AppLayout() {
   return (
@@ -34,6 +35,8 @@ export default function AppLayout() {
 
       {/* Bottom navigation */}
       <BottomNav />
+
+      <CookieBanner />
     </div>
   )
 }

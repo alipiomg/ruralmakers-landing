@@ -11,6 +11,7 @@ import AdminLayout from './admin/AdminLayout'
 // Landing
 import LandingHome from './landing/pages/Home'
 import AppShowcase from './landing/pages/AppShowcase'
+import Legal from './landing/pages/Legal'
 
 // App pages
 import Feed from './app/pages/Feed'
@@ -60,6 +61,11 @@ createRoot(document.getElementById('root')).render(
         <Route element={<LandingLayout />}>
           <Route index element={<LandingHome />} />
           <Route path="conoce-la-app" element={<AppShowcase />} />
+          <Route path="legal" element={<Legal />} />
+          <Route path="legal/cookies" element={<Legal />} />
+          <Route path="legal/privacidad" element={<Legal />} />
+          <Route path="legal/aviso-legal" element={<Legal />} />
+          <Route path="legal/condiciones-uso" element={<Legal />} />
         </Route>
 
         {/* App Rural Makers */}

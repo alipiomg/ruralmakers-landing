@@ -473,10 +473,14 @@ function Footer() {
           <div className="w-7 h-7 bg-[#6B9E50] rounded-lg flex items-center justify-center text-white text-[10px] font-bold">RM</div>
           <span className="text-[12px] text-[#C8BEB0]/60">Rural Makers — Tejiendo Facenderas</span>
         </div>
-        <div className="flex items-center gap-5 text-[11px] text-[#C8BEB0]/45">
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] text-[#C8BEB0]/45">
           <Link to="/" className="hover:text-[#F0EBE0] transition-colors duration-200 cursor-pointer">Crowdfunding</Link>
           <Link to="/app" className="hover:text-[#F0EBE0] transition-colors duration-200 cursor-pointer">App</Link>
           <a href="mailto:hola@ruralmakers.net" className="hover:text-[#F0EBE0] transition-colors duration-200 cursor-pointer">Contacto</a>
+          <Link to="/legal/aviso-legal" rel="nofollow noopener" className="hover:text-[#F0EBE0] transition-colors duration-200 cursor-pointer">Aviso legal</Link>
+          <Link to="/legal/privacidad" rel="nofollow noopener" className="hover:text-[#F0EBE0] transition-colors duration-200 cursor-pointer">Privacidad</Link>
+          <Link to="/legal/cookies" rel="nofollow noopener" className="hover:text-[#F0EBE0] transition-colors duration-200 cursor-pointer">Cookies</Link>
+          <Link to="/legal/condiciones-uso" rel="nofollow noopener" className="hover:text-[#F0EBE0] transition-colors duration-200 cursor-pointer">Condiciones</Link>
           <a href="https://www.gnu.org/licenses/copyleft.es.html" target="_blank" rel="noopener noreferrer" className="hover:text-[#F0EBE0] transition-colors duration-200 cursor-pointer">Copyleft</a>
         </div>
       </div>
